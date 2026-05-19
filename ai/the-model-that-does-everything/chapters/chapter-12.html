@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Decision Framework — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/the-model-that-does-everything/">&larr; Back to The Model That Does Everything</a>
+  </div>
+  <div class="post-body">
+<h2>The Decision Framework</h2>
+<p>Here are the tangible questions to ask for any inference deployment:</p>
+<p><strong>Question 1: What's your typical concurrency?</strong></p>
+<ul>
+<li>1-8 streams: Self-speculation or diffusion model is a must-evaluate</li>
+<li>8-64 streams: Worth testing, may see 2-3x improvement</li>
+<li>64+ streams: Diffusion adds little; focus on batching and AR optimization</li>
+</ul>
+<p><strong>Question 2: Can you tolerate training cost?</strong></p>
+<ul>
+<li>NLD-style training costs significantly more than standard fine-tuning</li>
+<li>If you're building on a pre-trained model, you need the open-weight NLD (available now on Hugging Face)</li>
+<li>If you need to train your own, budget for 1.3T tokens of continued pretraining</li>
+</ul>
+<p><strong>Question 3: Is this for an application where latency matters?</strong></p>
+<ul>
+<li>Personal AI, interactive agents, real-time chatbots: huge win</li>
+<li>Batch processing, offline generation, non-interactive: AR is fine, diffusion adds complexity</li>
+</ul>
+<p><strong>Question 4: Do you need the framework ecosystem?</strong></p>
+<ul>
+<li>SGLang: support incoming (merge request pending)</li>
+<li>vLLM, TensorRT-LLM, TGI: not yet supported</li>
+<li>Custom inference stack: feasible but requires kernel work</li>
+</ul>
+<p><strong>Question 5: What's your hardware refresh cycle?</strong></p>
+<ul>
+<li>Buying this quarter: B200 over H200 if diffusion is in your 12-month plan</li>
+<li>Buying next year: wait for diffusion-optimized hardware, possibly with dedicated attention mask switching</li>
+</ul>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/the-model-that-does-everything/chapters/chapter-11.html">&larr; Previous</a>
+    <a href="/ai/the-model-that-does-everything/chapters/chapter-13.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Concurrency-Characterized Serving Model — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/the-model-that-does-everything/">&larr; Back to The Model That Does Everything</a>
+  </div>
+  <div class="post-body">
+<h2>The Concurrency-Characterized Serving Model</h2>
+<p>The single most important concept NLD introduces isn't a technical innovation — it's a deployment pattern: <strong>switch modes by load.</strong></p>
+<p>Every inference serving system today uses one generation strategy (AR, always). Maybe it adds speculative decoding as an optimization, but the fundamental approach is constant. NLD formalizes the idea that the optimal strategy changes with load, and provides a clean mechanism (attention mask switching) to make that practical.</p>
+<p>This shifts the design problem from "find the single best strategy" to "characterize your concurrency profile and choose accordingly." It's a small conceptual shift with large practical consequences:</p>
+<ul>
+<li><strong>Personal AI applications</strong> (1 user, long sessions) → diffusion or self-speculation, always</li>
+<li><strong>Team tools</strong> (10-50 users) → self-speculation during work hours, AR at peak</li>
+<li><strong>API services</strong> (1000s of users) → AR most of the time, self-speculation during off-peak</li>
+</ul>
+<p>The serving framework of the future will monitor queue depth and switch modes automatically, without operator intervention. The attention mask becomes a configurable parameter like batch size or precision.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/the-model-that-does-everything/chapters/chapter-9.html">&larr; Previous</a>
+    <a href="/ai/the-model-that-does-everything/chapters/chapter-11.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

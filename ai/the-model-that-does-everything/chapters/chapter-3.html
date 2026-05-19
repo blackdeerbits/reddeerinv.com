@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What Self-Speculation Actually Is — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/the-model-that-does-everything/">&larr; Back to The Model That Does Everything</a>
+  </div>
+  <div class="post-body">
+<h2>What Self-Speculation Actually Is</h2>
+<p>The term "self-speculation" matters because it's the cleanest synthesis yet of the two threads from the first book.</p>
+<p>Traditional speculative decoding (Chapter 1 of <em>Beyond</em>) requires a draft model — either a separate small model, attached heads (MEDUSA), or feature-predicting heads (EAGLE). Every variant adds complexity: training the draft model, keeping it in sync, managing the overhead.</p>
+<p>Self-speculation eliminates all of that. The same model drafts (in diffusion mode) and verifies (in AR mode) using the same weights. The draft isn't produced by a separate system; it's a different <em>behavior</em> of the same neural network, enabled by changing how it reads its own attention patterns.</p>
+<p>The shared KV cache is what makes this efficient. When the diffusion mode computes a draft block, the intermediate representations are already in the cache. The AR verification pass reuses them — it doesn't recompute anything from scratch. The cost of verification is approximately one forward pass, regardless of how many tokens are in the draft.</p>
+<p>This is why self-speculation achieves higher acceptance lengths than MTP methods. EAGLE-3 accepts around 6 tokens per verification on average. NLD's self-speculation accepts more — the paper reports 3x higher acceptance length than EAGLE-3, implying roughly 18 tokens per verification. That's 18 tokens generated from a single full model load, versus AR's 1 token per load.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/the-model-that-does-everything/chapters/chapter-2.html">&larr; Previous</a>
+    <a href="/ai/the-model-that-does-everything/chapters/chapter-4.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

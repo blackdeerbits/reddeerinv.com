@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why Not 70B? — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/the-model-that-does-everything/">&larr; Back to The Model That Does Everything</a>
+  </div>
+  <div class="post-body">
+<h2>Why Not 70B?</h2>
+<p>NLD exists at 3B, 8B, and 14B. Not 70B, not 400B, not a 671B MoE. This isn't an accident, and it's not because NVIDIA chose not to.</p>
+<p>Training a joint AR + diffusion model at 70B+ is genuinely harder than at 8B for several reasons:</p>
+<p><strong>Training stability.</strong> The joint loss requires careful balancing — the diffusion loss weight (0.3) and the AR loss weight (1.0) are tuned for the specific model scale and data distribution. At 70B+, the optimization landscape changes. Gradient variance increases. The interaction between the two loss functions becomes harder to predict. The paper's techniques — global loss averaging, DP-rank varying masking — are designed to mitigate this, but they were validated at 8B. Whether they generalize is an open question.</p>
+<p><strong>The 1.3T token training cost.</strong> 1T tokens of AR + 300B tokens of joint continued pretraining. At 8B parameters, this is expensive but feasible — a few hundred thousand dollars of compute, depending on hardware. At 70B, the same training run costs 10x more (more parameters per token) <em>and</em> requires more tokens to converge (larger models need more data to saturate). Rough estimate: $3-5 million for the 70B version. For a 400B or MoE model, the cost is in the tens of millions. This is a bet, not an experiment.</p>
+<p><strong>The attention mask complexity.</strong> The clean-stream design — where clean tokens attend strictly causally while noisy tokens attend bidirectionally within their block — requires careful implementation. At 70B with Flash Attention and tensor parallelism, this interaction gets significantly more complex. The paper mentions "Megatron Bridge" for training infrastructure, which suggests this wasn't trivial even at 8B.</p>
+<p><strong>The data quality requirement.</strong> The 1.3T tokens aren't random web text. They're high-quality continued pretraining data, curated for the joint objective. Scaling this curation pipeline to 70B requires proportionally more data, and the data quality requirements may differ at larger scales.</p>
+<p>The honest answer: <strong>nobody knows if this works at 70B.</strong> The team probably attempted a small-scale test and committed to publishing at 8B before scaling further. If the 8B recipe generalizes, a 70B NLD model is likely in training right now. If it doesn't, the architecture may have a fundamental scale ceiling.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/the-model-that-does-everything/chapters/chapter-4.html">&larr; Previous</a>
+    <a href="/ai/the-model-that-does-everything/chapters/chapter-6.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

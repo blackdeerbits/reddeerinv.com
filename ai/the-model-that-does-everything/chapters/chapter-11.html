@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What This Means for Hardware — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/the-model-that-does-everything/">&larr; Back to The Model That Does Everything</a>
+  </div>
+  <div class="post-body">
+<h2>What This Means for Hardware</h2>
+<p>If diffusion LM inference becomes standard, the bottleneck shifts from memory bandwidth to compute density.</p>
+<p>AR inference is memory-bound. The GPU sits idle, waiting for weights to arrive from HBM. The most important hardware metric is HBM bandwidth — more bandwidth means faster AR generation.</p>
+<p>Diffusion inference is compute-bound. The GPU's arithmetic units are the bottleneck because generating blocks of tokens in parallel requires more matrix multiplications per forward pass. The most important hardware metric becomes FLOPS — more compute means faster diffusion generation.</p>
+<p>This is a critical distinction for hardware purchasing:</p>
+<p>| | AR-optimized | Diffusion-optimized |</p>
+<p>|---|---|---|</p>
+<p>| <strong>Bottleneck</strong> | HBM bandwidth | FLOPS |</p>
+<p>| <strong>Key metric</strong> | GB/s per token | TFLOPS per token |</p>
+<p>| <strong>Best hardware</strong> | H200 (high bandwidth) | B200 (high compute) |</p>
+<p>| <strong>Edge viability</strong> | Poor (needs bandwidth) | Good (uses compute) |</p>
+<p>For an organization buying hardware today, the question becomes: <em>will diffusion LMs be standard within the lifetime of this hardware purchase?</em></p>
+<p>If yes, you should bias toward compute density over bandwidth. The B200's 4.5 petaFLOPS of FP8 compute becomes more valuable than the H200's 4.8 TB/s of HBM bandwidth. If no — if AR models remain dominant — you should bias the other way.</p>
+<p>The paper's data points are useful here. On a DGX Spark (edge device, modest compute), NLD gets 2.7x speedup. On a GB200 (datacenter monster), the same model gets 3.3-4x. The advantage holds across hardware tiers. This suggests diffusion is not architecture-dependent; it's a consistent improvement across the GPU lineup.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/the-model-that-does-everything/chapters/chapter-10.html">&larr; Previous</a>
+    <a href="/ai/the-model-that-does-everything/chapters/chapter-12.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

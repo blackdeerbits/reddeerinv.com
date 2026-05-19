@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Concurrency Trap — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/the-model-that-does-everything/">&larr; Back to The Model That Does Everything</a>
+  </div>
+  <div class="post-body">
+<h2>The Concurrency Trap</h2>
+<p>Here's the limitation that matters most for practical deployment: <strong>NLD's advantage is concentrated at low concurrency, which is where most production systems are not.</strong></p>
+<p>The big numbers — 3.3x, 4x, 850 tok/s — come from single-user benchmarks. At 1-8 concurrent streams, self-speculation is transformative. At 64+ streams, the advantage disappears, and NVIDIA just switches to AR mode.</p>
+<p>This is fine if you're building a personal AI assistant, an interactive agent, or a single-user development tool. It's much less relevant if you're running a high-traffic API endpoint serving thousands of requests per second.</p>
+<p>The concurrency inflection point varies by hardware, but the pattern is consistent: <strong>the benefit is largest where you need it least (low utilization) and smallest where you need it most (high utilization).</strong> This is a structural feature of any technique that trades compute for memory bandwidth. When the GPU is already busy, extra compute per request hurts.</p>
+<p>This doesn't make NLD less valuable. It just means the value is concentrated in a specific deployment pattern — the one that's growing fastest (personal AI, on-device inference, agentic systems) but still represents a minority of total inference compute today.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/the-model-that-does-everything/chapters/chapter-7.html">&larr; Previous</a>
+    <a href="/ai/the-model-that-does-everything/chapters/chapter-9.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

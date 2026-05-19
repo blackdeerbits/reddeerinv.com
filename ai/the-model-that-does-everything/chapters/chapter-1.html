@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction: The Proof, Not the Prediction — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/the-model-that-does-everything/">&larr; Back to The Model That Does Everything</a>
+  </div>
+  <div class="post-body">
+<h1>Introduction: The Proof, Not the Prediction</h1>
+<p>If you read <em>Beyond the Waiting Game</em>, you know the thesis. The memory wall is real. The GPU spends 90% of its time waiting for data, not computing. The path forward is algorithmic: find ways to generate more tokens per memory load, shift from memory-bound sequential generation to compute-bound parallel generation, and stack techniques because they address different bottlenecks.</p>
+<p>That book was written as a survey of workarounds, organized by family. Speculative decoding here. Diffusion there. Attention compression somewhere else. The stacking chapter at the end was aspirational — a vision of what a fully optimized inference stack might look like, not a concrete product.</p>
+<p>This book is about what happened the week after that one was finished.</p>
+<p>NVIDIA's Nemotron-Labs-Diffusion (NLD) is not another entry in the catalog of tricks. It's the first production-scale model that embodies the thesis <em>deliberately</em> — trained from scratch to do both autoregressive and diffusion generation, with a self-speculation mode that stitches them together. It matches Qwen3-8B's accuracy at 3-4x the throughput on the same hardware.</p>
+<p>But this book isn't a celebration. The interesting questions are the ones the press release glosses over:</p>
+<ul>
+<li>Why has this only been done at 3B, 8B, and 14B — not 70B or 400B?</li>
+<li>What's the training cost nobody mentions?</li>
+<li>How does the advantage change with concurrency?</li>
+<li>What does this mean for hardware purchasing decisions — today and next year?</li>
+<li>When does this paradigm break down?</li>
+</ul>
+<p>The thesis from the first book was: <em>algorithmic cleverness can postpone the memory wall indefinitely.</em> NLD is the strongest evidence yet that this thesis is correct. But every workaround has its own limits, and those limits determine when and where the technique is useful.</p>
+<p>This book is a map of those limits.</p>
+<hr>
+<h1>Chapter 1: The Three Modes</h1>
+  </div>
+  <div class="post-nav">
+    
+    <a href="/ai/the-model-that-does-everything/chapters/chapter-2.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

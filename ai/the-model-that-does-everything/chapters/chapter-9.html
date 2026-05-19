@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Custom Kernel Dependency — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/the-model-that-does-everything/">&larr; Back to The Model That Does Everything</a>
+  </div>
+  <div class="post-body">
+<h2>The Custom Kernel Dependency</h2>
+<p>The peak numbers (4x, 1,015 tok/s) require custom CUDA kernels. The "stock" numbers (3.3x, 850 tok/s) use standard SGLang + Flash Attention.</p>
+<p>This is a pattern that will repeat. The theoretical ceiling of any new inference technique is always higher than what standard frameworks deliver. Custom kernels for NLD's unique attention patterns — the clean-stream design, the block-wise bidirectional/causal masks — can unlock additional throughput.</p>
+<p>The implication: production adoption will be gated not just on the model quality but on framework support. SGLang already has a pending merge request for NLD support. But TensorRT-LLM, vLLM, TGI, and the other serving frameworks will need to implement their own kernel optimizations. This takes months.</p>
+<p>Until the framework ecosystem catches up, NLD's performance will vary significantly by deployment stack. The paper's numbers are reproducible with SGLang, but the custom-kernel numbers are a future state.</p>
+<hr>
+<h1>Chapter 3: What Changes</h1>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/the-model-that-does-everything/chapters/chapter-8.html">&larr; Previous</a>
+    <a href="/ai/the-model-that-does-everything/chapters/chapter-10.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

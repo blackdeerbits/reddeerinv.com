@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What NVIDIA Actually Built — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/the-model-that-does-everything/">&larr; Back to The Model That Does Everything</a>
+  </div>
+  <div class="post-body">
+<h2>What NVIDIA Actually Built</h2>
+<p>Let's be precise about what NLD is and isn't.</p>
+<p>NLD is a family of language models (3B, 8B, 14B, plus an 8B VLM) trained on a Ministral3 base with a specific two-stage recipe:</p>
+<ul>
+<li><strong>Stage 1:</strong> 1 trillion tokens of standard autoregressive continued pretraining</li>
+<li><strong>Stage 2:</strong> 300 billion tokens of joint autoregressive + block diffusion training</li>
+</ul>
+<p>The joint training is the key innovation. The model learns two objectives simultaneously: predict the next token (standard AR loss) and denoise a masked block of tokens (diffusion loss). These objectives share the same parameters, computed in a single forward pass via a carefully designed attention mask that prevents label leakage.</p>
+<p>After training, the model can run in three modes, switched by changing the attention pattern at inference time:</p>
+<p><strong>Mode 1 — Autoregressive (AR).</strong> Standard next-token prediction, one token at a time, causal attention. This is what every LLM does. The baseline. 41.8 tok/s on a DGX Spark.</p>
+<p><strong>Mode 2 — Diffusion (dLM).</strong> Generate a block of tokens in parallel from noise. The model takes a masked sequence (all tokens hidden) and iteratively denoises the block — typically 32 tokens — refining it over multiple steps. 112 tok/s on a DGX Spark.</p>
+<p><strong>Mode 3 — Self-Speculation.</strong> Diffusion drafts a block. AR verifies the entire block in a single forward pass. Tokens the AR head accepts are output immediately; any rejection resets to the accepted prefix and the diffusion drafts again. 850 tok/s on a GB200.</p>
+<p>The numbers are the headline. On a GB200, NLD-8B in self-speculation mode generates 850 tokens per second — 3.3x faster than the same model in AR mode (253 tok/s), and 2.4x faster than Qwen3-8B running Eagle3 (360 tok/s). With custom CUDA kernels, they hit 1,015 tok/s — 4x AR.</p>
+<p>The DGX Spark numbers are more interesting for the long tail: 112 tok/s on an edge device. That's not just fast for edge inference; it's fast enough for real-time conversation on a device that fits on a desk.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/the-model-that-does-everything/chapters/chapter-1.html">&larr; Previous</a>
+    <a href="/ai/the-model-that-does-everything/chapters/chapter-3.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

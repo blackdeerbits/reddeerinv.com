@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Quality Ceiling — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/the-model-that-does-everything/">&larr; Back to The Model That Does Everything</a>
+  </div>
+  <div class="post-body">
+<h2>The Quality Ceiling</h2>
+<p>NLD matches Qwen3-8B's AR accuracy. That's the headline. But "matches" is doing important work here.</p>
+<p>In the paper's evaluation, NLD's diffusion decoding achieves 70.28% accuracy on their benchmark suite — essentially tying Qwen3-8B's AR baseline. This is the first time a diffusion LM has closed the gap with pure AR generation. It's a real achievement.</p>
+<p>But "matching" is not "exceeding." The most accurate version of NLD is still AR mode on the same weights. Diffusion mode trades a small amount of quality for a large amount of speed. Self-speculation mode preserves accuracy (the AR verification is lossless) but adds the system complexity of managing draft-verify cycles.</p>
+<p>The deeper question: for what fraction of real-world tasks does the small quality gap matter? If diffusion mode loses 0.3% on MMLU but generates 3x faster, most users will never notice the difference. But for tasks requiring exact reasoning — mathematical proofs, legal analysis, code generation for safety-critical systems — even small quality differences matter.</p>
+<p>The paper doesn't answer this question. It reports benchmark averages, not per-task breakdowns. The real quality ceiling remains an open question for each deployment.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/the-model-that-does-everything/chapters/chapter-6.html">&larr; Previous</a>
+    <a href="/ai/the-model-that-does-everything/chapters/chapter-8.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

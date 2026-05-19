@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What to Watch For — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/the-model-that-does-everything/">&larr; Back to The Model That Does Everything</a>
+  </div>
+  <div class="post-body">
+<h2>What to Watch For</h2>
+<p>Three signals will tell you whether NLD is a transition or a dead end:</p>
+<p><strong>1. A 70B NLD model.</strong> If NVIDIA (or someone else) trains a 70B diffusion model and shows comparable accuracy at 3x throughput, the paradigm is validated at scale. If we don't see a 70B model within 6-8 months, the scaling story is weaker than suggested.</p>
+<p><strong>2. Training cost falling.</strong> The 1.3T token requirement will come down as the technique matures. If the joint training can be done in 100B tokens instead of 300B, the economics shift dramatically. Watch for ablation studies showing the training cost can be reduced.</p>
+<p><strong>3. Framework support accelerating.</strong> When vLLM and TensorRT-LLM add native NLD mode switching, the technique becomes a standard deployment option rather than a research curiosity. Timeline: 3-6 months if adoption is strong, 12+ months if not.</p>
+<hr>
+<h1>Afterword: The Week After</h1>
+<p><em>Beyond the Waiting Game</em> ended with a question: "what comes next?" The answer, tentatively, was state-space models — architectures that eliminate the KV cache entirely.</p>
+<p>NLD provides a different answer: don't eliminate the cache, make it so productive that you don't care.</p>
+<p>Self-speculation at 6-18 tokens per verification pass changes the arithmetic of inference. The memory wall is still there. The GPU still waits for data. But the waiting period now produces 6-18 tokens instead of 1. The ratio matters more than the absolute speed.</p>
+<p>This doesn't invalidate the state-space model thesis. If a Mamba-3 model can match transformer quality while eliminating the KV cache, that's still the endgame. But NLD proves transformers have more headroom than anyone gave them credit for — and the headroom comes from a source (diffusion training) that was considered irrelevant for language models until two years ago.</p>
+<p>The most durable takeaway is not about diffusion or self-speculation or any specific technique. It's about the design pattern: <strong>give your model multiple generation strategies and let it switch between them based on load.</strong> NVIDIA did this with attention masks. The next team will do it with routing layers. The team after that will do it with learned mode selection.</p>
+<p>The waiting game isn't over. But we're getting much better at not noticing we're waiting.</p>
+<hr>
+<h1>Sources</h1>
+<p><strong>NLD Technical Report:</strong> Yonggan Fu, Lexington Whalen, Abhinav Garg, Chengyue Wu, et al. "Nemotron-Labs-Diffusion: A Tri-Mode Language Model Unifying Autoregressive, Diffusion, and Self-Speculation Decoding." NVIDIA Research, May 2026. https://d1qx31qr3h6wln.cloudfront.net/publications/Nemotron_Diffusion_Tech_Report_v1.pdf</p>
+<p><strong>NLD Models on Hugging Face:</strong> https://huggingface.co/nvidia/Nemotron-Labs-Diffusion-8B (3B, 8B, 14B, VLM variants available)</p>
+<p><strong>TiDAR:</strong> Jingyu Liu, Xin Dong, Zhifan Ye, Rishabh Mehta, Yonggan Fu, Vartika Singh, Jan Kautz, Ce Zhang, Pavlo Molchanov (NVIDIA Research). "TiDAR: Think in Diffusion, Talk in Autoregression." arXiv:2511.08923, November 2025.</p>
+<p><strong>EAGLE-3:</strong> Yuhui Li, Fangyun Wei, Chao Zhang, Hongyang Zhang. "EAGLE-3: Scaling up Inference Acceleration of Large Language Models via Training-Time Test." arXiv:2503.01840, March 2025.</p>
+<p><strong>Multi-Token Prediction:</strong> Fabian Gloeckle et al. (Meta FAIR). "Better & Faster Large Language Models via Multi-token Prediction." arXiv:2404.19737, 2024.</p>
+<p><strong>Zyphra ZAYA1-8B-Diffusion-Preview:</strong> Efficient Parallel Decoding on AMD. zyphra.com, May 2026.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/the-model-that-does-everything/chapters/chapter-12.html">&larr; Previous</a>
+    
+  </div>
+</article>
+</div>
+</body>
+</html>

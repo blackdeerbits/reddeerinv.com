@@ -55,6 +55,24 @@
   - [The Real World](https://reddeerinv.comhttps://reddeerinv.com/ai/beyond-the-waiting-game/chapters/chapter-30.html)
   - [The End of the Waiting Game?](https://reddeerinv.comhttps://reddeerinv.com/ai/beyond-the-waiting-game/chapters/chapter-31.html)
 
+### The Model That Does Everything
+- Description: A critical analysis of NVIDIA's Nemotron-Labs-Diffusion — what the three-mode diffusion model means for hardware, where it breaks, and what to build now.
+- Landing page: https://reddeerinv.com/ai/the-model-that-does-everything/
+- Chapters:
+  - [Introduction: The Proof, Not the Prediction](https://reddeerinv.comhttps://reddeerinv.com/ai/the-model-that-does-everything/chapters/chapter-1.html)
+  - [What NVIDIA Actually Built](https://reddeerinv.comhttps://reddeerinv.com/ai/the-model-that-does-everything/chapters/chapter-2.html)
+  - [What Self-Speculation Actually Is](https://reddeerinv.comhttps://reddeerinv.com/ai/the-model-that-does-everything/chapters/chapter-3.html)
+  - [The Concurrency Table](https://reddeerinv.comhttps://reddeerinv.com/ai/the-model-that-does-everything/chapters/chapter-4.html)
+  - [Why Not 70B?](https://reddeerinv.comhttps://reddeerinv.com/ai/the-model-that-does-everything/chapters/chapter-5.html)
+  - [The Training Cost Nobody Quotes](https://reddeerinv.comhttps://reddeerinv.com/ai/the-model-that-does-everything/chapters/chapter-6.html)
+  - [The Quality Ceiling](https://reddeerinv.comhttps://reddeerinv.com/ai/the-model-that-does-everything/chapters/chapter-7.html)
+  - [The Concurrency Trap](https://reddeerinv.comhttps://reddeerinv.com/ai/the-model-that-does-everything/chapters/chapter-8.html)
+  - [The Custom Kernel Dependency](https://reddeerinv.comhttps://reddeerinv.com/ai/the-model-that-does-everything/chapters/chapter-9.html)
+  - [The Concurrency-Characterized Serving Model](https://reddeerinv.comhttps://reddeerinv.com/ai/the-model-that-does-everything/chapters/chapter-10.html)
+  - [What This Means for Hardware](https://reddeerinv.comhttps://reddeerinv.com/ai/the-model-that-does-everything/chapters/chapter-11.html)
+  - [The Decision Framework](https://reddeerinv.comhttps://reddeerinv.com/ai/the-model-that-does-everything/chapters/chapter-12.html)
+  - [What to Watch For](https://reddeerinv.comhttps://reddeerinv.com/ai/the-model-that-does-everything/chapters/chapter-13.html)
+
 ### SlimQwen Reference Book
 - Description: Practical techniques for shrinking giant AI brains: compression, mixture of experts, pruning, merging, and recovery training.
 - Landing page: https://reddeerinv.com/ai/slimqwen-reference/

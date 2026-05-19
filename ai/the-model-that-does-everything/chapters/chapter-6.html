@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Training Cost Nobody Quotes — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/the-model-that-does-everything/">&larr; Back to The Model That Does Everything</a>
+  </div>
+  <div class="post-body">
+<h2>The Training Cost Nobody Quotes</h2>
+<p>The 1.3T token training figure sounds modest compared to the 15T tokens used to train Ministral3 from scratch. But this is continued pretraining, not full training. The cost structure is different:</p>
+<ul>
+<li><strong>1T tokens of AR continued pretraining:</strong> This is essentially a long fine-tuning run on a frozen base. The model already knows language; it's being tuned for the joint objective. But AR continued pretraining at this scale is non-trivial — it's more expensive than fine-tuning by a significant margin.</li>
+</ul>
+<ul>
+<li><strong>300B tokens of joint training:</strong> This is where the real innovation is, and it's also where the cost is hardest to amortize. The joint forward pass needs to compute both losses simultaneously, which requires storing two sets of gradients and managing two optimizers. The DP-rank varying masking technique means the effective batch size per GPU varies — complicating the standard data-parallel training pipeline.</li>
+</ul>
+<p>The paper mentions that AR loss alone contributes 7.48% accuracy improvement to diffusion decoding. This means the 1T AR stage isn't optional — it's a critical enabler of the joint training that follows.</p>
+<p>Bottom line: this training run cost NVIDIA significantly more than a standard SFT or continued pretraining run at the same parameter count. The joint training isn't an add-on; it's a fundamental change to the training pipeline.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/the-model-that-does-everything/chapters/chapter-5.html">&larr; Previous</a>
+    <a href="/ai/the-model-that-does-everything/chapters/chapter-7.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Concurrency Table — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/the-model-that-does-everything/">&larr; Back to The Model That Does Everything</a>
+  </div>
+  <div class="post-body">
+<h2>The Concurrency Table</h2>
+<p>The most important table in the paper isn't about throughput. It's about concurrency.</p>
+<p>At low concurrency (1-64 concurrent streams), self-speculation dominates because the bottleneck is memory bandwidth. The GPU spends most of its time loading model weights; any technique that generates more tokens per load wins.</p>
+<p>At high concurrency (>64 streams), the model becomes compute-bound. The GPU is processing enough requests simultaneously that its arithmetic units are fully utilized. In this regime, self-speculation's advantage shrinks — the extra compute per forward pass starts to hurt rather than help.</p>
+<p>NVIDIA's solution is elegant: switch to AR mode. At high concurrency, the standard causal attention mask gives the best throughput because the GPU is already saturated. No separate deployment, no model reload — just a different attention pattern on the same weights.</p>
+<p>This means the optimal serving strategy is now multi-modal by default:</p>
+<p>| Concurrency | Best Mode | Why |</p>
+<p>|-------------|-----------|-----|</p>
+<p>| 1-8 (personal AI) | Diffusion or Self-Spec | Memory-bound, maximize tokens per load |</p>
+<p>| 8-64 (team/API) | Self-Speculation | Still memory-bound, draft/verify wins |</p>
+<p>| 64+ (datacenter) | Autoregressive | Compute-bound, AR has lowest overhead |</p>
+<p>The inflection point varies by hardware (DGX Spark hits compute-bound at lower concurrency than GB200), but the principle holds across all GPUs.</p>
+<p>This is the tangible takeaway for practitioners: <strong>your concurrency profile determines your ideal mode.</strong> One-size-fits-all AR serving is no longer optimal at any concurrency level. If you're building a personal AI assistant that serves one user at a time, you should be using diffusion or self-speculation mode. If you're serving a high-traffic API, AR mode is still fine — but you gain nothing from the diffusion capability at that scale.</p>
+<hr>
+<h1>Chapter 2: The Hard Parts</h1>
+<p>Now, the questions the press release doesn't answer.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/the-model-that-does-everything/chapters/chapter-3.html">&larr; Previous</a>
+    <a href="/ai/the-model-that-does-everything/chapters/chapter-5.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>
