@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 5: The Recovery Training — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/slimqwen-reference/">&larr; Back to SlimQwen Reference Book</a>
+  </div>
+  <div class="post-body">
+<h1>Chapter 5: The Recovery Training</h1>
+<h2>Teaching a Compressed Model to Perform Again</h2>
+<hr>
+<h3>Chapter Goals</h3>
+<p>By the end of this chapter, you will understand:</p>
+<ul>
+<li>Why a compressed model needs retraining after pruning</li>
+<li>The different training objectives evaluated in the paper</li>
+<li>Why combining distillation with language modeling loss works better than either alone</li>
+<li>What multi-token prediction is and why it's exciting</li>
+</ul>
+<hr>
+<p>After surgery comes rehabilitation. The SlimQwen paper's researchers were emphatic about this point: <strong>you cannot prune a model and expect it to perform well out of the gate.</strong> The compression process inevitably degrades performance. The question is <em>how to train the model back to health.</em></p>
+<hr>
+<h3>The Recovery Problem</h3>
+<p>Imagine a surgeon removing 75% of a marathon runner's muscle tissue. Even if the surgeon only removed the "least important" tissue, the runner isn't going to run their personal best the next day. They need a structured recovery program.</p>
+<p>Similarly, when you prune a language model — deleting layers, shrinking dimensions, merging experts — you've removed capacity that was contributing to the model's predictions. The model must recover lost capability through continued training.</p>
+<hr>
+<h3>Applied Definitions</h3>
+<p><strong>Language Modeling (LM) Loss</strong> — The standard training objective for language models. The model predicts the next word in a sequence. If it gets it right, great. If wrong, the error teaches it to adjust. This is how the original model was trained and how most models learn.</p>
+<p><strong>Knowledge Distillation (KD)</strong> — Instead of the model learning from the training data directly, it learns by mimicking what a <em>larger teacher model</em> would output. The student model gets not just the correct answer but the teacher's "soft" probability distribution — its sense of how likely each possible word was. This is richer information than a simple right/wrong label.</p>
+<p><strong>Next-Token Prediction (NTP)</strong> — The standard approach: given all words so far, predict the very next word. Every language model does this by default.</p>
+<p><strong>Multi-Token Prediction (MTP)</strong> — An extension: don't just predict the next word — predict the next two words, three words, four words simultaneously. It forces the model to think further ahead and improves its understanding of how sequences unfold.</p>
+<p><strong>Speculative Decoding</strong> — An inference technique where a small "draft" model generates multiple candidate tokens, and the main model quickly verifies them. It's like a writer drafting several sentences at once and an editor approving the good ones in a single pass. Much faster than generating one word at a time.</p>
+<hr>
+<h3>Training Objective Shootout</h3>
+<p>The paper tested five different training configurations after compression:</p>
+<p>| Training Configuration | MMLU | MMLU-Pro | GSM-8K | Notes |</p>
+<p>|----------------------|------|----------|--------|-------|</p>
+<p>| <strong>NTP KD alone</strong> | 74.16 | 50.97 | 84.27 | Pure distillation baseline |</p>
+<p>| <strong>NTP KD + LM Loss</strong> | 74.93 | 51.44 | 82.98 | +0.77 on MMLU; LM loss reinforces factual knowledge |</p>
+<p>| <strong>NTP KD + MTP KD</strong> | 75.13 | 51.94 | 82.34 | Multi-token teacher guidance helps across the board |</p>
+<p>| <strong>NTP KD + LM + MTP Loss</strong> | 75.29 | 51.16 | 83.02 | Self-supervision on multiple horizons |</p>
+<p>| <strong>Full: all four terms combined</strong> | <strong>75.67</strong> | <strong>51.19</strong> | <strong>83.17</strong> | Best overall across benchmarks |</p>
+<p><strong>Key takeaways:</strong></p>
+<ol>
+<li><strong>Adding LM loss to distillation improves knowledge-intensive benchmarks.</strong> Pure distillation (the model mimicking a teacher) isn't enough. The model also needs to practice predicting the actual next token on its own — it reinforces the factual knowledge.</li>
+</ol>
+<ol>
+<li><strong>Multi-token prediction knowledge distillation consistently helps.</strong> When the teacher model teaches the student not just "what's the next word" but "what are the next 2, 3, 4 words," the student develops a richer understanding of context and sequence patterns.</li>
+</ol>
+<ol>
+<li><strong>The combination of all techniques is the best.</strong> The full objective — NTP KD + LM + MTP Loss + MTP KD — achieves the highest scores on the most benchmarks.</li>
+</ol>
+<hr>
+<h3>The Multi-Token Prediction Breakdown: Why Prediction Gets Harder</h3>
+<p>Here's the elegant part about MTP KD that might not be obvious: predicting multiple tokens forward forces the model to develop better internal representations. It's the difference between planning your <em>next move</em> in chess versus planning your <em>next three moves</em>. The latter requires a fundamentally deeper understanding of the board.</p>
+<p>MTP KD specifically uses the teacher model's probability distributions for future tokens — not just the correct tokens — so the student learns the teacher's uncertainty and confidence about upcoming content.</p>
+<p>The paper demonstrates this is not just a training nicety: it has practical benefits for inference speed.</p>
+<hr>
+<h3>Better Speculative Decoding</h3>
+<p>Speculative decoding uses a "draft" model to generate multiple candidate tokens at once, then checks them against the main model. The catch: the draft model needs to be <em>good</em> at guessing multiple tokens correctly for this to be worthwhile.</p>
+<p>MTP KD makes the draft model significantly better at this. The paper's results show consistent improvements across benchmarks:</p>
+<p>| Stage | Approach | 1-Token Acceptance | 4-Token Acceptance |</p>
+<p>|-------|----------|-------------------|-------------------|</p>
+<p>| Pretrain | MTP Loss | 56.31% | 4.09% |</p>
+<p>| Pretrain | <strong>MTP KD</strong> | <strong>68.60%</strong> | <strong>8.24%</strong> |</p>
+<p>| SFT | MTP Loss | 64.68% | 3.91% |</p>
+<p>| SFT | <strong>MTP KD</strong> | <strong>69.49%</strong> | <strong>6.59%</strong> |</p>
+<p>The 4-token acceptance rate doubled for pretraining. That means twice as many multi-token drafts are accepted, resulting in significantly faster generation without sacrificing quality.</p>
+<p><strong>The takeaway:</strong> MTP KD isn't just improving the model's knowledge — it's improving the model's <em>mechanics</em> of how it generates text.</p>
+<hr>
+<h3>Training Hyperparameters: The Practical Details</h3>
+<p>For completeness, the paper trained models with:</p>
+<ul>
+<li><strong>120B or 400B tokens</strong> (two different training budgets)</li>
+<li><strong>Learning rates</strong> starting at 0.0004, decaying to 0.00003</li>
+<li><strong>KD loss weight</strong> decaying linearly from 1.0 to 0.75 — meaning the teacher's influence gradually decreases as the student becomes more confident</li>
+<li><strong>MTP distillation weight</strong> decaying via a cosine schedule from 0.3 to 0.1</li>
+</ul>
+<p>The gradual decay of distillation makes sense: early in training, the student needs heavy guidance from the teacher. As it develops competence, it should rely more on its own predictions.</p>
+<hr>
+<h3>The Timing Question</h3>
+<p>The training recipe is solid. But there's one more lever to pull: <em>timing</em>. Should you compress and then train all at once, or gradually? Chapter 6 shows why the gradual approach wins decisively — and by how much.</p>
+<hr>
+<p><em>Next: Chapter 6 — The Slow Squeeze</em></p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/slimqwen-reference/04-merging-and-preserving.html">&larr; Previous</a>
+    <a href="/ai/slimqwen-reference/06-the-slow-squeeze.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

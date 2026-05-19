@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 7: Results and Efficiency — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/slimqwen-reference/">&larr; Back to SlimQwen Reference Book</a>
+  </div>
+  <div class="post-body">
+<h1>Chapter 7: Results and Efficiency</h1>
+<h2>What the SlimQwen Model Achieved</h2>
+<hr>
+<h3>Chapter Goals</h3>
+<p>By the end of this chapter, you will understand:</p>
+<ul>
+<li>The end-to-end compression results: from 80B parameters to 23B</li>
+<li>How SlimQwen performed across diverse benchmarks</li>
+<li>The runtime efficiency gains (speed, memory, deployment)</li>
+<li>What "competitive" means in context</li>
+</ul>
+<hr>
+<p>By now we've walked through the individual techniques — pruning, expert compression, training recipes, and progressive schedules. This chapter brings them all together and reports the bottom line.</p>
+<hr>
+<h3>The Starting Point and the Target</h3>
+<p>| Property | Qwen3-Next-80A3B | SlimQwen-23A2B |</p>
+<p>|----------|-------------------|-----------------|</p>
+<p>| <strong>Total Parameters</strong> | ~80 billion | ~23 billion |</p>
+<p>| <strong>Active Parameters</strong> | 3.8 billion | 2.0 billion |</p>
+<p>| <strong>Layers</strong> | 48 | 36 (depth reduced by 25%) |</p>
+<p>| <strong>Hidden Size</strong> | 2048 | 1536 (width reduced by 25%) |</p>
+<p>| <strong>Experts per MoE</strong> | 512 (10+1 active) | 256 (8+1 active) |</p>
+<p>| <strong>Compression Ratio</strong> | — | ~4x total reduction |</p>
+<p>The model was compressed to about one quarter of its original size — but remember, only a fraction of parameters were active at any time in both models. The active parameter count went from 3.8B to 2.0B, roughly halving the actual computation per token.</p>
+<hr>
+<h3>Benchmark Performance</h3>
+<p>The paper evaluated SlimQwen across a wide range of tasks. Here's how the compressed model stacked up:</p>
+<p>| Benchmark | What It Tests | Teacher | SlimQwen | Retention |</p>
+<p>|-----------|--------------|---------|----------|-----------|</p>
+<p>| MMLU | General knowledge | 85.22 | 77.39 | ~91% |</p>
+<p>| MMLU-Pro | Harder general knowledge | 62.86 | 53.22 | ~85% |</p>
+<p>| MMLU-Redux | Cleaned-up knowledge | 84.45 | 78.01 | ~92% |</p>
+<p>| BBH | Complex reasoning | 85.12 | 70.70 | ~83% |</p>
+<p>| GSM-8K | Math word problems | 90.07 | 85.82 | ~95% |</p>
+<p>| EvalPlus | Code generation | 74.12 | 69.08 | ~93% |</p>
+<p>| C-Eval | Chinese knowledge | 90.33 | 82.97 | ~92% |</p>
+<p>| CMMLU | Chinese multitask | 89.27 | 83.01 | ~93% |</p>
+<p><strong>Overall average retention: roughly 90-92%</strong> across knowledge-heavy tasks, with somewhat more degradation on reasoning-heavy benchmarks (BBH at ~83%).</p>
+<hr>
+<h3>Applied Definitions</h3>
+<p><strong>Benchmark</strong> — A standardized test designed to measure a model's capabilities in a specific domain. MMLU tests knowledge across 57 subjects, GSM-8K tests mathematical reasoning, EvalPlus tests code generation accuracy, etc.</p>
+<p><strong>Retention Rate</strong> — The percentage of the teacher model's score that the compressed model maintains. A 90% retention on MMLU means SlimQwen scores 90% of what the original 80B model scored.</p>
+<p><strong>Inference Efficiency</strong> — How fast and resource-efficient the model is when actually being used (as opposed to during training). Measured by memory footprint, response latency, and tokens generated per second.</p>
+<hr>
+<h3>Runtime Efficiency Gains</h3>
+<p>Compression isn't just about maintaining quality on paper — it's about making the model actually deployable. Here's the practical impact, starting with the production-ready numbers (vLLM, an optimized inference engine):</p>
+<p>| Metric | Teacher | SlimQwen | Improvement |</p>
+<p>|--------|---------|----------|-------------|</p>
+<p>| <strong>Peak Memory</strong> | 156.56 GB | 43.30 GB | 72% reduction |</p>
+<p>| <strong>Prefill Latency (vLLM)</strong> | 0.08s | 0.06s | 25% faster |</p>
+<p>| <strong>Decoding Throughput (vLLM)</strong> | 142.58 tok/s | 210.87 tok/s | 48% faster |</p>
+<p>| <strong>Prefill (HuggingFace)</strong> | 0.99s | 0.44s | 56% faster |</p>
+<p>| <strong>Decoding Throughput (HF)</strong> | 4.05 tok/s | 6.55 tok/s | 62% faster |</p>
+<p>For context: HuggingFace's backend is unoptimized and mainly used for quick local testing; vLLM is what you'd run in production. The gains are real in either case, but the vLLM numbers reflect what matters for actual deployment.</p>
+<p>The most striking result: <strong>SlimQwen fits on a single 80GB GPU.</strong> The original teacher required two GPUs in parallel (tensor parallelism), which adds communication overhead and deployment complexity. SlimQwen runs solo.</p>
+<p>This matters enormously in practice. A model that fits on one GPU means:</p>
+<ul>
+<li>Lower cloud computing costs</li>
+<li>Simpler deployment architecture</li>
+<li>Ability to serve requests on consumer-grade hardware</li>
+<li>No tensor/pipeline parallelism overhead</li>
+</ul>
+<hr>
+<h3>The Context of "Competitive"</h3>
+<p>The paper describes SlimQwen's performance as "competitive." This is deliberately measured language. It doesn't claim to match the teacher — it doesn't. A 4x compressed model scoring 91% on MMLU is impressive, but a 9% gap on the hardest benchmarks is real.</p>
+<p>However, competitive means competitive <em>for its size</em>. Compared to other models of similar scale trained from scratch, SlimQwen is advantaged by the pruning initialization. It starts life further along the training curve than any model starting from random weights.</p>
+<hr>
+<h3>What's Lost and What's Kept</h3>
+<p>Looking at the retention rates across benchmarks reveals a pattern:</p>
+<p><strong>Strongest retention (>93%):</strong> Math (GSM-8K), Code (EvalPlus), Chinese benchmarks</p>
+<p><strong>Moderate retention (~85-92%):</strong> General knowledge (MMLU variants)</p>
+<p><strong>Weakest retention (~83%):</strong> Complex reasoning (BBH)</p>
+<p>Complex reasoning appears to be the most sensitive to compression. This is consistent with a broader finding in the field: reasoning tasks often push models into regimes where architectural capacity matters most. Trimming layers and experts hits harder on tasks that demand deep chain-of-thought rather than pattern matching.</p>
+<hr>
+<h3>The Takeaway</h3>
+<p>SlimQwen demonstrates that a well-designed compression pipeline — combining pruning, partial-preservation merging, multi-token distillation, and progressive schedules — can produce a model roughly 4x smaller that retains 90-92% of the original's capability and runs about 2x faster on significantly less hardware.</p>
+<p>It's not perfect compression. Some performance is lost. But the efficiency gains — both computational and economic — make the tradeoff compelling for many real-world applications.</p>
+<hr>
+<p><em>Next: Chapter 8 — Takeaways and the Road Ahead</em></p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/slimqwen-reference/06-the-slow-squeeze.html">&larr; Previous</a>
+    <a href="/ai/slimqwen-reference/08-takeaways-and-road-ahead.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

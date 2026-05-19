@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Common Thread — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/beyond-the-waiting-game/">&larr; Back to Beyond the Waiting Game</a>
+  </div>
+  <div class="post-body">
+<h2>The Common Thread</h2>
+<p>Every variant of speculative decoding — classic, MEDUSA, EAGLE-1/2/3, MTP — exploits the same insight: <strong>the bottleneck is memory bandwidth, not compute.</strong></p>
+<p>Each verification pass loads the model from memory once and checks multiple tokens. You pay for one memory trip and get multiple tokens validated. The numbers vary, but the economics are universal:</p>
+<ul>
+<li>Vanilla decoding: 1 token per memory load</li>
+<li>Classic speculative decoding (50% acceptance): ~2 tokens per load</li>
+<li>MTP (85% acceptance): ~2.8 tokens per load</li>
+<li>EAGLE-3: 6--7 tokens per load</li>
+</ul>
+<p>Each improvement doubles or triples the effective utilization of the GPU's memory subsystem. And because the verifier guarantees correctness, every token is exactly what the original model would have produced.</p>
+<p>It's free performance. Or, more accurately, it's paid for in algorithmic cleverness rather than silicon.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/beyond-the-waiting-game/chapter-7.html">&larr; Previous</a>
+    <a href="/ai/beyond-the-waiting-game/chapter-9.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

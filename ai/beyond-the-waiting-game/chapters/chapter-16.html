@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compressing the KV Cache — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/beyond-the-waiting-game/">&larr; Back to Beyond the Waiting Game</a>
+  </div>
+  <div class="post-body">
+<h2>Compressing the KV Cache</h2>
+<p><em>Or: How to remember an entire conversation without memorizing every word</em></p>
+<p>Picture a librarian who serves ten thousand patrons. Each patron borrows books and returns them. The librarian needs to remember every book every patron has ever checked out — not because they might need to mention it again, but because every future interaction builds on past ones.</p>
+<p>This is the KV cache. It's the model's memory of everything that has been said in the current conversation. Every previous token — every word of the prompt, every word the model has generated so far — has an associated key and value vector stored in this cache. When generating the next token, the model queries this cache to determine which previous tokens are relevant to what it's about to say.</p>
+<p>The KV cache is enormous. An 8-billion-parameter model generating a 128K-token context might need 40--80 gigabytes just for this cache — more than most consumer GPUs have. And it grows linearly with sequence length. Double the context, double the cache. Triple it, triple the cache.</p>
+<p>This is the memory wall in its purest form. The model's compute isn't the bottleneck; storing and retrieving the conversation history is. The chef isn't waiting for the knife; the chef is waiting to get back to the walk-in freezer.</p>
+<p>Researchers have attacked this problem from multiple angles. The goal is always the same: store less, retrieve smarter, keep the quality.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/beyond-the-waiting-game/chapter-15.html">&larr; Previous</a>
+    <a href="/ai/beyond-the-waiting-game/chapter-17.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

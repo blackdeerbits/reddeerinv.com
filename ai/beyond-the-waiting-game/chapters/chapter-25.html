@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PFlash and DFlash: A Real System, Real Numbers — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/beyond-the-waiting-game/">&larr; Back to Beyond the Waiting Game</a>
+  </div>
+  <div class="post-body">
+<h2>PFlash and DFlash: A Real System, Real Numbers</h2>
+<p>The most concrete demonstration of prefill optimization comes from AMD and the open-source community, in the form of PFlash and DFlash — techniques designed for AMD's Ryzen AI MAX+ 395, a chip with 128 GB of unified LPDDR5X memory shared between CPU and GPU.</p>
+<p><strong>PFlash</strong> (Prompt Flash) compresses prompts on the iGPU before they reach the main model, reducing the prefill workload. It's like having a dedicated prep station that trims and portions ingredients before the head chef sees them.</p>
+<p><strong>DFlash</strong> (Draft Flash) is a tree-based speculative decoder — like EAGLE-2's dynamic draft trees — optimized for AMD's unified memory architecture, where the CPU and GPU share the same physical memory pool. No copying data back and forth across a PCIe bus; everything lives in the same address space.</p>
+<p>Together, on a single consumer chip, they deliver <strong>2.5x end-to-end speedup</strong> — from 147 seconds to 58 seconds for a 16K prompt and 1K generation. No model changes. No new hardware. Just smarter software.</p>
+<p>The significance of the unified memory architecture is worth pausing on. In traditional systems, the CPU and GPU have separate memory pools, connected by a relatively slow bus. Moving data between them is expensive and slow. AMD's approach — and Apple's with their M-series chips — puts everything in the same physical memory pool. The CPU and GPU share the same DIMMs. No copying needed. This eliminates an entire class of bottlenecks that don't even have names but silently consume 20--30% of inference time.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/beyond-the-waiting-game/chapter-24.html">&larr; Previous</a>
+    <a href="/ai/beyond-the-waiting-game/chapter-26.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

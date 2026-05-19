@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MEDUSA: Train Extra Heads Instead of a Second Model — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/beyond-the-waiting-game/">&larr; Back to Beyond the Waiting Game</a>
+  </div>
+  <div class="post-body">
+<h2>MEDUSA: Train Extra Heads Instead of a Second Model</h2>
+<p>One obvious problem with speculative decoding: you need a draft model. That's a whole second neural network to train, deploy, and maintain. Where does it come from? How do you keep its weights in sync with the target model's?</p>
+<p>Researchers at the University of Texas proposed an elegant solution in early 2024: <strong>MEDUSA</strong>. Instead of a separate draft model, add multiple small "draft heads" directly onto the target model. A head is just a tiny neural network — a few million parameters compared to the billions in the main model. You train the heads to predict the next few tokens, using the internal representations the main model already computes for free.</p>
+<p>The analogy: a chef who, while chopping an onion, also mutters "and after this I'll need salt, then pepper, then olive oil" — and has trained themselves to be right about that forecast 80% of the time. The chef doesn't need a separate assistant. The forecasting is built in. It's a small, learned habit layered on top of existing skills.</p>
+<p>MEDUSA achieved 1.8--2.3x speedups on standard models with minimal training overhead. More importantly, it established the pattern that would characterize all subsequent work: use the model's own brain to guess ahead, rather than outsourcing to a separate, unfamiliar one.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/beyond-the-waiting-game/chapter-3.html">&larr; Previous</a>
+    <a href="/ai/beyond-the-waiting-game/chapter-5.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 1: The Football-Field Pantry — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/the-waiting-game/">&larr; Back to The Waiting Game</a>
+  </div>
+  <div class="post-body">
+<h1>Chapter 1: The Football-Field Pantry</h1>
+<h2>Or: Why the world's fastest chef is useless with a slow pantry</h2>
+<p>Imagine the world's greatest chef. She can chop, sauté, flambé, and plate faster than anyone alive. Give her an ingredient and it becomes a dish in seconds. She is, by any measure, compute-optimal.</p>
+<p>Now put her in a kitchen where the pantry is on the other side of a football field. Every time she needs an ingredient — an onion, a stock, a cut of beef — she has to sprint the length of the field, grab it, and sprint back. The chopping takes two seconds. The round trip takes thirty.</p>
+<p>Her utilization is terrible. She spends 94 percent of her time running and 6 percent cooking. The kitchen looks busy. The chef is exhausted. But very little food is coming out.</p>
+<p>This is every GPU running AI inference today.</p>
+<h3>The Two Speeds</h3>
+<p>A modern AI chip has two speeds that matter. The first is how fast it can compute — how many math operations it can perform per second. This is measured in teraflops, or trillions of floating-point operations per second. NVIDIA's H100, the workhorse of the AI boom, can do about 2,000 teraflops. Its successor, the B200, can do about 4,500. By this measure, chips have been improving at roughly 50 percent per year.</p>
+<p>The second speed is how fast the chip can read data from its memory — the memory bandwidth. This is measured in terabytes per second. The H100 can read about 3.35 terabytes per second. The B200 manages 8. This speed has been improving at roughly 15 percent per year.</p>
+<p>These two numbers are not improving at the same rate. Compute gets dramatically faster every generation. Memory gets marginally faster. The gap between them — the "memory wall" — grows wider with every new chip.</p>
+<p>To see why this matters, consider what happens when a chip runs an AI model. It needs to do two things simultaneously: load the model's parameters from memory, and perform math on those parameters. The chip's total throughput is determined by whichever of these two operations is slower. If the chip can compute faster than it can load data, the memory bandwidth becomes the bottleneck — and the chip's math units sit idle, waiting for ingredients.</p>
+<p>This is not a minor inefficiency. It is the dominant cost of AI inference.</p>
+<h3>Real Numbers, Plainly</h3>
+<p>The B200 can read 8 terabytes of data per second. That sounds like an enormous number, and it is — until you consider how much data a modern AI model needs to operate.</p>
+<p>A single AI model is a collection of numbers called parameters. A small model might have 8 billion parameters. A large one might have over a trillion. A popular mid-range model like Meta's Llama 3.1 70B has — you guessed it — about 70 billion parameters. Each parameter is, roughly speaking, a number that the chip needs to load before it can do useful work.</p>
+<p>Every time the chip generates a token — a word or piece of a word — it must load every parameter of every layer from memory. For a 70-billion-parameter model, that means moving about 140 gigabytes of data (70 billion numbers, each represented by a couple of bytes) from memory into the compute units. At 8 terabytes per second, moving 140 gigabytes takes about 17 milliseconds.</p>
+<p>Seventeen milliseconds per token. At typical reading speed, generating a paragraph takes over a second of pure data movement. The computation itself takes a fraction of that time. The chip is a world-class chef running across a football field to grab ingredients, and most of the time is spent running.</p>
+<p>This is the root cause of everything that follows.</p>
+<h3>The Widening Gap</h3>
+<p>The memory wall is not a new problem. It was identified in the mid-1990s, when chip designers noticed that processor speeds were improving far faster than memory speeds. The problem was theoretical then. Now it is existential for AI.</p>
+<p>Consider the progression from NVIDIA's A100 (2020) to H100 (2022) to B200 (2024):</p>
+<ul>
+<li><strong>A100:</strong> compute improved 10x over its predecessor. Memory bandwidth improved 1.7x.</li>
+<li><strong>H100:</strong> compute improved 3x over A100. Memory bandwidth improved 1.6x.</li>
+<li><strong>B200:</strong> compute improved 2.25x over H100. Memory bandwidth improved 2.4x.</li>
+</ul>
+<p>Even when bandwidth catches up in a generation (as it did from H100 to B200), the long-term trend is clear. Compute doubles faster than bandwidth. The chef gets faster at chopping. The pantry does not get closer.</p>
+<p>This means that for a fixed model size, newer chips spend a <em>greater</em> fraction of their time waiting for memory, not a smaller one. A B200 running a 70-billion-parameter model sees the same memory bottleneck problem as an H100, just at higher absolute throughput. The ratio of compute to bandwidth — the "arithmetic intensity" — determines whether a workload is compute-bound or memory-bound. And most AI inference workloads are squarely in the memory-bound regime.</p>
+<h3>What This Means</h3>
+<p>Every AI company faces the same arithmetic. A chip's ability to do math is not the constraint. A chip's ability to feed itself with data from memory is the constraint. Adding more compute — faster chips, more chips, specialized math units — does not solve the problem. It makes the imbalance worse.</p>
+<p>This explains why the AI industry looks the way it does. It explains why inference pricing is structured the way it is. It explains why models have context limits. It explains why agentic AI — AI that performs long, multi-step tasks — is fundamentally more expensive than simple Q&A. And it explains the shape of the algorithmic workarounds described in later chapters.</p>
+<p>The memory wall is not a bug. It is not a temporary engineering challenge. It is the physical foundation on which the entire AI industry is built.</p>
+<p>To understand the specific ways this wall shows up, we need to look at one mechanism above all others: the hidden cost of memory inside every AI model, and why it grows so quickly when you ask a model to remember more. That mechanism is called the KV cache.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/the-waiting-game/00_introduction.html">&larr; Previous</a>
+    <a href="/ai/the-waiting-game/02_kv_cache.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

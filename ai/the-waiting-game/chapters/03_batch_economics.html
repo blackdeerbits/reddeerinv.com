@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 3: The Lunch Rush — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/the-waiting-game/">&larr; Back to The Waiting Game</a>
+  </div>
+  <div class="post-body">
+<h1>Chapter 3: The Lunch Rush</h1>
+<h2>Or: Why too few tables and too many orders are both bad for business</h2>
+<p>A restaurant during lunch rush faces a specific problem. The kitchen can handle a certain number of orders per minute. If only one table orders, the kitchen is idle most of the time — the chef is paid, the stoves are on, the ingredients are prepped, but almost no food comes out. If too many tables order at once, the kitchen gets backed up and every table waits forty minutes for their food.</p>
+<p>There is a sweet spot — a batch size where the kitchen is fully utilized without being overwhelmed. Every restaurateur knows this intuitively. Every AI inference server faces the same problem, with the same U-shaped cost curve.</p>
+<h3>The Cost of an Empty Kitchen</h3>
+<p>When a GPU serves one user generating one response, the economics are terrible. The chip loads all 70 billion parameters from memory, spends a fraction of a second computing, generates one token, and then does it again. The chip is utilized — in the sense that it is powered on and doing work — but it is spending most of its time on overhead: loading parameters, moving data, setting up operations.</p>
+<p>This is like a restaurant kitchen serving one table. The chef still had to show up. The stoves are still hot. The rent is still due. But only one customer is paying. The cost per order is maximized.</p>
+<p>The fix is batching. Instead of processing one request at a time, the server collects multiple requests and processes them together. When the chip loads the model parameters from memory, it broadcasts them across all the requests in the batch simultaneously. The cost of loading the parameters — the chef running across the football field — is paid once and shared across the batch. More requests means more work per memory trip.</p>
+<p>This is the core economic insight of inference serving: the model parameters are a shared cost, and batching is how you amortize them.</p>
+<h3>The U-Shaped Curve</h3>
+<p>If batching is so great, why not batch everything? Why not collect a million requests and process them all at once?</p>
+<p>Because batching has its own cost. When the chip processes a batch of requests, it must also load the KV cache for <em>each</em> request in the batch. As we established in Chapter 2, the KV cache is per-conversation and cannot be shared. A batch of a thousand requests means loading a thousand separate KV caches alongside the shared parameters.</p>
+<p>At small batch sizes, the dominant cost is the parameter load — the shared cost that is amortized across the batch. Every additional request makes better use of that fixed cost.</p>
+<p>At large batch sizes, the dominant cost shifts. Now the chip is spending most of its time loading individual KV caches for each request in the batch. Adding more requests means adding more cache loads, and each new request increases the total memory traffic without contributing to the shared parameter load. The per-request cost stops falling and starts rising.</p>
+<p>This produces a U-shaped curve. At batch size 1, the cost per request is high. As you add requests, cost per request drops. Eventually it reaches a minimum — the sweet spot — where the shared parameter load and the per-request cache load are balanced. Beyond that sweet spot, cost per request rises again.</p>
+<p>The optimal batch size is the bottom of the U. Serve too few requests and you waste compute. Serve too many and you drown in cache.</p>
+<h3>The Train Schedule</h3>
+<p>There is a useful way to think about this: the train schedule model.</p>
+<p>Imagine a freight company shipping packages between two cities. A truck costs a fixed amount to operate regardless of how many packages it carries — fuel, driver, tolls. If you send one package, you pay the full truck cost. If you send a hundred packages, the per-package cost drops by a factor of a hundred.</p>
+<p>This is batching. The truck is the parameter load. The packages are the requests.</p>
+<p>But packages have to be sorted at the destination. Each package needs to be routed to its specific address, which takes time and depends on the package, not on the truck. The more packages you send in one truck, the longer the sorting takes. At some point, the sorting cost per package eats up the savings from sharing the truck.</p>
+<p>The optimal truck load is where the fuel cost per package plus the sorting cost per package is minimized. This is exactly how GPU batching works. The "fuel" is the parameter load, shared across all requests. The "sorting" is the KV cache load, separate for each request. The optimal batch size balances the two.</p>
+<p>In practice, for a modern inference server running a 70-billion-parameter model, the sweet spot is usually somewhere between a few hundred and a few thousand concurrent requests, depending on the model size, the hardware, and the average conversation length. This is not a fixed number. It shifts with every variable.</p>
+<h3>The "Equalize the Costs" Heuristic</h3>
+<p>There is a simple rule of thumb that emerges from the U-shaped curve, and it was articulated by Reiner Pope during his conversation with Dwarkesh Patel. The insight is this: when you are optimizing two competing costs, the optimal operating point is almost always where the two costs are equal.</p>
+<p>In the batch-sizing context, this means: set the batch size so that the time spent loading model parameters equals the time spent loading KV caches. At that point, neither cost dominates, and any change in batch size makes one cost worse by more than it improves the other.</p>
+<p>This heuristic turns out to apply far beyond batch sizing. It applies to model training, to chip design, to API pricing. Whenever you are trying to balance two constraints, look for the point where they are equal. It is almost always the right answer.</p>
+<p>In practice, inference servers adjust batch sizes dynamically. They queue incoming requests and wait until a threshold is reached before processing. The threshold is tuned to hit the bottom of the U. This is why API providers charge by token — the cost per token changes with batch utilization, and the provider needs to average across peak and off-peak to set a sustainable price.</p>
+<h3>What It Means for Pricing</h3>
+<p>API pricing is not arbitrary. It is a direct consequence of the U-shaped curve and the memory wall.</p>
+<p>A provider that serves requests at batch size 1 would charge an astronomical rate per token — the restaurant with one table. A provider that serves at optimal batch size can charge much less. The difference between a cheap API and an expensive one is often just the provider's ability to fill batches efficiently.</p>
+<p>This explains the tiered pricing structures that have become standard in the industry. The "pay-as-you-go" rate is for users whose traffic cannot be easily batched — they consume resources whether or not the batch is full. The "batch API" or "off-peak" rate is for users who can wait — their requests can be collected and processed at the bottom of the U-curve.</p>
+<p>It also explains why context length is such a sensitive pricing variable. Longer conversations mean larger KV caches, which shift the U-curve upward. A request with a 100,000-token history costs more to serve than a request with a 1,000-token history, even if the response is the same length. The cache load is higher. The batch sweet spot moves. The price reflects it.</p>
+<p>The economics of inference are not mysterious. They are the economics of a restaurant kitchen, scaled by the physics of memory bandwidth. And once you see the U-curve, you see it everywhere.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/the-waiting-game/02_kv_cache.html">&larr; Previous</a>
+    <a href="/ai/the-waiting-game/04_spec_decode.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

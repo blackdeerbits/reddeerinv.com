@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EAGLE-3: Six Tokens at Once, Losslessly — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/beyond-the-waiting-game/">&larr; Back to Beyond the Waiting Game</a>
+  </div>
+  <div class="post-body">
+<h2>EAGLE-3: Six Tokens at Once, Losslessly</h2>
+<p>EAGLE-3, published in March 2025, broke through that ceiling with two key changes.</p>
+<p><strong>First: direct token prediction with multi-layer fusion.</strong> EAGLE-3 returned to predicting tokens directly (like MEDUSA), but with a crucial upgrade: it grabbed information from multiple layers of the target model — low-level patterns, mid-level concepts, high-level reasoning — and fused them together. The draft model wasn't just reading the target's final output; it was reading the target's mind at every level of abstraction.</p>
+<p><strong>Second: training-time test.</strong> In earlier versions, the draft model was trained on ground-truth data — shown the correct next tokens and asked to predict them from there. Clean, simple, familiar. But at inference time, the draft model's own predictions were fed back into itself, and errors accumulated. A small mistake at position 2 would compound by position 4. The draft model was being trained on a pristine highway and deployed on a muddy dirt road.</p>
+<p>EAGLE-3 changed this. During training, it fed the draft model's <em>own predictions</em> back into itself as input for subsequent steps, with an adjusted attention mask that simulated the real inference-time behavior. The draft model learned to recover from its own mistakes. After this change, accuracy stopped plateauing and started scaling — more training data directly translated to higher acceptance rates.</p>
+<p>The result: <strong>up to 6.5x speedup</strong> over vanilla decoding, with an average acceptance length of 6--7 tokens per verification round. Nearly double EAGLE-2's 4 tokens. And on the largest models (like LLaMA 3.1 8B), EAGLE-3 achieved 4.4x — a 40% improvement over EAGLE-2's 3.16x.</p>
+<p>The ceiling in earlier versions wasn't fundamental. It was artificial. The draft model <em>could</em> guess further ahead; it just needed to be trained in the conditions where it would actually operate.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/beyond-the-waiting-game/chapter-5.html">&larr; Previous</a>
+    <a href="/ai/beyond-the-waiting-game/chapter-7.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

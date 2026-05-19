@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 1: The AI Compression Problem — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/slimqwen-reference/">&larr; Back to SlimQwen Reference Book</a>
+  </div>
+  <div class="post-body">
+<h1>Chapter 1: The AI Compression Problem</h1>
+<h2>Why We're Trying to Shrink Giant Brains</h2>
+<hr>
+<h3>Chapter Goals</h3>
+<p>By the end of this chapter, you will understand:</p>
+<ul>
+<li>Why AI models have grown so enormous — and why that's a problem</li>
+<li>What "compression" means in the context of artificial intelligence</li>
+<li>Why slimming down an AI is far more nuanced than just "making it smaller"</li>
+<li>The central question the SlimQwen paper sets out to answer</li>
+</ul>
+<hr>
+<p>The story of artificial intelligence over the past few years reads a lot like a story about excess. More parameters. More data. More compute. The biggest language models now contain hundreds of billions of parameters — adjustable knobs in a massive machine that together produce the ability to write, reason, translate, and code.</p>
+<p>Here's the catch: <strong>bigger is expensive.</strong> Running these models requires enormous clusters of specialized hardware, vast amounts of electricity, and significant infrastructure. For most organizations — even well-funded ones — deploying a state-of-the-art model is like trying to host a Thanksgiving dinner in a stadium when you only have a family-sized kitchen.</p>
+<p>So naturally, people asked: <em>Can we make these models smaller without losing what makes them good?</em></p>
+<hr>
+<h3>Applied Definitions</h3>
+<p><strong>Parameters</strong> — Think of these as the adjustable dials inside a model. During training, the model tweaks these dials to get better at predicting language. More dials means more nuance — but also more complexity and cost.</p>
+<p><strong>Compression</strong> — The art of shrinking a model while preserving as much ability as possible. It's analogous to taking a detailed oil painting and producing a smaller postcard version that still captures the essence of the original.</p>
+<p><strong>Structured Pruning</strong> — A compression technique where entire components of a model (not just individual parameters) are removed. Rather than trimming a few pixels from a photo, you're removing entire panels from a comic strip while keeping the story intact.</p>
+<p><strong>Knowledge Distillation</strong> — A training technique where a smaller "student" model learns from a larger "teacher" model. Imagine a master chef coaching an apprentice: the apprentice doesn't just follow recipes, they learn the chef's intuition and instincts.</p>
+<hr>
+<h3>The Core Tension</h3>
+<p>At first glance, compression seems straightforward: remove some parts of the model, train it a bit more, and it should work fine. But the reality is much more subtle.</p>
+<p>Consider a corporation with thousands of specialized employees. If you need to downsize, which people do you keep? The ones who seem busiest? The ones who produce the most measurable output? And once you've removed some people, how do you redistribute their responsibilities without losing institutional knowledge?</p>
+<p>These are the exact questions the SlimQwen paper tackles — but for AI models composed of hundreds of billions of parameters organized into intricate architectures.</p>
+<hr>
+<h3>Why "Pruning First" Matters</h3>
+<p>The paper's opening question is deceptively simple:</p>
+<blockquote>
+<em>If we're going to train a smaller model, is it better to start from scratch — or to start with a pre-trained giant like Qwen3-Next-80B and trim it down?</em>
+</blockquote>
+<p>This turns out to matter enormously. The research shows that starting with a pruned, pre-trained model dramatically outperforms training a fresh model of the same size from scratch — even when given the same training budget. To continue the corporate analogy: an experienced manager stepping into a leaner role brings institutional knowledge that a newly hired manager simply cannot match.</p>
+<hr>
+<h3>This Sets Up the Book</h3>
+<p>This sets up the rest of the book, where we'll walk through every major technique from the SlimQwen paper:</p>
+<ol>
+<li><strong>Pruning</strong> — How to decide which parts of a model to remove</li>
+<li><strong>Expert compression</strong> — Managing specialized components inside the model  </li>
+<li><strong>Training strategies</strong> — How to rehabilitate a model after surgery</li>
+<li><strong>Progressive schedules</strong> — Why gradual changes beat sudden cuts</li>
+<li><strong>Multi-token prediction</strong> — A bonus that makes the model smaller <em>and</em> better</li>
+</ol>
+<h3>This Sets Up the Book</h3>
+<p>Each chapter builds on the last. By the end, you'll have a clear, intuitive understanding of how researchers shrink massive AI systems while keeping them remarkably capable.</p>
+<hr>
+<p><em>Next: Chapter 2 — How AI Learned to Specialize</em></p>
+  </div>
+  <div class="post-nav">
+    
+    <a href="/ai/slimqwen-reference/02-mixture-of-experts.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

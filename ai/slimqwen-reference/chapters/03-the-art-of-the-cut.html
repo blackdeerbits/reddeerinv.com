@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 3: The Art of the Cut — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/slimqwen-reference/">&larr; Back to SlimQwen Reference Book</a>
+  </div>
+  <div class="post-body">
+<h1>Chapter 3: The Art of the Cut</h1>
+<h2>Pruning and How to Decide What Stays</h2>
+<hr>
+<h3>Chapter Goals</h3>
+<p>By the end of this chapter, you will understand:</p>
+<ul>
+<li>The three types of structural pruning applied to MoE models</li>
+<li>How researchers determine which parts of a model are "important" and which are expendable</li>
+<li>Why removing the <em>last</em> layers works better than removing the <em>middle</em> ones</li>
+<li>The surprising finding about pruning initialization — and why it matters</li>
+</ul>
+<hr>
+<p>Pruning a neural network sounds violent — and in a way, it is. You're deliberately removing parts of something that took enormous resources to build. But done correctly, pruning is surgical, not destructive. The key question is always: <strong>what do you cut, and how do you decide?</strong></p>
+<hr>
+<h3>Depth Pruning: Removing Layers</h3>
+<p>Think of a language model's layers as stations on an assembly line. Each station takes in information, does some processing, and passes it along. The early stations handle basic pattern recognition, the middle stations work on semantic understanding, and the later stations refine the output.</p>
+<p>The paper compared two approaches on a smaller test model (15A2B, 24 layers — results in the appendix):</p>
+<ol>
+<li><strong>Activation similarity</strong> — find layers that produce nearly identical outputs and remove the redundant ones (these tend to be in the middle of the model)</li>
+<li><strong>Last-layer pruning</strong> — simply remove the tail end of the model</li>
+</ol>
+<p><strong>The result was decisive.</strong> Removing the last layers caused only minor performance drops. But removing middle layers based on activation similarity led to catastrophic failures — on some benchmarks, performance fell from 75.62 to 41.95 on MMLU (a general knowledge test). The team then confirmed the same pattern held at scale on the main 80B model, where last-layer pruning remained the clear winner.</p>
+<p>The lesson: <em>the later layers are genuinely more expendable than the early and middle ones.</em> This aligns with an emerging understanding that deeper layers in language models contribute less unique value than previously assumed.</p>
+<hr>
+<h3>Width Pruning: Shrinking the Model's Brain</h3>
+<p>Width pruning reduces the "hidden dimension" — the internal representation size used throughout the model. If you think of each layer as a workspace, width pruning makes the workbench smaller.</p>
+<p>Here's how the researchers decided which parts of the workbench to keep:</p>
+<ol>
+<li>Run calibration data through the model</li>
+<li>Measure the <strong>mean absolute activation</strong> for each hidden dimension — essentially, how "active" each internal channel is</li>
+<li>Keep the dimensions with the highest activity across all layers</li>
+<li>Discard the quiet ones</li>
+</ol>
+<p>It's like mapping which roads carry the most traffic in a city, then closing down the least-used streets. The data flows through the well-traveled routes anyway; the others barely see any use.</p>
+<hr>
+<h3>Expert Pruning: The MoE Challenge</h3>
+<p>This is where MoE models diverge from traditional architectures. Experts need their own compression strategy because they represent specialized knowledge pockets.</p>
+<p>The paper evaluated three ways to measure expert importance:</p>
+<p><strong>Frequency-based</strong> — How often does the router pick this expert? The most frequently chosen experts are the busiest workers.</p>
+<p><strong>Soft-logits</strong> — Not just <em>whether</em> the expert is chosen, but <em>how strongly</em> it's chosen. An expert picked with strong confidence is probably doing something meaningful.</p>
+<p><strong>REAP (Router-weighted Expert Activation)</strong> — A more sophisticated metric that combines the router's weight with the magnitude of the expert's actual output. It asks: "Not just how often, but how impactful when active?"</p>
+<hr>
+<h3>The Big Finding: Initialization Matters</h3>
+<p>One of the paper's most significant results answers a fundamental question:</p>
+<blockquote>
+<em>Should you start with a pruned giant or a small model trained from scratch?</em>
+</blockquote>
+<p>The answer, resoundingly: <strong>start with the pruned giant.</strong></p>
+<p>| Approach | Average Score | Key Insight |</p>
+<p>|----------|--------------|-------------|</p>
+<p>| Random init + knowledge distillation | 61.66 | Starting fresh, even with teacher guidance |</p>
+<p>| Pruned + language modeling loss | 69.96 | Starting smart, self-study |</p>
+<p>| <strong>Pruned + knowledge distillation</strong> | <strong>73.45</strong> | Starting smart + teacher guidance |</p>
+<p>The pruned model recovered <strong>86.5% of the teacher's performance</strong> while being compressed to roughly a quarter of its size (80 billion parameters to 23 billion). The training also converged faster — the loss curves dropped more steeply and reached lower values.</p>
+<p>Why? Because the pruned model already encodes useful knowledge. The remaining weights aren't random; they were shaped by an enormous training run. It's the difference between training someone from zero versus reassigning a proven employee to a leaner role.</p>
+<hr>
+<h3>Applied Definitions</h3>
+<p><strong>Calibration Dataset</strong> — A small set of representative data (1,024 samples in this paper) used to measure which parts of the model are doing the most work. Think of it as a diagnostic tool: run the model on some standard cases and observe which components are active.</p>
+<p><strong>Importance Score</strong> — A numerical value assigned to each component (dimension, layer, expert) that estimates its contribution to the model's output. Higher scores mean "keep this"; lower scores mean "consider removing."</p>
+<p><strong>One-Shot Pruning</strong> — Removing all target components at once in a single step. Fast, but can cause a sharp performance drop that needs significant recovery training.</p>
+<hr>
+<h3>What Comes Next</h3>
+<p>We've covered <em>how</em> to decide what to cut. But here's a twist: after enough training, different cutting strategies end up performing remarkably similarly. That raises an entirely different question — *does it actually matter which specific experts you remove?</p>
+<p>Chapter 4 picks up that thread and introduces the paper's most original contribution: a partial-preservation merging strategy that consistently improves performance.</p>
+<hr>
+<p><em>Next: Chapter 4 — Merging and Preserving</em></p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/slimqwen-reference/02-mixture-of-experts.html">&larr; Previous</a>
+    <a href="/ai/slimqwen-reference/04-merging-and-preserving.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The End of the Waiting Game? — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/beyond-the-waiting-game/">&larr; Back to Beyond the Waiting Game</a>
+  </div>
+  <div class="post-body">
+<h2>The End of the Waiting Game?</h2>
+<p>Does this mean the memory wall has been conquered?</p>
+<p>Not exactly. What these techniques have done is <em>postpone</em> the wall. They've made existing hardware dramatically more efficient, squeezing more tokens per second per watt than anyone thought possible five years ago. The memory is still slow. The compute still waits. We've just gotten much better at hiding that wait.</p>
+<p>The parallel is with CPU architecture in the 1990s and 2000s. For decades, Moore's Law delivered faster transistors, and CPU designers built increasingly deep pipelines and out-of-order execution engines to hide memory latency. The memory wall existed then too — DRAM latency wasn't keeping up with clock speeds — but it was hidden by caches, prefetchers, and speculative execution.</p>
+<p>We're in the same era for AI. The techniques in this book are our caches, prefetchers, and speculative execution units. They make the memory wall invisible to the user. But they don't eliminate it.</p>
+<p>The next frontier is hardware designed from the ground up for memory bandwidth. Cerebras and its wafer-scale engine, where memory and compute live on the same piece of silicon — eliminating the long walk to the pantry entirely. Groq and its deterministic tensor streaming architecture, where data flows through the chip on a predictable schedule. AMD and its unified memory architectures with enormous capacity. Custom silicon for specific attention patterns.</p>
+<p>But until that hardware matures, the techniques in this book are how the industry ships products. They're the bridge between what physics allows and what users expect. They're the proof that engineering ingenuity can postpone even the most fundamental physical constraints.</p>
+<hr>
+<h1>Afterword: The Next Trick</h1>
+<p>Every technique in this book was published in the last three years. Some are barely months old. TiDAR was November 2025. Zyphra's diffusion model was this week. EAGLE-3 was March 2025.</p>
+<p>The rate of innovation is accelerating. Each technique opens the door to the next one. TiDAR showed that autoregressive and diffusion could be hybridized. CCA showed that attention compression could be pushed further than anyone thought possible. EAGLE-3 showed that scaling laws apply even to the draft model in speculative decoding.</p>
+<p>What comes next? The safe bet is combination and refinement: better draft models, tighter compression, smarter scheduling. The exciting bet is on a fundamental departure — a model architecture that doesn't just work around the memory wall but sidesteps it entirely.</p>
+<p>The most promising direction: <em>state-space models</em> and <em>linear attention</em>. These replace the quadratic attention mechanism (O(n²) cost, where every token attends to every other token) with a linear one (O(n) cost, where information is compressed into a fixed-size state vector). The KV cache disappears. The memory wall becomes a molehill.</p>
+<p>Mamba, Griffin, and other state-space architectures already rival transformers on many tasks. They haven't matched them on all — especially tasks requiring precise retrieval from extremely long contexts, where the fixed-size state vector inevitably loses information. But the gap is closing. And if state-space models can match transformer quality while eliminating the KV cache entirely, then the waiting game truly ends.</p>
+<p>Until then, the chefs keep walking, the assistants keep drafting, the sculptors keep chipping, the librarians keep compressing, and the prep cooks keep chopping. One token at a time — or, increasingly, sixteen at once.</p>
+<p>The wall is still there. But we're getting very good at climbing it.</p>
+<hr>
+<h1>Sources</h1>
+<p><strong>EAGLE-3:</strong> Yuhui Li, Fangyun Wei, Chao Zhang, Hongyang Zhang. "EAGLE-3: Scaling up Inference Acceleration of Large Language Models via Training-Time Test." arXiv:2503.01840, March 2025.</p>
+<p><strong>Multi-Token Prediction:</strong> Fabian Gloeckle et al. (Meta FAIR). "Better & Faster Large Language Models via Multi-token Prediction." arXiv:2404.19737, 2024.</p>
+<p><strong>DeepSeek-V3 MTP:</strong> DeepSeek-AI. "DeepSeek-V3 Technical Report." arXiv:2412.19437, December 2024.</p>
+<p><strong>MEDUSA:</strong> Tianle Cai et al. "MEDUSA: Simple LLM Inference Acceleration Framework with Multiple Decoding Heads." arXiv:2401.10774, 2024.</p>
+<p><strong>TiDAR:</strong> Jingyu Liu, Xin Dong, Zhifan Ye, Rishabh Mehta, Yonggan Fu, Vartika Singh, Jan Kautz, Ce Zhang, Pavlo Molchanov (NVIDIA Research). "TiDAR: Think in Diffusion, Talk in Autoregression." arXiv:2511.08923, November 2025.</p>
+<p><strong>ZAYA1-8B-Diffusion-Preview:</strong> Zyphra. "ZAYA1-8B-Diffusion-Preview: Efficient Parallel Decoding on AMD." zyphra.com, May 2026.</p>
+<p><strong>CCA / CCGQA:</strong> Tomas Figliolia, Nicholas Alonso, Rishi Iyer, Quentin Anthony, Beren Millidge (Zyphra). "Compressed Convolutional Attention: Efficient Attention in a Compressed Latent Space." arXiv:2510.04476, October 2025.</p>
+<p><strong>MDLM:</strong> Subham Sahoo, et al. "Simple and Effective Masked Diffusion Language Models." NeurIPS 2024.</p>
+<p><strong>D3PM:</strong> Jacob Austin, Daniel D. Johnson, et al. "Structured Denoising Diffusion Models in Discrete State-Spaces." NeurIPS 2021.</p>
+<p><strong>SSD-LM:</strong> Xiaochuang Han, et al. "SSD-LM: Semi-autoregressive Simplex-based Diffusion Language Model." ICLR 2023.</p>
+<p><strong>Flash Attention:</strong> Tri Dao, et al. "FlashAttention: Fast and Memory-Efficient Exact Attention." NeurIPS 2022.</p>
+<p><strong>KIVI (KV Cache Quantization):</strong> Zirui Liu, et al. "KIVI: A Tuning-Free Asymmetric 2bit Quantization for KV Cache." arXiv:2402.02750, 2024.</p>
+<p><strong>GQA:</strong> Joshua Ainslie, et al. "GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints." arXiv:2305.13245, 2023.</p>
+<p><strong>MLA:</strong> DeepSeek-AI. "DeepSeek-V2: A Strong, Economical, and Efficient Mixture-of-Experts Language Model." arXiv:2405.04434, 2024.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/beyond-the-waiting-game/chapter-30.html">&larr; Previous</a>
+    
+  </div>
+</article>
+</div>
+</body>
+</html>

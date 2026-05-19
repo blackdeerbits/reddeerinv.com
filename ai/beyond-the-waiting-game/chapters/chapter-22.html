@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Optimizing the Inbound Trip — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/beyond-the-waiting-game/">&larr; Back to Beyond the Waiting Game</a>
+  </div>
+  <div class="post-body">
+<h2>Optimizing the Inbound Trip</h2>
+<p><em>Or: Why the chef who preps ingredients before service starts is always faster</em></p>
+<p>There's a scene in every restaurant documentary: the chef arrives at 6 AM, hours before the first customer. They unpack deliveries, wash vegetables, portion proteins, prepare sauces. By the time the first order arrives, everything is ready. All that's left is the final assembly.</p>
+<p>This is prefill.</p>
+<p>Inference has two phases: <em>prefill</em> (processing the input prompt) and <em>decode</em> (generating the output). Everyone obsesses over decode — it's the visible part, where tokens stream out one at a time. But prefill is becoming the hidden bottleneck.</p>
+<p>During prefill, the model processes the entire input in one shot, computing the KV cache for every prompt token simultaneously. This is compute-bound — all the GPU's cores fire at once — and for short prompts it's nearly instant. But for long prompts — think 100K tokens, a whole document, a full codebase — prefill can take 10--30 seconds before a single output token appears.</p>
+<p>That's an eternity for interactive use. And the trend is toward longer prompts. System prompts are pages long. Chat histories accumulate. Documents get attached. The prefill phase, once an afterthought, is becoming the dominant latency component.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/beyond-the-waiting-game/chapter-21.html">&larr; Previous</a>
+    <a href="/ai/beyond-the-waiting-game/chapter-23.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

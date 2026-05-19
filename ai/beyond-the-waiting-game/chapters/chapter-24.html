@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Speculative Prefill: Guessing the Input — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/beyond-the-waiting-game/">&larr; Back to Beyond the Waiting Game</a>
+  </div>
+  <div class="post-body">
+<h2>Speculative Prefill: Guessing the Input</h2>
+<p>Here's a technique that reverses the logic of everything we've discussed so far.</p>
+<p>Speculative decoding (Chapter 1) guesses <em>output</em> tokens to accelerate generation. Symmetrically, <strong>speculative prefill</strong> guesses <em>input</em> tokens to accelerate prompt processing.</p>
+<p>Here's how it works: you use a small, fast model to process the prompt and produce a "draft" KV cache. Then the large target model runs a verification pass — comparing the draft cache against what it would have computed — and only re-computes the parts that were wrong.</p>
+<p>The key insight: adjacent tokens influence each other's representations in predictable ways. A small model's KV cache won't be identical to the large model's, but it will be <em>close</em> — close enough that verifying is much cheaper than recomputing from scratch.</p>
+<p>Think of it like a sous-chef who pre-peels all the potatoes before the head chef arrives. Most of them will be perfectly peeled; the head chef just needs to trim a few missed spots. The sous-chef does the volume work; the head chef does the quality control.</p>
+<p>Early results suggest 1.5--2x prefill speedups on long prompts, with minimal quality impact. The technique is still emerging — the first dedicated papers appeared in late 2025 — but it follows the same economic logic as speculative decoding: amortize the cost of memory access across more work.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/beyond-the-waiting-game/chapter-23.html">&larr; Previous</a>
+    <a href="/ai/beyond-the-waiting-game/chapter-25.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

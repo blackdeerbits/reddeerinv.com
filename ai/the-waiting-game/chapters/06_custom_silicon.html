@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 6: The Custom Kitchen — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/the-waiting-game/">&larr; Back to The Waiting Game</a>
+  </div>
+  <div class="post-body">
+<h1>Chapter 6: The Custom Kitchen</h1>
+<h2>Or: What happens when you build a stove specifically for pancakes</h2>
+<p>The algorithmic workarounds in Chapters 4 and 5 — speculative decoding and MoE — are impressive, but they operate within the constraints of existing hardware. They exploit the memory wall's shape. They do not change the wall itself.</p>
+<p>A different approach is to change the hardware. If the standard GPU is a general-purpose kitchen that is optimized for training neural networks but only adequate for inference, what happens when you build a chip from the ground up for inference alone?</p>
+<p>This is the question driving a wave of custom silicon startups. Their answers are different, but they all converge on the same insight: the memory wall is a hardware problem, and it demands a hardware solution.</p>
+<h3>NVIDIA's Position</h3>
+<p>Before looking at the alternatives, it is worth understanding why NVIDIA dominates. The company's GPUs were originally designed for graphics rendering — a massively parallel workload that happens to share structural properties with neural network training. When AI researchers discovered that GPUs could train neural networks hundreds of times faster than CPUs, NVIDIA was in the right place at the right time.</p>
+<p>The company's real moat is not the hardware. It is CUDA — the software platform that lets developers write code for NVIDIA GPUs. CUDA has been around for nearly two decades. It is deeply embedded in every AI framework, every training pipeline, every inference stack. Replacing NVIDIA means replacing the software ecosystem that the entire industry is built on.</p>
+<p>But NVIDIA's hardware, for all its strength, is optimized for training, not inference. Training requires massive compute throughput, which is what GPUs deliver. Inference, as we have established, is bottlenecked by memory bandwidth, not compute. A chip optimized for inference would look very different from a chip optimized for training. The compute-to-memory ratio would shift. The communication pattern would change. The economics would be fundamentally different.</p>
+<h3>Google's TPU</h3>
+<p>Google's Tensor Processing Unit is the most established inference-focused chip in production. Now in its fifth generation, the TPU was designed from the ground up for Google's internal AI workloads — search, translation, ads, and the company's Gemini model.</p>
+<p>The TPU's key architectural insight is that communication between chips is as important as the chips themselves. In a large-scale deployment of thousands of TPUs, the time spent moving data between chips can exceed the time spent computing. Google invested heavily in a custom interconnect — a high-speed network that links TPUs together — to minimize this overhead.</p>
+<p>This matters because inference at Google's scale is not about a single chip running a single model. It is about thousands of chips running thousands of model copies simultaneously, serving billions of requests per day. The communication bottleneck becomes the dominant constraint. Google's TPU strategy is a bet that the chip design matters less than the system design.</p>
+<h3>Groq's LPU</h3>
+<p>Groq, a Silicon Valley startup, took a radically different approach. Its Language Processing Unit does not use HBM — the high-bandwidth memory that is standard in GPUs and TPUs. Instead, it uses SRAM, a much faster type of memory that sits closer to the compute units.</p>
+<p>This eliminates the memory wall. The chip's compute units never wait for data because the data is already there. The trade-off is that SRAM is much smaller and more expensive per byte than HBM. A Groq chip has far less total memory than a GPU, which means it can only run smaller models — or it needs many chips working together to run a large one.</p>
+<p>The advantage is deterministic latency. A Groq-based system can guarantee response times in the low milliseconds, every time, regardless of batch size or request mix. For applications where latency is critical — real-time voice, interactive agents, financial trading — this is a decisive advantage.</p>
+<p>The disadvantage is that the chip cannot handle the largest frontier models without heroic engineering to split them across many chips. Groq's architecture is a bet that the future of inference favors speed and predictability over raw model size.</p>
+<h3>Cerebras</h3>
+<p>Cerebras took the opposite approach from Groq. Where Groq made the memory smaller and faster, Cerebras made the chip bigger — wafer-scale integration. A single Cerebras chip is the size of an entire silicon wafer, connecting hundreds of thousands of compute cores on a single piece of silicon.</p>
+<p>The advantage is that data never leaves the chip. There is no communication bottleneck, no chip-to-chip interconnect, no network latency. Every parameter is accessible from every core on the same wafer. The chip operates as a single, unified compute engine.</p>
+<p>The challenge is yield. Manufacturing a defect-free wafer is nearly impossible, and Cerebras had to design error-tolerant architectures that route around manufacturing defects. The cost per chip is high. But for workloads where the communication bottleneck is the primary constraint — and inference is one of them — wafer-scale integration is a compelling answer.</p>
+<h3>Maddox: Reiner's Bet</h3>
+<p>Maddox is the inference chip startup founded by Reiner Pope, whose interview with Dwarkesh Patel provides the intellectual backbone of this book. His thesis, distilled: the market is over-invested in training and under-invested in inference. As AI moves from training frontier models to serving them at scale, the hardware that dominates the next decade will be the hardware that optimized for inference economics.</p>
+<p>Maddox's specific architectural choices are not public. But the direction is clear from Pope's analysis: inference hardware needs higher memory bandwidth per compute unit, better support for sparse computation (MoE, speculative decoding's verification pass), and a communication fabric designed for serving, not training.</p>
+<p>The bet is not that NVIDIA will be dethroned. The bet is that the inference market will grow large enough to support specialized hardware alongside general-purpose GPUs — and that a startup that focuses exclusively on inference can capture a meaningful share of that growth.</p>
+<h3>The Communication Bottleneck as the Real Limiter</h3>
+<p>There is a pattern across all these approaches. Whether you are Google, Groq, Cerebras, or Maddox, the problem you are trying to solve is not compute. It is communication.</p>
+<p>The standard GPU architecture — separate memory chips connected to a compute chip through a fixed bandwidth channel — is a bottleneck by design. The data has to travel from memory to compute, and that travel time dominates. Every alternative architecture is, in some way, an attempt to shorten that distance.</p>
+<p>TPU shortens it by making the interconnect between chips faster. Groq shortens it by using faster memory. Cerebras eliminates it by putting everything on one wafer. Maddox will presumably find its own way to shorten it.</p>
+<p>The fact that so many approaches exist, and that all of them are receiving serious investment, tells you something important about the current state. The standard GPU architecture was designed for a world where compute was the bottleneck. That world is ending. The next generation of hardware will be designed for a world where memory and communication are the bottlenecks — and that generation will look fundamentally different from the one we have now.</p>
+<p>Which brings us to the core question: if the hardware is changing, the algorithms are improving, and the models are getting smarter — what does this all add up to? The answer is the waiting game, and it is the subject of the next chapter.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/the-waiting-game/05_moe.html">&larr; Previous</a>
+    <a href="/ai/the-waiting-game/07_the_waiting_game.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

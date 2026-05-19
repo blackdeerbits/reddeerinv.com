@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Limits of Drafting — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/beyond-the-waiting-game/">&larr; Back to Beyond the Waiting Game</a>
+  </div>
+  <div class="post-body">
+<h2>The Limits of Drafting</h2>
+<p>Speculative decoding — in all its forms — has a fundamental limitation. It optimizes the <em>decode</em> phase: generating tokens after the prompt has been processed. But the prompt itself — the input — still needs to be read in one shot. As prompts grow to hundreds of thousands of tokens, that initial processing becomes a bottleneck of its own.</p>
+<p>It also doesn't change the fact that the big model still needs to be loaded from memory for each verification pass. It just makes each loading worth more tokens. The memory wall is still there; we've just found a way to carry more groceries per trip.</p>
+<p>And there's a subtlety: speculative decoding works best when the draft model is <em>just good enough</em>. If the draft model is too weak, acceptance rates collapse and you get no speedup. If the draft model is too strong, its overhead eats into the gains. Finding the sweet spot — the optimal draft model size and training regime — is as much art as science.</p>
+<p>Nevertheless, speculative decoding is the single most widely deployed memory-wall workaround in production today. Every major AI company uses some variant of it. It works, it's lossless, and it requires no hardware changes.</p>
+<p>But to attack the wall from the other side — the prompt processing side — we need a completely different set of ideas. Which brings us to the most radical approach of all.</p>
+<hr>
+<h1>Chapter 2: The Time-Bending Typewriter</h1>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/beyond-the-waiting-game/chapter-8.html">&larr; Previous</a>
+    <a href="/ai/beyond-the-waiting-game/chapter-10.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

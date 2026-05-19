@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CCA: Compressed Convolutional Attention — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/beyond-the-waiting-game/">&larr; Back to Beyond the Waiting Game</a>
+  </div>
+  <div class="post-body">
+<h2>CCA: Compressed Convolutional Attention</h2>
+<p>Zyphra's CCA (Compressed Convolutional Attention), published in October 2025, takes the compression idea to its logical extreme. Instead of just compressing keys and values (as MLA does), CCA compresses <em>everything</em> — queries, keys, and values — into a small shared latent space. The entire attention operation — the comparison, the weighting, the aggregation — happens inside this compressed space. You only expand back to full size for the final output.</p>
+<p>The effect is dramatic: <strong>8x KV-cache compression with no quality loss</strong> compared to full multi-head attention. On certain MoE architectures, CCA even <em>outperforms</em> full attention while using an 8x smaller cache — the compression acts as a regularizer, forcing the model to focus on the most important patterns and ignore noise.</p>
+<p>And because the compressed space is smaller, the computational cost drops too. CCA achieves <strong>1.7x faster prefill on H100 GPUs at 16K sequence length</strong>, and accelerates the backward pass by 1.3x. It's one of those rare optimizations that improves both speed and memory simultaneously — normally you trade one for the other.</p>
+<p>CCGQA (Compressed Convolutional Grouped Query Attention) combines CCA with GQA's head-sharing. The result is a flexible architecture where you can tune the compression ratio to your exact workload: more compression for memory-constrained serving, less compression for quality-critical applications.</p>
+<p>The librarian analogy now extends further. Standard attention is like our librarian memorizing every book verbatim. GQA stores chapter summaries. MLA stores paragraph summaries. CCA stores a single sentence that captures the essence and <em>reconstructs</em> details on demand — and does it so efficiently that you'd never guess the original information was compressed.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/beyond-the-waiting-game/chapter-17.html">&larr; Previous</a>
+    <a href="/ai/beyond-the-waiting-game/chapter-19.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

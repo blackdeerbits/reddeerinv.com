@@ -1,0 +1,88 @@
+# Red Deer Investments — AI Library
+
+> Structured content for LLMs and AI agents. This file serves as a machine-readable entrypoint to the AI section.
+
+## Available Books
+
+### The Waiting Game
+- Description: A journey through the memory wall, KV caches, batch economics, speculative decoding, and custom silicon — explaining why everything in AI slows down before it gets faster.
+- Landing page: https://reddeerinv.com/ai/the-waiting-game/
+- Chapters:
+  - [Introduction: The $30,000 Paperweight](https://reddeerinv.comhttps://reddeerinv.com/ai/the-waiting-game/00_introduction.html)
+  - [Chapter 1: The Football-Field Pantry](https://reddeerinv.comhttps://reddeerinv.com/ai/the-waiting-game/01_memory_wall.html)
+  - [Chapter 2: The Expanding Filing Cabinet](https://reddeerinv.comhttps://reddeerinv.com/ai/the-waiting-game/02_kv_cache.html)
+  - [Chapter 3: The Lunch Rush](https://reddeerinv.comhttps://reddeerinv.com/ai/the-waiting-game/03_batch_economics.html)
+  - [Chapter 4: The Prep Cook](https://reddeerinv.comhttps://reddeerinv.com/ai/the-waiting-game/04_spec_decode.html)
+  - [Chapter 5: The Hotel with Specialty Wings](https://reddeerinv.comhttps://reddeerinv.com/ai/the-waiting-game/05_moe.html)
+  - [Chapter 6: The Custom Kitchen](https://reddeerinv.comhttps://reddeerinv.com/ai/the-waiting-game/06_custom_silicon.html)
+  - [Chapter 7: The Waiting Game](https://reddeerinv.comhttps://reddeerinv.com/ai/the-waiting-game/07_the_waiting_game.html)
+  - [Afterword: The Next Unit of Progress](https://reddeerinv.comhttps://reddeerinv.com/ai/the-waiting-game/08_afterword.html)
+  - [Sources](https://reddeerinv.comhttps://reddeerinv.com/ai/the-waiting-game/09_sources.html)
+
+### Beyond the Waiting Game
+- Description: The sequel exploring what comes after inference economics — architectures and techniques that reshape how models think.
+- Landing page: https://reddeerinv.com/ai/beyond-the-waiting-game/
+- Chapters:
+  - [Introduction: The Kitchen is Still Waiting](https://reddeerinv.comhttps://reddeerinv.com/ai/beyond-the-waiting-game/chapter-1.html)
+  - [Speculative Decoding and the Art of the Good Guess](https://reddeerinv.comhttps://reddeerinv.com/ai/beyond-the-waiting-game/chapter-2.html)
+  - [The Draft Model: The Junior Chef](https://reddeerinv.comhttps://reddeerinv.com/ai/beyond-the-waiting-game/chapter-3.html)
+  - [MEDUSA: Train Extra Heads Instead of a Second Model](https://reddeerinv.comhttps://reddeerinv.com/ai/beyond-the-waiting-game/chapter-4.html)
+  - [EAGLE: From Token Guessing to Feature Guessing](https://reddeerinv.comhttps://reddeerinv.com/ai/beyond-the-waiting-game/chapter-5.html)
+  - [EAGLE-3: Six Tokens at Once, Losslessly](https://reddeerinv.comhttps://reddeerinv.com/ai/beyond-the-waiting-game/chapter-6.html)
+  - [Multi-Token Prediction: What If the Main Model Did the Drafting?](https://reddeerinv.comhttps://reddeerinv.com/ai/beyond-the-waiting-game/chapter-7.html)
+  - [The Common Thread](https://reddeerinv.comhttps://reddeerinv.com/ai/beyond-the-waiting-game/chapter-8.html)
+  - [The Limits of Drafting](https://reddeerinv.comhttps://reddeerinv.com/ai/beyond-the-waiting-game/chapter-9.html)
+  - [Discrete Diffusion and Parallel Generation](https://reddeerinv.comhttps://reddeerinv.com/ai/beyond-the-waiting-game/chapter-10.html)
+  - [The Sculptor vs. The Potter](https://reddeerinv.comhttps://reddeerinv.com/ai/beyond-the-waiting-game/chapter-11.html)
+  - [From Images to Language](https://reddeerinv.comhttps://reddeerinv.com/ai/beyond-the-waiting-game/chapter-12.html)
+  - [TIDAR: Thinking in Diffusion, Talking in Autoregression](https://reddeerinv.comhttps://reddeerinv.com/ai/beyond-the-waiting-game/chapter-13.html)
+  - [Zyphra ZAYA1: The First MoE Diffusion Model](https://reddeerinv.comhttps://reddeerinv.com/ai/beyond-the-waiting-game/chapter-14.html)
+  - [The Meaning of Diffusion](https://reddeerinv.comhttps://reddeerinv.com/ai/beyond-the-waiting-game/chapter-15.html)
+  - [Compressing the KV Cache](https://reddeerinv.comhttps://reddeerinv.com/ai/beyond-the-waiting-game/chapter-16.html)
+  - [GQA and MLA: Fewer Storage Shelves, Same Information](https://reddeerinv.comhttps://reddeerinv.com/ai/beyond-the-waiting-game/chapter-17.html)
+  - [CCA: Compressed Convolutional Attention](https://reddeerinv.comhttps://reddeerinv.com/ai/beyond-the-waiting-game/chapter-18.html)
+  - [KV Cache Quantization: Less Precision, More Tokens](https://reddeerinv.comhttps://reddeerinv.com/ai/beyond-the-waiting-game/chapter-19.html)
+  - [Prefix Caching and Shared Memories](https://reddeerinv.comhttps://reddeerinv.com/ai/beyond-the-waiting-game/chapter-20.html)
+  - [The Combined Effect](https://reddeerinv.comhttps://reddeerinv.com/ai/beyond-the-waiting-game/chapter-21.html)
+  - [Optimizing the Inbound Trip](https://reddeerinv.comhttps://reddeerinv.com/ai/beyond-the-waiting-game/chapter-22.html)
+  - [Prompt Compression: The TL;DR Approach](https://reddeerinv.comhttps://reddeerinv.com/ai/beyond-the-waiting-game/chapter-23.html)
+  - [Speculative Prefill: Guessing the Input](https://reddeerinv.comhttps://reddeerinv.com/ai/beyond-the-waiting-game/chapter-24.html)
+  - [PFlash and DFlash: A Real System, Real Numbers](https://reddeerinv.comhttps://reddeerinv.com/ai/beyond-the-waiting-game/chapter-25.html)
+  - [The Prefill Future](https://reddeerinv.comhttps://reddeerinv.com/ai/beyond-the-waiting-game/chapter-26.html)
+  - [Every Trick, All at Once](https://reddeerinv.comhttps://reddeerinv.com/ai/beyond-the-waiting-game/chapter-27.html)
+  - [The Stacking Principle](https://reddeerinv.comhttps://reddeerinv.com/ai/beyond-the-waiting-game/chapter-28.html)
+  - [But Don't They Interfere?](https://reddeerinv.comhttps://reddeerinv.com/ai/beyond-the-waiting-game/chapter-29.html)
+  - [The Real World](https://reddeerinv.comhttps://reddeerinv.com/ai/beyond-the-waiting-game/chapter-30.html)
+  - [The End of the Waiting Game?](https://reddeerinv.comhttps://reddeerinv.com/ai/beyond-the-waiting-game/chapter-31.html)
+
+### SlimQwen Reference Book
+- Description: Practical techniques for shrinking giant AI brains: compression, mixture of experts, pruning, merging, and recovery training.
+- Landing page: https://reddeerinv.com/ai/slimqwen-reference/
+- Chapters:
+  - [Chapter 1: The AI Compression Problem](https://reddeerinv.comhttps://reddeerinv.com/ai/slimqwen-reference/01-the-ai-compression-problem.html)
+  - [Chapter 2: Mixture of Experts](https://reddeerinv.comhttps://reddeerinv.com/ai/slimqwen-reference/02-mixture-of-experts.html)
+  - [Chapter 3: The Art of the Cut](https://reddeerinv.comhttps://reddeerinv.com/ai/slimqwen-reference/03-the-art-of-the-cut.html)
+  - [Chapter 4: Merging and Preserving](https://reddeerinv.comhttps://reddeerinv.com/ai/slimqwen-reference/04-merging-and-preserving.html)
+  - [Chapter 5: The Recovery Training](https://reddeerinv.comhttps://reddeerinv.com/ai/slimqwen-reference/05-the-recovery-training.html)
+  - [Chapter 6: The Slow Squeeze](https://reddeerinv.comhttps://reddeerinv.com/ai/slimqwen-reference/06-the-slow-squeeze.html)
+  - [Chapter 7: Results and Efficiency](https://reddeerinv.comhttps://reddeerinv.com/ai/slimqwen-reference/07-results-and-efficiency.html)
+  - [Chapter 8: Takeaways and the Road Ahead](https://reddeerinv.comhttps://reddeerinv.com/ai/slimqwen-reference/08-takeaways-and-road-ahead.html)
+
+
+## How to read
+
+Each book is rendered as clean semantic HTML with chapter navigation, JSON-LD structured data, and accessible headings. All pages are static HTML — no JavaScript required.
+
+## Metadata format
+
+Every book page includes:
+- JSON-LD (schema.org/Book) in the <head>
+- Semantic HTML5 landmarks (<article>, <nav>, <section>)
+- Reading progress via chapter ordering
+- Next/Previous navigation
+
+## Crawl settings
+
+- Rate limit: none (static files on CDN)
+- Prefer: text/html
+- Sitemap: https://reddeerinv.com/sitemap.xml

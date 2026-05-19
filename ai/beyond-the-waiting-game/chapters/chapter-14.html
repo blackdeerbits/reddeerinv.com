@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zyphra ZAYA1: The First MoE Diffusion Model — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/beyond-the-waiting-game/">&larr; Back to Beyond the Waiting Game</a>
+  </div>
+  <div class="post-body">
+<h2>Zyphra ZAYA1: The First MoE Diffusion Model</h2>
+<p>Zyphra, a small research lab with about thirty employees, took TiDAR's recipe and pushed it further. Their ZAYA1-8B model was already a Mixture of Experts architecture — a model that doesn't activate all its parameters for every token, only a subset. This makes it more efficient by default: each token costs less compute and less memory. But could it also be converted to diffusion?</p>
+<p>They applied the TiDAR conversion process to their existing ZAYA1-8B checkpoint, then added additional training: 600 billion tokens at 32K context, 500 billion at 128K context, and a diffusion-specific fine-tuning phase. The result: <strong>ZAYA1-8B-Diffusion-Preview</strong>, the first MoE diffusion model ever converted from an autoregressive LLM.</p>
+<p>The speedup: <strong>4.6x with a lossless sampler</strong>, and up to <strong>7.7x</strong> with their new "mixed-logit" sampler — which trades a small amount of output quality for dramatically more speed, tunable at runtime like a slider between "fast" and "accurate."</p>
+<p>They achieve this by diffusing a block of <strong>16 tokens</strong> at once, in a single forward pass. Where a standard autoregressive model makes 16 separate trips to memory to generate 16 tokens, ZAYA1-Diffusion makes one trip and gets 16 tokens back.</p>
+<p>Zyphra's CCA attention architecture (the subject of the next chapter) plays a key role here. CCA compresses the attention operation into a smaller latent space, reducing the computation required. This means the model can diffuse even more tokens in parallel before hitting a compute bottleneck — the diffusion approach and the compressed attention architecture reinforce each other synergistically.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/beyond-the-waiting-game/chapter-13.html">&larr; Previous</a>
+    <a href="/ai/beyond-the-waiting-game/chapter-15.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

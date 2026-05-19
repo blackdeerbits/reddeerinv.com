@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EAGLE: From Token Guessing to Feature Guessing — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/beyond-the-waiting-game/">&larr; Back to Beyond the Waiting Game</a>
+  </div>
+  <div class="post-body">
+<h2>EAGLE: From Token Guessing to Feature Guessing</h2>
+<p>The EAGLE family (SafeAILab, 2024--2025) took MEDUSA's idea and pushed it much further. Instead of predicting raw tokens, EAGLE's draft model predicted the <em>hidden features</em> of the target model's final layer. Features are richer than tokens. A token is a single word from a 128,000-word vocabulary. A feature is a thousand-dimensional vector that encodes not just <em>which</em> word is coming next, but the model's entire internal justification for choosing it.</p>
+<p>Predicting features instead of tokens is like requiring the assistant to guess not just the memo's conclusion but the reasoning behind it. It's harder to train, but the guesses are much more accurate.</p>
+<p>EAGLE-1 showed that feature-level drafting could match or exceed MEDUSA's speedups with a smaller draft model. EAGLE-2 added <em>dynamic draft trees</em> — instead of guessing a single straight line of future tokens, the draft model branched its guesses like a tree. If the model thought "the cat sat" was one possibility and "the dog ran" was another, it would propose both as branches. The verification pass could then accept whichever branch was correct.</p>
+<p>Think of it like an executive who asks the assistant, "What are the two or three most likely things I'd sign off on here?" instead of "What's the single most likely thing?" Branched guessing captures more of the probability mass — and since exactly one branch is correct, the acceptance rate goes up.</p>
+<p>But EAGLE-2 hit a ceiling. The feature-predicting approach forced the draft model to mimic the target model's exact intermediate representations. Like a student forced to solve a problem using exactly the teacher's method, the draft model's creativity was constrained. Its accuracy plateaued; more training data stopped helping.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/beyond-the-waiting-game/chapter-4.html">&larr; Previous</a>
+    <a href="/ai/beyond-the-waiting-game/chapter-6.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>From Images to Language — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/beyond-the-waiting-game/">&larr; Back to Beyond the Waiting Game</a>
+  </div>
+  <div class="post-body">
+<h2>From Images to Language</h2>
+<p>Diffusion models became famous for image generation — DALL-E, Stable Diffusion, Midjourney all work by starting with pure random noise and gradually denoising it into a coherent image. But images are continuous: pixels have smoothly varying values (RGB: 0--255). Text is fundamentally different. The word "elephant" and the word "mushroom" have no intermediate state. You can't average them into something in between. Language is discrete.</p>
+<p>Applying diffusion to text required reinventing the math. Instead of adding Gaussian noise (which works for images but not text), you use a <em>masking</em> process. At each step, you randomly replace some tokens with a special \[MASK\] placeholder. The model learns to predict what the original token was, given the partially masked sequence. Over multiple steps, you gradually reduce the number of masked tokens until none remain and the full text is revealed.</p>
+<p>The first real breakthrough was <strong>D3PM</strong> (Austin et al., 2021), which formalized this masking process for discrete data. But the models were small and the quality wasn't competitive with autoregressive generation.</p>
+<p><strong>MDLM</strong> (Sahoo et al., NeurIPS 2024) changed that. The insight was radical in its simplicity: instead of multiple complex transition schedules, use a single absorption rate. At each step, mask a fraction of tokens. Train the model to predict the originals. Repeat. The math was simpler, the training was more stable, and the results were dramatically better. MDLM showed that a properly trained masked diffusion model could approach — and in some cases match — the quality of autoregressive transformers, while generating text much faster.</p>
+<p><strong>SSD-LM</strong> (Han et al., 2023) took a different path. Instead of masking, it used a "simplex" representation: each token position was represented as a probability distribution over the vocabulary. Initially, every distribution is uniform — every word is equally likely at every position. The diffusion process gradually sharpens these distributions until each one snaps into focus on a single, clear token. It's like slowly focusing a blurry photograph: at first, everything is out of focus and you can't see details. As you turn the focus ring, edges sharpen, shapes resolve, and the image becomes clear — everywhere at once.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/beyond-the-waiting-game/chapter-11.html">&larr; Previous</a>
+    <a href="/ai/beyond-the-waiting-game/chapter-13.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 7: The Waiting Game — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/the-waiting-game/">&larr; Back to The Waiting Game</a>
+  </div>
+  <div class="post-body">
+<h1>Chapter 7: The Waiting Game</h1>
+<h2>Or: Why everything slows down before it gets faster</h2>
+<p>The previous chapters have covered a lot of ground. A chip that spends 98 percent of its time waiting for data. A per-conversation memory that grows without bound. A U-shaped cost curve that governs the economics of serving. Algorithmic workarounds that exploit the shape of the bottleneck. And new hardware architectures that are being designed from the ground up to address it.</p>
+<p>This chapter answers the question that motivates all of it: why does this moment matter? Why is the memory wall not just an engineering curiosity but a structural force shaping the future of AI?</p>
+<p>The answer involves a shift that is already happening — from AI as a question-answering tool to AI as an autonomous worker. That shift collides with the memory wall in ways that most people in the industry have not fully absorbed.</p>
+<h3>Answer Inference vs. Agentic Inference</h3>
+<p>The term "inference," in AI, means running a trained model to produce an output. For most of the last few years, this has meant single-turn question answering: you type a prompt, the model generates a response, and you are done. This is answer inference. It is simple, predictable, and relatively cheap.</p>
+<p>Answer inference has a clear structure. Send in a prompt — a few hundred or few thousand tokens. The model loads its parameters, computes a response, and returns it. The KV cache is proportional to the prompt length plus the response length. The cost is proportional to the total token count. The transaction is atomic.</p>
+<p>Agentic inference is different. An agent does not answer one question. It performs a multi-step task: research a topic, summarize documents, write code, run tests, iterate on the results, loop until the task is done. Each step requires its own inference call, and each call depends on the context accumulated from all previous steps.</p>
+<p>The difference is not just semantic. Agentic inference multiplies every cost we have discussed. The KV cache grows with every step, because the agent's context accumulates everything it has done so far. The batch economics change, because long-running agent sessions cannot be easily grouped with other requests. The memory wall becomes not a per-token constraint but a per-task constraint.</p>
+<p>As Ben Thompson wrote in his essay "Agents Over Bubbles" in March 2026: "Today's agents are fancy answer inference; in the future, true agentic inference will be work done by computers according to dictates given by other computers."</p>
+<p>This distinction is the key to understanding why the memory wall matters more today than it did two years ago. When AI was primarily about answering questions, the memory wall was a cost optimization problem. When AI becomes about autonomous agents performing open-ended tasks, the memory wall becomes a capability ceiling.</p>
+<h3>The Inference Shift</h3>
+<p>The AI compute market is undergoing a structural transition. For the last several years, the dominant compute workload was training — building larger and larger models. NVIDIA sold GPUs primarily to data centers running training clusters. The inference workload was an afterthought.</p>
+<p>That is changing. Training is not going away — frontier models will continue to get larger — but the growth rate of inference demand is outstripping the growth rate of training demand. More users, more applications, more agents, more context. Each of these multiplies the inference compute requirement.</p>
+<p>This is the inference shift. The compute market that was built for training is being repurposed for inference, and it is not well suited to the task. Training is compute-bound: it benefits from massive parallelism, large batch sizes, and high floating-point throughput. Inference is memory-bound: it benefits from high bandwidth, low latency, and efficient data movement. The hardware that dominates training is not the hardware that will dominate inference.</p>
+<p>The shift is happening faster than most people realize. As of 2026, a growing fraction of the world's GPU compute capacity is running inference, not training. Every percentage point shift represents billions of dollars of hardware being used in a regime it was not designed for. The inefficiency is enormous, and it creates the opportunity for everything we have discussed — algorithmic workarounds, new chip architectures, and entirely new serving paradigms.</p>
+<h3>What the Memory Wall Means for AGI</h3>
+<p>If the goal of AI is to build systems that can perform open-ended, autonomous work — the definition of AGI that most working researchers accept — then the memory wall is not a cost problem. It is a capability problem.</p>
+<p>An agent that can maintain a 10-million-token context, reason across it, take actions, observe results, and iterate — that agent would be qualitatively more capable than any system that exists today. But the KV cache for a 10-million-token conversation would consume more memory than an entire GPU. The chip would spend virtually all its time loading cache entries and none of its time computing.</p>
+<p>This is not an exaggeration. The relationship between context length and KV cache memory is linear, and the relationship between KV cache memory and inference cost is approximately linear. A 10x increase in context length means roughly a 10x increase in per-token serving cost — before accounting for the fact that the chip has less memory available for batching, which shifts the U-curve upward.</p>
+<p>The implication is straightforward: the path to more capable AI systems runs through the memory wall. Every advance in model capability that requires more context — better reasoning, longer planning horizons, autonomous agent loops — increases the cost of serving that model. The constraint is not algorithmic. It is physical.</p>
+<p>This is the waiting game. Progress in AI is gated by progress in memory bandwidth. And memory bandwidth improves at 15 percent per year, not 50 percent.</p>
+<h3>The Workarounds</h3>
+<p>The algorithmic workarounds described in Chapters 4 through 6 are real and meaningful. Speculative decoding gives 2-4x speedups on decode. MoE gives 5-7x effective compute savings. Custom silicon could reshape the hardware landscape over five to ten years.</p>
+<p>But these workarounds do not change the fundamental trajectory. They buy time. They shift the curve. They do not eliminate the physics.</p>
+<p>Speculative decoding speeds up token generation but does nothing for the KV cache growth problem. MoE reduces compute cost but does not reduce the memory footprint of loading expert parameters. Custom silicon addresses the problem at the hardware level but takes years to design, manufacture, and deploy at scale.</p>
+<p>Each workaround pushes the effective ceiling higher. None removes the ceiling.</p>
+<h3>The Thesis</h3>
+<p>This book has argued one thing: the cost of AI inference is determined by the physics of memory, not the speed of compute. That fact is not an obstacle to progress. It is the shape of progress.</p>
+<p>The engineers who understand this physics will build systems that work within the constraint — and will recognize that the constraint cannot be wished away. The companies that understand this physics will make better decisions about hardware investment, model architecture, and pricing. The users who understand this physics will understand why inference costs what it costs, and why the waiting game is not going to end soon.</p>
+<p>Everything in AI — chip design, model architecture, training strategy, serving infrastructure, API pricing — is converging on the same problem: how to get more useful work out of a fixed amount of memory bandwidth. The answer is not a single breakthrough. It is a thousand incremental improvements, each pushing the boundary a little further, each revealing the next layer of the constraint.</p>
+<p>This is the waiting game. Not a pause, not a slowdown. A recognition that the fastest path forward runs through the bottleneck, not around it.</p>
+<p>The memory wall is real. It is not going away. And understanding it is the single most leveraged skill an AI builder can have.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/the-waiting-game/06_custom_silicon.html">&larr; Previous</a>
+    <a href="/ai/the-waiting-game/08_afterword.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

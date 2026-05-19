@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prefix Caching and Shared Memories — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/beyond-the-waiting-game/">&larr; Back to Beyond the Waiting Game</a>
+  </div>
+  <div class="post-body">
+<h2>Prefix Caching and Shared Memories</h2>
+<p>There's one more trick, and it's almost embarrassingly simple.</p>
+<p>When many users interact with the same AI system, their prompts often start identically. The system prompt ("You are a helpful assistant who..."), the user's identity preamble, the conversation opener — these are shared across every session with that user, and sometimes across all users of the system.</p>
+<p>So why recompute the KV cache for the shared prefix every time?</p>
+<p>Prefix caching stores the KV cache for common prefixes once and reuses it across requests. If 1,000 user sessions all start with the same 4,000-token system prompt, you compute the KV cache for that prefix once and save 999 re-computations. Each saved prefill is seconds of wall-clock time, shaved off every user interaction.</p>
+<p>The savings grow with the length of the shared prefix and the number of requests. For a popular AI assistant handling millions of conversations, prefix caching can reduce total compute by 30--50%. It's not glamorous, but it's one of the highest-impact optimizations in production serving today.</p>
+<p>vLLM, TensorRT-LLM, and SGLang — the major inference serving frameworks — all support prefix caching as a standard feature. It's the silent workhorse of production AI.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/beyond-the-waiting-game/chapter-19.html">&larr; Previous</a>
+    <a href="/ai/beyond-the-waiting-game/chapter-21.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

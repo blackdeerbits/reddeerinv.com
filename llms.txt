@@ -1,0 +1,12 @@
+# Red Deer Investments
+
+> This site has two sections. Visit each section's entrypoint for machine-readable content.
+
+## Site Map for LLMs
+
+- Red Deer Investment Research: https://reddeerinv.com/posts/ (archived by year/month at /archive/)
+- AI Library: https://reddeerinv.com/ai/ | Structured entrypoint: https://reddeerinv.com/ai/llms.txt
+
+## Reading the AI Library
+
+The AI Library is optimized for both human and LLM consumption. Start at /ai/llms.txt for a complete structured index of all books and chapters.

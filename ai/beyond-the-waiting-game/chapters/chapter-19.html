@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KV Cache Quantization: Less Precision, More Tokens — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/beyond-the-waiting-game/">&larr; Back to Beyond the Waiting Game</a>
+  </div>
+  <div class="post-body">
+<h2>KV Cache Quantization: Less Precision, More Tokens</h2>
+<p>There's also a brute-force approach: store the cache with less precision.</p>
+<p>The KV cache normally uses 16-bit floating-point numbers (fp16 or bf16). Each value is a number like 3.14159... — about six decimal digits of precision. But for most attention patterns, the difference between 3.14159 and 3.14 is negligible. The pattern of attention — which tokens matter most and roughly how much — is preserved even with coarser precision.</p>
+<p>KV cache quantization reduces each value to 8 bits, 4 bits, or even 2 bits. This shrinks the cache by 2x, 4x, or 8x respectively. The quality cost is typically small — a fraction of a point on perplexity metrics — and for many tasks, it's undetectable to human readers.</p>
+<p>Recent work (KIVI, 2024) showed that 2-bit KV cache quantization is feasible for large models. A model that needs 80GB for its KV cache at 16-bit precision needs only 10GB at 2-bit — fitting comfortably on a single consumer GPU. This enables context windows that would otherwise require multiple enterprise-grade GPUs.</p>
+<p>The elegant thing about quantization: it's a pure engineering optimization with no model changes required. You take an existing model, configure the KV cache to use lower precision, and the model works exactly as before — just with a smaller memory footprint.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/beyond-the-waiting-game/chapter-18.html">&larr; Previous</a>
+    <a href="/ai/beyond-the-waiting-game/chapter-20.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

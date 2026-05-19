@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 6: The Slow Squeeze — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/slimqwen-reference/">&larr; Back to SlimQwen Reference Book</a>
+  </div>
+  <div class="post-body">
+<h1>Chapter 6: The Slow Squeeze</h1>
+<h2>Why Progressive Pruning Beats One-Shot</h2>
+<hr>
+<h3>Chapter Goals</h3>
+<p>By the end of this chapter, you will understand:</p>
+<ul>
+<li>Why compressing a model all at once is suboptimal</li>
+<li>The three progressive pruning strategies compared in the paper</li>
+<li>How gradual structural changes lead to better optimization</li>
+<li>Which schedule won — and by how much</li>
+</ul>
+<hr>
+<p>Here's a question that cuts to the heart of how learning works:</p>
+<blockquote>
+<em>If a company is cutting its budget from $10 million to $1 million, should it gut 90 percent in one quarter or phase the reductions over time, learning to adapt at each stage?</em>
+</blockquote>
+<p>The SlimQwen researchers asked the same question of model compression. And the data was unambiguous.</p>
+<hr>
+<h3>One-Shot vs. Progressive</h3>
+<p><strong>One-shot compression</strong> is exactly what it sounds like: take the giant model, remove everything you don't want in a single step, then train the result from that starting point.</p>
+<p><strong>Progressive compression</strong> breaks the transformation into stages. In the first stage, you compress partially and train a bit. In the second stage, you compress the rest and train some more.</p>
+<p>The analogy to personal development is direct: if you're going from an active social life to a focused period of solitude, going cold turkey is more jarring than gradually reducing your commitments over months.</p>
+<hr>
+<h3>Applied Definitions</h3>
+<p><strong>Progressive Pruning</strong> — Compressing a model in stages rather than all at once. After each pruning stage, the model is trained on additional data to recover before the next compression step.</p>
+<p><strong>Depth-First Schedule</strong> — A strategy that removes layers (depth) first, then shrinks the model's width afterward. Think of it as reducing the number of steps in the processing pipeline before making each step narrower.</p>
+<p><strong>Width-First Schedule</strong> — Shrinks the hidden dimensions first, then removes layers. Make each step smaller, then take some steps away entirely.</p>
+<p><strong>Joint Schedule</strong> — Reduces both depth and width simultaneously at each stage. Half the layer reduction and half the width reduction in stage one; the rest in stage two.</p>
+<p><strong>Token Budget</strong> — The total amount of training data measured in tokens. The paper compared one-shot (400B tokens) against progressive (40B + 360B = 400B total tokens). Same total budget, different allocation.</p>
+<hr>
+<h3>The Three Strategies</h3>
+<p>The researchers designed two-stage schedules, each using 400B total tokens:</p>
+<p>| Strategy | Stage 1 | Stage 2 |</p>
+<p>|----------|---------|---------|</p>
+<p>| <strong>Depth-First</strong> | Remove half the target layers, keep width, train 40B tokens | Remove remaining layers + all width, train 360B tokens |</p>
+<p>| <strong>Width-First</strong> | Halve the width, keep depth, train 40B tokens | Remove all target layers + remaining width, train 360B tokens |</p>
+<p>| <strong>Joint</strong> | Halve both depth and width targets, train 40B tokens | Complete the remaining reductions, train 360B tokens |</p>
+<p>One-shot comparison: remove everything at once, train on all 400B tokens.</p>
+<hr>
+<h3>The Results</h3>
+<p>Every progressive strategy beat one-shot compression. Every single one.</p>
+<p>| Method | MMLU | MMLU-Redux | GSM-8K | Avg Improvement |</p>
+<p>|--------|------|-----------|--------|-----------------|</p>
+<p>| <strong>One-shot</strong> | 75.86 | 75.41 | 85.22 | Baseline |</p>
+<p>| Joint | 76.30 | 76.93 | 86.05 | +0.44 on MMLU |</p>
+<p>| Width-First | 77.14 | 77.07 | 84.00 | +1.28 on MMLU |</p>
+<p>| <strong>Depth-First (SlimQwen)</strong> | <strong>77.39</strong> | <strong>78.01</strong> | 85.82 | <strong>+1.53 on MMLU</strong> |</p>
+<p>The improvements aren't marginal noise. On MMLU-Redux (a challenging knowledge benchmark), depth-first gained <strong>2.60 points</strong> over one-shot. On MMLU-Pro, the gain was 0.25 points. Across the board, progressive approaches outperformed or matched the one-shot baseline.</p>
+<p><strong>Depth-first was the official winner</strong>, and the model it produced became the published "SlimQwen" release.</p>
+<hr>
+<h3>Why Gradual Pruning Works</h3>
+<p>The paper offers an insightful explanation: <strong>staged capacity reduction provides a smoother optimization trajectory for knowledge transfer.</strong></p>
+<p>Think of it this way: when you compress a model all at once, you create a large gap between what the model can currently do and what its new architecture requires. The training process has to bridge this gap from a cold start, which makes optimization difficult — the model is essentially learning to cope with a new body all at once.</p>
+<p>Progressive pruning, by contrast, lets the model adapt gradually. After the first pruning stage, it has trained on 40B tokens and recovered much of its capability. When the second stage hits, the model is already partially adapted to a smaller architecture. The "gap" is smaller, making it easier for the training to fill in.</p>
+<hr>
+<h3>The Diminishing Returns of More Stages</h3>
+<p>The researchers also tested three-stage schedules (20B + 20B + 360B) to see if finer-grained compression would help even more. The answer: <strong>not really.</strong></p>
+<p>The three-stage results were comparable to the two-stage setup. Some benchmarks showed slight improvements; others showed slight regressions. Overall, the two-stage approach was sufficient.</p>
+<p>This is a useful practical boundary. It suggests that some gradualness is valuable, but excessive granularity doesn't buy you much.</p>
+<hr>
+<h3>A Broader Intuition</h3>
+<p>Progressive compression taps into a general principle that appears everywhere in learning and adaptation: <strong>intermediate stabilization matters.</strong> When a system — biological, mechanical, or neural — undergoes a transformation, giving it time to consolidate before the next change improves outcomes. Language models, despite being mathematical constructs, follow this pattern too.</p>
+<hr>
+<h3>Where We Go From Here</h3>
+<p>We've seen <em>why</em> gradual beats sudden. Now it's time to look at the scoreboard. Chapter 7 brings all the numbers together and shows what SlimQwen actually achieved — in capability, in speed, and in deployment cost.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/slimqwen-reference/05-the-recovery-training.html">&larr; Previous</a>
+    <a href="/ai/slimqwen-reference/07-results-and-efficiency.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

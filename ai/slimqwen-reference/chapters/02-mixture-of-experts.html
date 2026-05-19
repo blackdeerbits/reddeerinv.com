@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 2: Mixture of Experts — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/slimqwen-reference/">&larr; Back to SlimQwen Reference Book</a>
+  </div>
+  <div class="post-body">
+<h1>Chapter 2: Mixture of Experts</h1>
+<h2>How AI Learned to Specialize</h2>
+<hr>
+<h3>Chapter Goals</h3>
+<p>By the end of this chapter, you will understand:</p>
+<ul>
+<li>What "Mixture of Experts" (MoE) means and why it was invented</li>
+<li>How experts, routers, and shared specialists work together inside a model</li>
+<li>Why MoE models are <em>especially</em> tricky to compress</li>
+<li>The three axes along which MoE models can be shrunk</li>
+</ul>
+<hr>
+<p>To understand what SlimQwen does, you first need to understand the architecture it operates on: <strong>Mixture of Experts</strong>, or MoE for short.</p>
+<hr>
+<h3>What Is Mixture of Experts?</h3>
+<p>Imagine you walk into a hospital. You don't need every specialist — cardiologist, neurologist, orthopedic surgeon — examining you at once. Instead, a triage nurse assesses your symptoms and routes you to the right specialist. Sometimes you see one, sometimes two, but never the entire hospital staff.</p>
+<p><strong>That's Mixture of Experts.</strong></p>
+<p>In a traditional language model, every single parameter is involved in processing every word. It's like having the entire hospital staff weigh in on every patient. MoE models change this: the model contains many "experts" (groups of parameters specialized for certain types of tasks), but for any given word, only a select few experts are activated.</p>
+<p>The result? A model that can be enormously capable (because it has many experts on staff) while remaining efficient at runtime (because only a few experts work on each word).</p>
+<hr>
+<h3>Applied Definitions</h3>
+<p><strong>Expert</strong> — A self-contained neural network module within the model that handles certain types of inputs. Think of it as a department in a company: one expert might specialize in mathematical reasoning, another in creative writing, another in code.</p>
+<p><strong>Router</strong> — The mechanism that decides which experts handle a given token. It's the triage nurse, the dispatcher, the manager who assigns work. The router looks at what the model is processing and says: "For this word, send it to Expert 3 and Expert 7."</p>
+<p><strong>Routed Experts</strong> — The specialists that only handle specific types of input chosen by the router. Not every token goes through every routed expert.</p>
+<p><strong>Shared Experts</strong> — A small set of experts that <em>every</em> token goes through, regardless of what the router decides. Think of them as the general practitioners everyone visits before being sent to specialists.</p>
+<p><strong>Top-K Routing</strong> — The router picks exactly K experts (usually 1, 2, or 10) out of the total pool for each token. In Qwen3-Next, the model activates roughly 10 routed experts plus 1 shared expert out of a pool of 512 routed experts plus shared experts.</p>
+<hr>
+<h3>The Numbers at Play</h3>
+<p>The model used in this paper, Qwen3-Next-80A3B, has:</p>
+<ul>
+<li><strong>512 routed experts</strong> per layer, plus shared experts</li>
+<li>Only <strong>10 routed + 1 shared</strong> expert active at any given time</li>
+<li><strong>48 transformer blocks</strong> (layers of processing)</li>
+<li>A mix of full attention and linear attention mechanisms</li>
+</ul>
+<p>That means the model has the capacity of an 80-billion-parameter system but, for each word, only activates about 3.8 billion parameters' worth of computation. It's an enormous bench where most of the players sit out for any given play.</p>
+<hr>
+<h3>Why MoE Makes Compression Harder</h3>
+<p>In a traditional model, compression is somewhat straightforward: you're removing layers, shrinking dimensions, cutting heads. But in an MoE model, there's a whole new dimension: <strong>the experts themselves.</strong></p>
+<p>You can:</p>
+<ol>
+<li><strong>Prune experts</strong> — remove some entirely (fire some departments)</li>
+<li><strong>Merge experts</strong> — combine multiple experts into fewer ones (merge departments)</li>
+<li>Adjust the router — change <em>how</em> the model decides who gets the work</li>
+</ol>
+<p>And here's the tricky part: when you fire or merge experts, you're not just losing capacity — you're potentially losing <em>specialization</em>. If Expert #412 was the only one that really understood quantum physics terminology, removing it means that knowledge doesn't simply transfer to others.</p>
+<hr>
+<h3>The Three Axes of Compression</h3>
+<p>The paper explores MoE compression across three dimensions:</p>
+<p>| Dimension | What It Means | Analogy |</p>
+<p>|-----------|---------------|---------|</p>
+<p>| <strong>Depth</strong> | Removing entire layers (transformer blocks) | Reducing the number of management layers in a company |</p>
+<p>| <strong>Width</strong> | Shrinking the size of hidden dimensions | Making each department smaller while keeping them all |</p>
+<p>| <strong>Experts</strong> | Removing or merging expert modules | Consolidating specialized teams |</p>
+<p>Each axis affects the model differently, and the challenge — which SlimQwen tackles head-on — is figuring out the smartest way to cut across all three simultaneously.</p>
+<hr>
+<p><em>Next: Chapter 3 — The Art of the Cut</em></p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/slimqwen-reference/01-the-ai-compression-problem.html">&larr; Previous</a>
+    <a href="/ai/slimqwen-reference/03-the-art-of-the-cut.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Stacking Principle — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/beyond-the-waiting-game/">&larr; Back to Beyond the Waiting Game</a>
+  </div>
+  <div class="post-body">
+<h2>The Stacking Principle</h2>
+<p>Each technique addresses a different bottleneck, meaning their benefits multiply rather than add.</p>
+<p>Consider a hypothetical inference stack:</p>
+<p>| Layer | Technique | Speedup | What it solves |</p>
+<p>|-------|-----------|---------|----------------|</p>
+<p>| 1 | Prefix caching | 1.5--2x | Shared prompt recomputation |</p>
+<p>| 2 | Prompt compression | 2--5x | Long input latency |</p>
+<p>| 3 | KV cache quantization (INT4) | 2--4x | Memory footprint per token |</p>
+<p>| 4 | CCA compressed attention | 2x | Attention compute overhead |</p>
+<p>| 5 | EAGLE-3 speculative decoding | 4--6x | Decode phase memory trips |</p>
+<p>| 6 | Dynamic batching | 2x | GPU utilization across requests |</p>
+<p>The math: 2 × 3 × 3 × 2 × 5 × 2 = 360x. A model that generated 10 tokens per second in 2023 can, with all techniques applied, deliver well over 1,000 tokens per second on the same hardware.</p>
+<p>That's not marketing. These techniques are all deployed in production today — some as research prototypes, some polished into mature systems. The numbers are real.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/beyond-the-waiting-game/chapter-27.html">&larr; Previous</a>
+    <a href="/ai/beyond-the-waiting-game/chapter-29.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

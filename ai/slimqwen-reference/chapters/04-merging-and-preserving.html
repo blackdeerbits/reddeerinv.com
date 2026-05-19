@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 4: Merging and Preserving — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/slimqwen-reference/">&larr; Back to SlimQwen Reference Book</a>
+  </div>
+  <div class="post-body">
+<h1>Chapter 4: Merging and Preserving</h1>
+<h2>The Partial-Preservation Strategy</h2>
+<hr>
+<h3>Chapter Goals</h3>
+<p>By the end of this chapter, you will understand:</p>
+<ul>
+<li>Why the debate between expert pruning and expert merging is somewhat moot at scale</li>
+<li>The "partial-preservation" strategy proposed in the paper — and why it works</li>
+<li>The central tradeoff in expert compression: individual specialization vs. consolidation</li>
+<li>How merge decisions are actually made</li>
+</ul>
+<hr>
+<p>The previous chapter covered how to measure which experts are important. But here's a counterintuitive finding from the SlimQwen paper:</p>
+<p><strong>After training with 400B tokens, it barely matters which experts you removed.</strong></p>
+<hr>
+<h3>The Surprising Equalizer</h3>
+<p>The researchers tried multiple methods for deciding which experts to prune or merge:</p>
+<ul>
+<li>Frequency-based removal</li>
+<li>Soft-logits weighted selection</li>
+<li>REAP (router-weighted activation)</li>
+<li>Merging with various similarity criteria</li>
+</ul>
+<p>After a massive training run involving 400B tokens, <strong>no single approach dominated across all benchmarks.</strong> Some methods performed better on specific tasks — for instance, frequency-based methods scored slightly higher on BBH (a reasoning test) — but there was no clear winner overall.</p>
+<p>Why? Because large-scale continual pretraining acts as a great equalizer. Given enough training, the model recovers and adapts regardless of <em>which</em> specific experts were removed initially. The training budget washes out the differences between individual one-shot compression choices.</p>
+<p>This is both liberating and unsettling. Liberating because you don't need to obsess over the perfect pruning metric. Unsettling because it suggests that the initial compression choice matters less than what happens <em>after</em>.</p>
+<hr>
+<h3>Applied Definitions</h3>
+<p><strong>Expert Merging</strong> — Instead of deleting an expert entirely, you combine its weights with another expert's weights. It's like asking two departing employees to hand off their knowledge to a single person rather than losing it.</p>
+<p><strong>Expert Pruning</strong> — Simply removing an expert from the model. Clean, but all that expert's knowledge is gone.</p>
+<p><strong>Cosine Similarity</strong> — A way of measuring how "alike" two experts are. If two experts produce similar outputs for similar inputs, they're good candidates for merging. High cosine similarity means "these folks are doing similar work."</p>
+<p><strong>Partial-Preservation Strategy</strong> — The novel approach proposed in this paper where half of the target experts are kept intact, and the other half are constructed by merging discarded experts into them.</p>
+<hr>
+<h3>The Partial-Preservation Strategy</h3>
+<p>This is the paper's key innovation for expert compression. Here's how it works:</p>
+<p><strong>Step 1: Split the target in half</strong></p>
+<ul>
+<li>The model needs to end up with, say, 256 experts (down from 512)</li>
+<li>Reserve the first half (128 experts) as the "preserve" set</li>
+<li>Reserve the second half (128 experts) as the "merge base" set</li>
+</ul>
+<p><strong>Step 2: Keep the best ones intact</strong></p>
+<ul>
+<li>Score all 512 experts by importance</li>
+<li>Keep the top 128 experts exactly as they are — no modification</li>
+<li>These are the model's star performers</li>
+</ul>
+<p><strong>Step 3: Merge the rest</strong></p>
+<ul>
+<li>The remaining 384 experts (the middle tier and lower) need to be consolidated</li>
+<li>For each of the 128 merge bases, find the most similar discarded expert</li>
+<li>Combine them using a weighted average based on their importance scores</li>
+</ul>
+<p><strong>Step 4: Assemble the new set</strong></p>
+<ul>
+<li>The final 256 experts = 128 preserved + 128 merged</li>
+<li>Each merged expert is a blend: <code>new = (weight_A / total) <em> expert_A + (weight_B / total) </em> expert_B</code></li>
+</ul>
+<hr>
+<h3>Why This Works: The Knowledge Tradeoff</h3>
+<p>The partial-preservation strategy addresses a real tension that all simpler approaches miss:</p>
+<p>| Extreme Approach | Problem |</p>
+<p>|-----------------|---------|</p>
+<p>| Keep only the top experts | You preserve highly salient knowledge, but discard experts that might be complementary — specialists in niche but important areas |</p>
+<p>| Merge everything | You homogenize expert specialization, blurring distinctions that took enormous training to develop |</p>
+<p>The half-and-half approach offers a pragmatic middle ground. The top performers stay sharp. The rest get consolidated intelligently. The result consistently improves scores across major benchmarks compared to either pure pruning or pure merging.</p>
+<hr>
+<h3>A Concrete Analogy</h3>
+<p>Imagine a law firm with 512 lawyers shrinking down to 256:</p>
+<ul>
+<li><strong>128 star performers</strong> — keep them exactly as they are, untouched</li>
+<li><strong>128 merge anchors</strong> — keep them too, but assign them the job of absorbing departing colleagues' expertise</li>
+<li><strong>256 departing lawyers</strong> — their knowledge gets folded into the merge anchors they work most similarly to</li>
+</ul>
+<p>The stars stay sharp. The anchors take on new specializations. Everyone else's expertise is absorbed rather than lost.</p>
+<hr>
+<h3>The Numbers</h3>
+<p>The paper's results showed partial preservation improving scores in most categories:</p>
+<p>| Method | MMLU | GSM-8K | C-Eval |</p>
+<p>|--------|------|--------|--------|</p>
+<p>| Merging without preservation | 69.05 | 71.08 | 71.08 |</p>
+<p>| <strong>Merging with partial preservation</strong> | <strong>69.28</strong> | <strong>74.18</strong> | <strong>71.15</strong> |</p>
+<p>These aren't massive jumps on individual metrics, but they're <em>consistent</em> improvements — and consistency across diverse benchmarks is the hallmark of a robust approach.</p>
+<hr>
+<h3>The Paper Chose "Half" for a Reason</h3>
+<p>The authors acknowledge that choosing exactly half is a "simple and symmetric design choice." Their intuition:</p>
+<ul>
+<li><strong>Preserving too few experts</strong> (e.g., only 25%) → insufficient parameter inheritance, losing too much pretrained knowledge</li>
+<li><strong>Preserving too many experts</strong> (e.g., 75%) → not enough room for consolidation, the model barely compresses</li>
+</ul>
+<p>Roughly 50% hits a sweet spot that works across their evaluated settings. The paper notes this ratio might not be optimal for all configurations — it's a starting point, not a universal law.</p>
+<hr>
+<h3>What's Ahead</h3>
+<p>The model has survived compression and merged its experts. But can it actually <em>perform</em>? Chapter 5 covers the rehabilitation process: the training recipes, the distillation choices, and the surprising multi-token prediction technique that makes the compressed model not just smaller, but better.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/slimqwen-reference/03-the-art-of-the-cut.html">&larr; Previous</a>
+    <a href="/ai/slimqwen-reference/05-the-recovery-training.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

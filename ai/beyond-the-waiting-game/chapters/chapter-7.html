@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi-Token Prediction: What If the Main Model Did the Drafting? — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/beyond-the-waiting-game/">&larr; Back to Beyond the Waiting Game</a>
+  </div>
+  <div class="post-body">
+<h2>Multi-Token Prediction: What If the Main Model Did the Drafting?</h2>
+<p>Speculative decoding requires a second model — either a separate one or attached draft heads. But there's a more elegant approach: what if you simply trained the main model to predict multiple future tokens as part of its normal operation?</p>
+<p>This is <em>Multi-Token Prediction</em> (MTP). Meta FAIR published the foundational paper in 2024, showing you could modify a standard transformer to predict the next 2nd, 3rd, and 4th tokens simultaneously with the main prediction. You add extra output heads — tiny extra layers — but they all share the same underlying model parameters and vocabulary embedding, so the overhead is minimal.</p>
+<p>During training, the model learns not just "what comes next" but "what comes after that too." This forces the model to develop representations that are more forward-looking, richer, more structured. A chess player who considers three moves ahead develops a different — and better — understanding of the board than one who only considers the immediate next move. The same logic applies to language models.</p>
+<p>Meta's results were striking: <strong>3.0x speedup on code, 2.7x on text</strong>, with the extra benefit that the model's representations improved even for standard next-token prediction. MTP-trained models did better on benchmarks that had nothing to do with speed.</p>
+<p>DeepSeek adopted MTP in their V3 and R1 models, but with a twist: instead of parallel independent heads, they chained the predictions serially. The model predicts token t+1. Then an MTP module takes that prediction and the internal state to predict t+2. Then t+3. Each prediction builds on the one before it, preserving the causal chain. This is more accurate than parallel prediction (since later tokens benefit from knowing earlier ones) but adds a small sequential dependency.</p>
+<p>DeepSeek's results: <strong>85--90% acceptance rate</strong> for the first draft token, yielding a <strong>1.8x throughput improvement</strong> on their 671B-parameter MoE model. The acceptance rates were high enough that the system could run MTP as a production optimization, not just a research curiosity.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/beyond-the-waiting-game/chapter-6.html">&larr; Previous</a>
+    <a href="/ai/beyond-the-waiting-game/chapter-8.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

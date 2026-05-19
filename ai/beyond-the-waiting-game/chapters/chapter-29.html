@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>But Don&#x27;t They Interfere? — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/beyond-the-waiting-game/">&larr; Back to Beyond the Waiting Game</a>
+  </div>
+  <div class="post-body">
+<h2>But Don't They Interfere?</h2>
+<p>A reasonable concern: speculative decoding and diffusion approaches operate in the same space. Can you apply both at once?</p>
+<p>The answer is yes, but carefully. TiDAR's hybrid approach (diffusion drafting + autoregressive verification) is itself a form of speculation — it just uses the same model's diffusion mode as the draft mechanism instead of a separate draft model. The two approaches share the same fundamental structure: draft in parallel, verify in sequence.</p>
+<p>In a truly stacked system, you might use:</p>
+<ol>
+<li>CCGQA for attention compression (reducing memory per KV entry)</li>
+<li>INT4 quantization for the compressed cache (further reducing memory)</li>
+<li>TiDAR diffusion for draft generation (producing blocks of 16 draft tokens)</li>
+<li>Autoregressive verification for acceptance (guaranteeing correctness)</li>
+<li>Prefix caching for shared prompt reuse (eliminating redundant pre-compute)</li>
+<li>Prompt compression for long inputs (shortening the prefill phase before any of the above starts)</li>
+</ol>
+<p>Each technique operates at a different layer of the stack. CCGQA changes the attention mechanism itself. Quantization changes the storage format. TiDAR changes the generation algorithm. Prefix caching changes the caching strategy. They don't touch each other's code paths; they address different constraints.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/beyond-the-waiting-game/chapter-28.html">&larr; Previous</a>
+    <a href="/ai/beyond-the-waiting-game/chapter-30.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

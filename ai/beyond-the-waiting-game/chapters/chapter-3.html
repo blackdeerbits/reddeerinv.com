@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Draft Model: The Junior Chef — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/beyond-the-waiting-game/">&larr; Back to Beyond the Waiting Game</a>
+  </div>
+  <div class="post-body">
+<h2>The Draft Model: The Junior Chef</h2>
+<p>The core idea is simple, and it has nothing to do with AI. It's about delegation.</p>
+<p>Imagine you're a busy executive who needs to approve a hundred routine memos. Each memo takes a minute to read and thirty seconds to sign. At that rate, the pile takes 150 minutes. But there's a bottleneck: you're the only one who can sign, and you keep getting interrupted.</p>
+<p>So you hire a junior assistant who's pretty good at guessing which memos you'd approve. The assistant reads all a hundred, signs the obvious ones, and only brings the uncertain ones to you. For the memos the assistant got right, you never even see them — they're already done. You read the filtered stack and sign the few that need your judgment.</p>
+<p>In the best case, the assistant gets ninety right and brings you ten. Your 150-minute pile just became a 15-minute task. And crucially: if the assistant makes a mistake and signs something you wouldn't have, you catch it. The assistant's work is <em>provisional</em>. You're the final word.</p>
+<p>This is speculative decoding. A small, fast "draft model" generates several candidate tokens in a single pass. Then the big, expensive "target model" runs once to verify all of them at once. Any token the target model agrees with is accepted. Any token it disagrees with is rejected — and everything guessed after that point goes with it.</p>
+<p>The key insight: <strong>that single verification pass costs about the same as generating one token normally.</strong> You load the entire model from memory exactly once. But you get 2, 3, or even 6 tokens of output from that single load. You've amortized the cost of the memory trip across multiple tokens.</p>
+<p>The draft model doesn't need to be perfect. It just needs to be right <em>often enough</em>. Even a 50% acceptance rate on a 4-token draft doubles the throughput. And here's the critical guarantee: the verification step is mathematically lossless. The output distribution is <em>identical</em> to what the big model would have produced on its own, token by token. You lose nothing. You gain speed.</p>
+<p>This lossless property is what makes speculative decoding different from approximation. It's not "produce the same answer but faster." It's "produce <em>the exact same distribution of answers</em> but faster." The assistant's guesses save trips to memory, but the chef never serves a dish they wouldn't have made themselves.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/beyond-the-waiting-game/chapter-2.html">&larr; Previous</a>
+    <a href="/ai/beyond-the-waiting-game/chapter-4.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

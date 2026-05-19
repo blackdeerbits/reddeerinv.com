@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction: The Kitchen is Still Waiting — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/beyond-the-waiting-game/">&larr; Back to Beyond the Waiting Game</a>
+  </div>
+  <div class="post-body">
+<h1>Introduction: The Kitchen is Still Waiting</h1>
+<p>If you read <em>The Waiting Game</em>, you already know the problem. It's physics. No one is going to invent a faster speed of light. No one is going to make copper a better conductor. The memory wall is real, and it's not going anywhere.</p>
+<p>A GPU is like a world-class chef working in a kitchen where the pantry is on the other side of a football field. The chef can chop, sauté, and plate faster than anyone alive — but spends most of their time walking back and forth to get ingredients. The AI doesn't wait for the math to finish; the AI waits for the memory to arrive.</p>
+<p>Every time a language model generates a single word (a "token"), it needs to load its entire brain — billions of numbers representing learned patterns — from memory into the compute units. That's gigabytes of data moved for a tiny calculation. The compute units sit idle, waiting. The utilization of a GPU during inference is often below 10%. Ninety percent of the silicon sits dark, waiting for data. This is the memory wall, and it's the single most important constraint in AI today.</p>
+<p><em>The Waiting Game</em> established this physics. It showed why faster chips don't solve the problem, why the KV cache grows without bound, why batch sizes have a U-shaped cost curve. It painted the problem in clear, unforgiving terms.</p>
+<p>This book is about the solutions.</p>
+<p>Because here's the thing about walls: people build doors through them. They build ladders over them. They build tunnels under them. And sometimes — when the wall is truly impassable — they build winches and pulleys and elaborate contraptions to get their supplies across without making the trip themselves.</p>
+<p>This book is a catalog of those contraptions. Each chapter covers one family of techniques that researchers and engineers have invented to get more tokens per second out of the same hardware. Some are algorithmic tricks. Some are architectural reinventions. Some are so counterintuitive they sound like cheating — and in a sense, they are.</p>
+<p>None of them violate the laws of thermodynamics. The memory is still slow. The compute units still wait. But by being smarter about <em>when</em> and <em>how many</em> and <em>what</em> we move across that football field, we can make the waiting time effectively vanish.</p>
+<p>We'll start with the simplest idea: what if instead of making the trip once per token, we hired an assistant to guess ahead — and then verified all the guesses at once?</p>
+<hr>
+<h1>Chapter 1: The Drafting Table</h1>
+  </div>
+  <div class="post-nav">
+    
+    <a href="/ai/beyond-the-waiting-game/chapter-2.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

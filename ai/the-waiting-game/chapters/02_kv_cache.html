@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 2: The Expanding Filing Cabinet — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/the-waiting-game/">&larr; Back to The Waiting Game</a>
+  </div>
+  <div class="post-body">
+<h1>Chapter 2: The Expanding Filing Cabinet</h1>
+<h2>Or: How a model's memory fills up with every conversation</h2>
+<p>In the previous chapter, we described a chef running across a football field to grab ingredients. The chef's problem was getting data from memory into the compute units.</p>
+<p>There is a second, related problem. The chef does not just need ingredients. The chef also needs to remember what each table has ordered so far. Table 3 asked for a salad, then an appetizer, now the main course. The chef cannot start cooking the main course until the salad and appetizer have been delivered. More importantly, the chef cannot cook Table 7's order on the same stove at the same time. Each table has its own sequence, its own timeline, its own memory.</p>
+<p>This per-table memory is the KV cache, and it is the dominant hidden cost of AI inference.</p>
+<h3>What the Cache Actually Is</h3>
+<p>When a large language model generates text, it does not start from scratch for each new word. It keeps a running record of everything it has seen so far in the conversation. This record is updated after every word the model generates. It is the model's short-term memory.</p>
+<p>The technical name for this record is the "key-value cache," usually abbreviated as KV cache. Every time the model processes a token — a word or subword — it computes two things: a "key" (what is this token about?) and a "value" (what information does this token carry?). These pairs are stored. When the model generates the next token, it looks through the stored keys to find relevant information, then reads the corresponding values.</p>
+<p>This is the mechanism that lets a model remember what was said three paragraphs ago. Without it, a model would treat each new word as a fresh start — useful for nothing beyond the shortest of exchanges.</p>
+<p>The cost of this mechanism is that the KV cache grows with every token the model processes. A short query ("What is the capital of France?") requires storing a few dozen key-value pairs. A long conversation with a 100,000-token context window requires storing hundreds of thousands. Each pair consumes memory. The filing cabinet gets fuller.</p>
+<h3>Why It Costs So Much</h3>
+<p>Here is where the memory wall from Chapter 1 intersects with the KV cache.</p>
+<p>The model's parameters themselves — the 70 billion numbers in Llama 3.1 — occupy a fixed amount of memory. They get loaded once per token, every time. That cost is constant regardless of how long the conversation is.</p>
+<p>The KV cache is different. It grows linearly with the length of the conversation. Every new token adds more data to the cache. And in a serving scenario with hundreds or thousands of simultaneous conversations, each conversation has its own separate KV cache. They cannot be shared. Table 3's order history is irrelevant to Table 7.</p>
+<p>This means that for long conversations and large batch sizes, the KV cache eventually consumes more memory than the model itself. The parameters that do the actual thinking become the smaller part of the bill. The memory that stores the conversation history becomes the larger part.</p>
+<p>This is the counterintuitive truth at the heart of inference economics: for many real-world workloads, you spend more on remembering what was said than on computing what to say next.</p>
+<h3>The 200,000-Token Ceiling</h3>
+<p>As models get more capable, their context windows get longer. GPT-4 launched with an 8,000-token context. Claude 3 launched with 200,000. Gemini can handle over a million. These numbers sound like progress, and they are — on the surface.</p>
+<p>But there is a reason most users do not actually use 200,000-token conversations, even when they are available. The cost of the KV cache at those lengths is substantial. The chip must either have enough memory to store the cache for every active conversation, or it must swap the cache in and out — which introduces its own delays.</p>
+<p>A 200,000-token conversation consumes about as much KV cache memory as a small model's entire parameter set. Serve a hundred concurrent conversations at that length, and the KV cache alone consumes the memory of a hundred GPUs. The economics of this are punishing.</p>
+<p>This is why "context length" as a marketing metric is deceptive. The model can technically handle 200,000 tokens. But serving it at that length costs more than serving a shorter conversation. The ceiling is not technical in the sense that the model stops working. It is economic. The cost becomes prohibitive.</p>
+<h3>Why It Can't Be Shared</h3>
+<p>The most frustrating property of the KV cache is that it resists the normal tricks of economies of scale.</p>
+<p>If you run a factory that makes blue widgets, you can make all the blue widgets at once and store them in a warehouse. When a customer orders a blue widget, you grab one from the warehouse. The cost per widget drops as you make more.</p>
+<p>The KV cache does not work this way. Each conversation is unique. The key-value pairs for "tell me about the Roman Empire" are different from the pairs for "summarize this legal document." You cannot compute them once and reuse them across users. Every new conversation starts with an empty filing cabinet and fills it from scratch.</p>
+<p>This has a profound implication for inference economics: you cannot amortize the KV cache's memory cost across users. It is not like the model parameters, which can be loaded from a single copy in memory and shared across every request. The cache is per-conversation, per-user, per-session. It adds a fixed cost that grows with usage, and that cost cannot be spread.</p>
+<h3>The Asymmetry</h3>
+<p>The model's parameters are a shared cost. The KV cache is a private cost.</p>
+<p>This asymmetry explains more about the AI industry than almost any other single fact. It explains why API pricing is a function of context length. It explains why some providers limit free tiers to short conversations. It explains why "infinite context" is a marketing claim, not a practical reality — the physics of the KV cache puts a hard constraint on how much memory a single conversation can consume before it becomes uneconomical to serve.</p>
+<p>The asymmetry also creates the incentive for most of the algorithmic workarounds described in the following chapters. If you can make the KV cache smaller — compress the filing cabinet — you can serve longer conversations on the same hardware. If you can share parts of the cache across conversations — notice that two tables ordered the same starter — you can amortize what is currently a private cost.</p>
+<p>These workarounds matter. But before we get to them, we need to understand how the memory wall and the KV cache combine to produce the actual economics of AI serving. That is the subject of the next chapter.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/the-waiting-game/01_memory_wall.html">&larr; Previous</a>
+    <a href="/ai/the-waiting-game/03_batch_economics.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

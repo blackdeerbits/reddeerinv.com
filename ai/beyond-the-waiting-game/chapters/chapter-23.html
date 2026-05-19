@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prompt Compression: The TL;DR Approach — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/beyond-the-waiting-game/">&larr; Back to Beyond the Waiting Game</a>
+  </div>
+  <div class="post-body">
+<h2>Prompt Compression: The TL;DR Approach</h2>
+<p>The most direct fix: give the model a shorter prompt.</p>
+<p>Prompt compression techniques take a long input and produce a shorter version — condensing the meaning without losing key information. There are two main approaches:</p>
+<p><strong>Learned compression:</strong> Train a small LLM specifically to rewrite prompts, preserving the information content while reducing token count. The compression model learns which parts of a prompt can be safely discarded — redundant instructions, verbose explanations, repeated information.</p>
+<p><strong>Semantic compression:</strong> Use the model itself to identify and merge semantically similar content. If the prompt contains three examples of the same concept, merge them into one. If an instruction is stated twice with different wording, keep the clearest version and drop the rest.</p>
+<p>The results are surprisingly good. A 10,000-token prompt can often be compressed by 5--10x while retaining 95%+ of the task accuracy. For retrieval-augmented generation systems — where large documents are stuffed into context — compression can cut prefill time from minutes to seconds.</p>
+<p>The risk: compression loses something important. A detail about the format of the expected output, or a specific constraint on the model's behavior, might be exactly what the task requires. For many applications, the quality-speed trade-off is worth it. For safety-critical systems, it's riskier.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/beyond-the-waiting-game/chapter-22.html">&larr; Previous</a>
+    <a href="/ai/beyond-the-waiting-game/chapter-24.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

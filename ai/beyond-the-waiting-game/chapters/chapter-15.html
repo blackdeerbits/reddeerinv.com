@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Meaning of Diffusion — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/beyond-the-waiting-game/">&larr; Back to Beyond the Waiting Game</a>
+  </div>
+  <div class="post-body">
+<h2>The Meaning of Diffusion</h2>
+<p>Diffusion changes the fundamental economics of inference. With autoregressive generation, every token costs the same — one full memory load. With diffusion, the cost is front-loaded: you pay once to generate the block, and marginal tokens beyond that are nearly free.</p>
+<p>This has profound implications for how we think about speed. In the autoregressive world, generating 100 tokens costs 100x the single-token cost. In the diffusion world, generating 100 tokens might cost 6x the single-block cost (because you need multiple refinement steps) plus a small overhead per token. The ratio gets more favorable the longer the output.</p>
+<p>For short outputs — a sentence, a single answer — autoregressive is fine. For long outputs — a story, a code generation, a multi-page report — diffusion's advantage grows linearly with length.</p>
+<p>Diffusion isn't a complete replacement for autoregressive generation. Pure diffusion models still lag slightly on tasks requiring careful long-range planning — writing a novel chapter where the ending must connect coherently to the beginning. The "generate everything at once" approach means the model must get the global structure right in a single pass, whereas autoregressive models can course-correct as they go. The hybrid approach (TiDAR) solves this by keeping autoregressive verification, but it adds system complexity.</p>
+<p>But as a direction — moving from memory-bound sequential generation to compute-bound parallel generation — diffusion represents the most fundamental rethink of how language models produce text since the invention of the transformer.</p>
+<hr>
+<h1>Chapter 3: The Librarian's Shortcut</h1>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/beyond-the-waiting-game/chapter-14.html">&larr; Previous</a>
+    <a href="/ai/beyond-the-waiting-game/chapter-16.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

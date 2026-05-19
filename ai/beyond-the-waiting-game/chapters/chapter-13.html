@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TIDAR: Thinking in Diffusion, Talking in Autoregression — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/beyond-the-waiting-game/">&larr; Back to Beyond the Waiting Game</a>
+  </div>
+  <div class="post-body">
+<h2>TIDAR: Thinking in Diffusion, Talking in Autoregression</h2>
+<p>The problem with pure diffusion language models is quality. Autoregressive models, trained on next-token prediction, have a built-in advantage: the structure of language is inherently sequential. Sentences unfold left to right. Clauses build on each other. A paragraph's first sentence sets the stage for its last.</p>
+<p>Diffusion models, generating everything at once, sometimes produce text that's locally coherent but globally nonsensical — each clause makes sense alone, but the whole paragraph doesn't hold together. It's like a musical ensemble where every musician plays beautifully but they're reading different sheet music.</p>
+<p>Enter <strong>TiDAR</strong> (NVIDIA Research, November 2025). The name stands for "Think in Diffusion, Talk in Autoregression," and it captures the hybrid approach perfectly.</p>
+<p>TiDAR uses a single model that operates in two modes simultaneously, enabled by cleverly designed attention masks:</p>
+<ol>
+<li><strong>Thinking mode (diffusion):</strong> The model drafts multiple candidate tokens in parallel — a block of guesses about what comes next. This is the "thinking" part, where the model explores possibilities broadly, generating a block of plausible continuations in one shot.</li>
+</ol>
+<ol>
+<li><strong>Talking mode (autoregressive):</strong> The model then switches to its standard autoregressive mechanism to verify and select the final output from the candidates, one at a time. This is the "talking" part, where the model ensures correctness.</li>
+</ol>
+<p>Both modes run in a single forward pass. No separate draft model. No extra hardware. Just attention masks that let the model be two things at once.</p>
+<p>Think of it like a translator who can simultaneously draft three different ways to translate a sentence, then instantly pick the best one. The drafting step is fast and parallel (the diffusion "thinking"). The selection step is careful and sequential (the autoregressive "talking"). Both happen in the same brain, in the same instant.</p>
+<p>The results: <strong>4.7x to 5.9x more tokens per second</strong> at identical quality to the original autoregressive model. And for the first time, a diffusion-based method closed the quality gap with pure autoregressive generation entirely.</p>
+<p>The deeper insight is structural. Autoregressive decoding is <em>memory-bandwidth bound</em> — you're waiting for memory. Diffusion decoding is <em>compute bound</em> — the GPU's arithmetic units are the bottleneck. Since GPUs are designed with thousands of compute cores (this is why they dominate AI), compute-bound workloads utilize the hardware far more efficiently. TiDAR essentially transforms a memory-bound problem into a compute-bound one by generating more tokens per memory access.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/beyond-the-waiting-game/chapter-12.html">&larr; Previous</a>
+    <a href="/ai/beyond-the-waiting-game/chapter-14.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

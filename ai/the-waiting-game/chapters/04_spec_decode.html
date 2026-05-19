@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 4: The Prep Cook — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/the-waiting-game/">&larr; Back to The Waiting Game</a>
+  </div>
+  <div class="post-body">
+<h1>Chapter 4: The Prep Cook</h1>
+<h2>Or: Why a junior chef making guesses saves the head chef time</h2>
+<p>Here is the central absurdity of AI inference. To generate a single word, a language model must load billions of parameters from memory, compute across dozens of layers, and produce a probability distribution over every word it knows. It does all that work, generates one word, then throws most of the intermediate results away and repeats the entire process for the next word.</p>
+<p>It generates one token at a time. Always. Every model. Every request. The autoregressive constraint — each word depends on all previous words — means the generation process is fundamentally sequential.</p>
+<p>A chef who can prepare a five-course meal in thirty seconds, but is forced to serve one bite at a time, waiting for the customer to swallow before preparing the next bite, is not a fast chef. The chef's speed is irrelevant. The sequential constraint is the bottleneck.</p>
+<p>Speculative decoding is the workaround for this constraint. It does not remove the sequential requirement — that is baked into how language models work. Instead, it makes the sequential steps cheaper.</p>
+<h3>The Insight</h3>
+<p>The core insight of speculative decoding is simple: most of the words a language model generates are predictable. If you are generating a biography of Abraham Lincoln, the word "Illinois" is heavily favored at a certain point. The word "platypus" is not. A much smaller, faster model can make a reasonable guess about what the next word will be — and it can make that guess for many words at once.</p>
+<p>The small model generates a block of candidate words — say, five of them — in sequence. Each guess is quick because the small model has far fewer parameters. The full model then verifies the entire block in a single parallel pass. If all five guesses are correct, the system just generated five tokens for the cost of one full-model pass. If some are wrong, it discards the incorrect ones and continues from the last correct guess.</p>
+<p>This is like having a junior chef prepare a tasting menu. The junior chef plates five dishes. The head chef inspects them all at once. If they are correct, five dishes are served. If one is wrong, it gets replated. Either way, the head chef works on the whole batch, not dish by dish.</p>
+<h3>Why It Works</h3>
+<p>Speculative decoding works because of the memory wall we established in Chapter 1. The full model's bottleneck is loading its parameters from memory — the football-field pantry. A single forward pass costs nearly as much as a batch of forward passes, because the parameters only need to be loaded once regardless of how many tokens are being verified.</p>
+<p>When the full model verifies a block of candidate tokens, it processes them in parallel. It loads its parameters once from memory, then checks all five candidates simultaneously. The marginal cost of checking the fifth candidate is near zero — the expensive part was loading the parameters.</p>
+<p>The small draft model, by contrast, is cheap to run. It has far fewer parameters — maybe a tenth as many — so its memory footprint is smaller and its per-token cost is proportionally lower. The draft model can generate a dozen candidate tokens in the time it takes the full model to generate one.</p>
+<p>The ratio matters. If the draft model can guess right 80 percent of the time, and generates five candidates per full-model pass, then the system generates an average of four tokens per full-model pass instead of one. That is a 4x speedup on the decode phase — a substantial improvement for a technique that changes nothing about the hardware or the model architecture.</p>
+<h3>MEDUSA: Training the Draft Head</h3>
+<p>The obvious question is: where does the draft model come from? It does not have to be a separate model entirely.</p>
+<p>MEDUSA, developed at Princeton, showed that you can train additional "draft heads" on top of the main model itself. These are small neural networks — think of them as cheap prediction modules — that sit on top of the main model's final layer. They learn to predict the next few tokens during training. They add negligible cost at inference time because they are tiny compared to the main model.</p>
+<p>The advantage of MEDUSA over a separate draft model is that the draft heads see the same internal representations as the main model. They are not guessing in the dark. They have access to the full context, processed through the same layers, and they make predictions based on that shared understanding. This produces higher acceptance rates than an independent smaller model.</p>
+<h3>EAGLE: Better Drafting</h3>
+<p>The next generation of the technique, EAGLE, improved on MEDUSA by changing what the draft head predicts. Instead of predicting tokens directly, EAGLE predicts the <em>features</em> — the internal representations — that a token would produce. This gives the draft head a much richer signal to work with.</p>
+<p>Think of the difference between guessing what word comes next and guessing what the brain state would be after reading that word. The latter is more informative, because it captures not just the word itself but the model's entire processing of it. EAGLE's draft head works in this feature space, and as a result achieves higher acceptance rates and longer accepted blocks.</p>
+<p>EAGLE-3, the latest version from early 2025, can generate and verify up to six tokens per full-model pass, losslessly — meaning the model output is identical to what it would have been without speculative decoding. It is a pure optimization, trading additional draft computation for reduced memory-bound latency. And since the draft computation is tiny compared to the full model's memory load, the trade is almost always worth it.</p>
+<h3>Where It Helps and Where It Does Not</h3>
+<p>Speculative decoding is not a magic wand. It helps most when the full model is memory-bound — which, as we established in Chapter 1, is most of the time for inference workloads. It helps least when the full model is compute-bound, which can happen at very large batch sizes where the compute cost of processing many tokens starts to dominate.</p>
+<p>It also depends on the draft model's accuracy. If the draft model guesses wrong most of the time — for highly creative or unpredictable text — the speedup evaporates. The full model ends up doing its normal work plus discarding incorrect guesses. This is why speculative decoding works better for factual generation than for creative writing.</p>
+<p>But for the vast majority of inference workloads — chatbots, code generation, summarization, document analysis — speculative decoding delivers a meaningful speedup at near-zero hardware cost. It is the first and most widely deployed algorithmic workaround to the memory wall, and it works precisely because it exploits the asymmetry that the memory wall creates: loading parameters is expensive; doing more work with those parameters is cheap.</p>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/the-waiting-game/03_batch_economics.html">&larr; Previous</a>
+    <a href="/ai/the-waiting-game/05_moe.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>
