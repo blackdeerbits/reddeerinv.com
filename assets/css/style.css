@@ -349,6 +349,125 @@ body {
   margin-right: 0.5rem;
 }
 
+/* === AI CARD ART (landing page) === */
+.path-card-ai {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  padding: 0;
+}
+.path-card-ai .path-card-content {
+  flex: 1;
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+.path-card-ai .path-card-art {
+  flex: 0 0 45%;
+  align-self: stretch;
+  background: url('/assets/img/chapter9-v2.jpg') no-repeat right center / cover;
+  min-height: 340px;
+  position: relative;
+}
+.path-card-ai .path-card-art::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to left, transparent 50%, rgba(240,242,245,0.85) 100%);
+}
+@media (max-width: 700px) {
+  .path-card-ai {
+    flex-direction: column-reverse;
+  }
+  .path-card-ai .path-card-art {
+    flex: 0 0 220px;
+    width: 100%;
+    min-height: 220px;
+    background: url('/assets/img/chapter9-v2.jpg') no-repeat center 20% / cover;
+  }
+  .path-card-ai .path-card-art::before {
+    background: linear-gradient(to bottom, transparent 40%, rgba(240,242,245,1) 100%);
+  }
+  .path-card-ai .path-card-content {
+    padding: 2rem 1.5rem;
+  }
+}
+
+/* === AI HERO (AI page header) === */
+.ai-hero {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  max-width: var(--max-width-wide);
+  margin: 0 auto;
+  background: white;
+  border-bottom: 1px solid var(--color-border);
+  overflow: hidden;
+}
+.ai-hero-content {
+  flex: 1;
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.ai-hero-content h1 {
+  font-family: system-ui;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  color: var(--color-ai);
+}
+.ai-hero-desc {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+  max-width: 480px;
+}
+.ai-hero-art {
+  flex: 0 0 300px;
+  align-self: stretch;
+  background: url('/assets/img/chapter9-v2.jpg') no-repeat right center / cover;
+  min-height: 260px;
+  position: relative;
+}
+.ai-hero-art::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to left, transparent 30%, rgba(255,255,255,0.7) 100%);
+}
+@media (max-width: 700px) {
+  .ai-hero {
+    flex-direction: column-reverse;
+  }
+  .ai-hero-art {
+    flex: 0 0 200px;
+    width: 100%;
+    min-height: 200px;
+    background: url('/assets/img/chapter9-v2.jpg') no-repeat center 20% / cover;
+  }
+  .ai-hero-art::before {
+    background: linear-gradient(to bottom, transparent 30%, rgba(255,255,255,1) 100%);
+  }
+  .ai-hero-content {
+    padding: 2rem 1.5rem;
+  }
+}
+
 /* === AI SECTION === */
 .ai-header-bar {
   background: var(--color-ai);
