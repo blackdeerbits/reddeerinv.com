@@ -21,10 +21,6 @@
   - [Afterword: What "From the Gate Up" Teaches Us](https://reddeerinv.com/ai/from-the-gate-up/chapters/10_afterword.html)
   - [Sources](https://reddeerinv.com/ai/from-the-gate-up/chapters/11_sources.html)
 
-### ZAYA1-8B: What a 42-Prompt Evaluation Actually Reveals
-- Description: A 42-prompt evaluation of ZAYA1-8B against Nemotron 30B-A3B and Gemma 4 26B-A4B — revealing a model that is not production-ready today but whose architecture tells a more interesting story about where inference is heading.
-- Landing page: https://reddeerinv.com/ai/zaya-evaluation/
-
 ### The Waiting Game
 - Description: A journey through the memory wall, KV caches, batch economics, speculative decoding, and custom silicon — explaining why everything in AI slows down before it gets faster.
 - Landing page: https://reddeerinv.com/ai/the-waiting-game/
@@ -106,6 +102,13 @@
   - [Chapter 6: The Slow Squeeze](https://reddeerinv.comhttps://reddeerinv.com/ai/slimqwen-reference/chapters/06-the-slow-squeeze.html)
   - [Chapter 7: Results and Efficiency](https://reddeerinv.comhttps://reddeerinv.com/ai/slimqwen-reference/chapters/07-results-and-efficiency.html)
   - [Chapter 8: Takeaways and the Road Ahead](https://reddeerinv.comhttps://reddeerinv.com/ai/slimqwen-reference/chapters/08-takeaways-and-road-ahead.html)
+
+
+## Experiments
+
+### ZAYA1-8B: Observations on the Efficiency Frontier
+- Description: A 42-prompt evaluation of ZAYA1-8B, Nemotron 30B-A3B, and Gemma 4 26B-A4B separating raw observations from architectural implications — revealing a proof-of-concept whose broken governor masks an intriguing signal about where inference is heading.
+- Landing page: https://reddeerinv.com/ai/zaya-evaluation/
 
 
 ## How to read
