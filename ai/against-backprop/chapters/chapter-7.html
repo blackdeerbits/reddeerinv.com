@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5. The Neuron That Learns — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/against-backprop/">&larr; Back to Against Backprop</a>
+  </div>
+  <div class="post-body">
+<h2>5. The Neuron That Learns</h2>
+<p>The FitzHugh-Nagumo model is not a neuron. It is a mathematical abstraction — a pair of differential equations that capture the essential dynamics of a real biological neuron. It has two variables: one that represents the membrane potential (the voltage across the cell membrane) and one that represents the recovery variable (the tendency of the neuron to return to rest after firing).</p>
+<p>The model was published in the early 1960s, independently by Richard FitzHugh (a biophysicist at the National Institutes of Health) and Nagumo and colleagues (engineers at the University of Tokyo). It simplified the much more complex Hodgkin-Huxley model of the squid giant axon — a model that had won the Nobel Prize — into something mathematically tractable.</p>
+<p>For sixty years, the FitzHugh-Nagumo model has been used to study excitability, oscillations, and pattern formation in neural systems. It is one of the most studied models in computational neuroscience. But until Zyphra's 2026 paper, no one had shown that it could <em>learn</em>.</p>
+<p>The technical achievement is this: equilibrium propagation requires the system to be "self-adjoint" — a mathematical property that ensures the gradient of the energy function can be computed from local information. The FitzHugh-Nagumo model is not self-adjoint. It is a skew-gradient system, meaning its dynamics are driven by a combination of gradient flow (toward lower energy) and symplectic flow (along constant-energy surfaces). This is a more complex, more realistic description of neural dynamics.</p>
+<p>Zyphra showed that the FitzHugh-Nagumo model is "essentially self-adjoint" — it can be decomposed into self-adjoint components arranged in a way that preserves the EqProp property. The result is that a network of biologically realistic neurons can be trained using the same nudge-and-relax mechanism that works in simpler energy-based models.</p>
+<p>This is not just a theoretical result. It has concrete implications for hardware. If learning can happen through local physical dynamics — through the natural evolution of the system's state — then specialized learning hardware is not necessary. The physics does the work. This is the same insight that drives neuromorphic computing: instead of simulating neural dynamics on general-purpose hardware, build hardware that embodies those dynamics.</p>
+<p>The FitzHugh-Nagumo result is a bridge. It connects the abstract mathematics of equilibrium propagation to the messy reality of biological neurons. And it suggests that the search for a biologically plausible learning algorithm is converging on a specific class of solutions: learning through physical dynamics, with local update rules, no global error signals, and no separation between inference and learning.</p>
+<hr>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/against-backprop/chapters/chapter-6.html">&larr; Previous</a>
+    <a href="/ai/against-backprop/chapters/chapter-8.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

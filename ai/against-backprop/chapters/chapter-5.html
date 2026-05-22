@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3. Goodness — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/against-backprop/">&larr; Back to Against Backprop</a>
+  </div>
+  <div class="post-body">
+<h2>3. Goodness</h2>
+<p>In 2022, Geoffrey Hinton — the same Geoffrey Hinton who co-authored the original backprop paper — published a paper proposing an alternative. It was called "The Forward-Forward Algorithm."</p>
+<p>The timing was significant. Hinton had spent four decades as the most prominent defender of backprop. He had seen it through the AI winter of the 1990s, when funding dried up and researchers abandoned neural networks. He had watched it rise again in the 2010s, fueled by bigger datasets and faster GPUs. And now, at the height of its triumph, he was saying: maybe it's not how the brain works.</p>
+<p>The forward-forward algorithm replaces backprop's forward-and-backward with two forward passes. In the first pass, real data flows through the network, and each layer computes its "goodness" — the sum of the squared activities of its neurons. In the second pass, negative data — data the network should not learn from — flows through, and each layer computes its goodness again. The learning rule is simple: increase the goodness for positive data, decrease it for negative data.</p>
+<p>Each layer learns independently. There is no backward pass. There is no global error signal. Each layer sees only its own activity and adjusts its connections to make good patterns more likely and bad patterns less likely.</p>
+<p>The elegance of the forward-forward algorithm is its simplicity. It replaces a complex, multi-phase process with something that looks almost obvious in retrospect. Want to learn? Compare how your neurons fire for real data versus fake data, and push the real responses higher. That is it.</p>
+<p>The algorithm does have limitations. It is less accurate than backprop on many tasks. Hinton himself described it as a "preliminary investigation" that was "worth further investigation." But the significance of the forward-forward algorithm is not its performance. It is that one of the architects of backprop — the person most responsible for its dominance — was publicly exploring alternatives.</p>
+<p>The forward-forward algorithm fits into a broader pattern. Over the past decade, a growing number of researchers have been circling the same problem from different angles. Each one has proposed a different way to escape backprop's constraints. And each one has arrived at a similar place: local learning rules, no global error signal, no dual-phase requirement.</p>
+<p>The forward-forward algorithm is not the answer. But it is a signal that the search is serious, and that the destination is becoming clearer.</p>
+<hr>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/against-backprop/chapters/chapter-4.html">&larr; Previous</a>
+    <a href="/ai/against-backprop/chapters/chapter-6.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

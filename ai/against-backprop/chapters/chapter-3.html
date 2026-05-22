@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1. The Three Sins — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/against-backprop/">&larr; Back to Against Backprop</a>
+  </div>
+  <div class="post-body">
+<h2>1. The Three Sins</h2>
+<p>The case against backprop as a model of biological learning rests on three specific objections. Each one, on its own, is a serious problem. Together, they form an argument that is difficult to dismiss.</p>
+<p><strong>The first sin: weight symmetry.</strong></p>
+<p>In backpropagation, the error signal flows backward through the network using the same connection weights that were used in the forward pass. This means that if neuron A sends information to neuron B with a connection strength of 0.5, the error signal from B must somehow travel back to A through a connection of exactly 0.5.</p>
+<p>This is a problem because biological neurons do not have bidirectional connections with identical strengths. In the brain, connections are directional. Neuron A sends signals to neuron B through a synapse, but there is no corresponding "reverse synapse" with the same strength for error signals. The brain simply does not have a mechanism for passing information backward through the same pathway with the same coefficients.</p>
+<p>For decades, this was considered a fatal objection. How could the brain implement backprop if it lacked the physical wiring? Then, in 2016, a team led by Timothy Lillicrap at DeepMind discovered something surprising. They showed mathematically that the weight symmetry requirement is not as strict as everyone assumed. The backward connections do not need to be identical to the forward connections. They just need to be <em>consistent enough</em>. Random fixed feedback weights — connections that never change and are not aligned with the forward connections — can still support learning, even if they are not symmetric.</p>
+<p>This was a genuine breakthrough. It removed the most obvious roadblock to a biologically plausible backprop. But it also opened a deeper question: if the brain can learn with random feedback, why does backprop in AI need exact symmetry? The answer turns out to be efficiency, not necessity. Feedback alignment — the name given to the random-weight variant — works, but it works more slowly and less accurately than true backprop. It is a plausible biological account of learning, but it is not a particularly good one.</p>
+<p><strong>The second sin: the global error signal.</strong></p>
+<p>Backpropagation requires a global error signal. At the end of a forward pass, the network's output is compared to the target output, and a single number — the error — is computed. This error is then propagated backward through the entire network. Every neuron, no matter how deep, receives a version of the same global error signal.</p>
+<p>Biological neurons do not have access to a global error signal. A synapse in the visual cortex does not know whether the organism correctly identified a cat. It knows the activity of the neuron it connects from, the activity of the neuron it connects to, and nothing else. It receives only <em>local</em> information — the electrical activity directly around it.</p>
+<p>This is perhaps the deepest implausibility. For backprop to work biologically, every synapse would need to know the final output error. But the brain has no mechanism to broadcast this information to every synapse simultaneously. It does not have a "loss function" that it computes at the end of each thought.</p>
+<p><strong>The third sin: the dual-phase requirement.</strong></p>
+<p>Backpropagation operates in two distinct phases. First, a forward pass: data flows from input to output, and the network's prediction is computed. Then, a backward pass: the error signal flows from output to input, and the weights are updated. The forward and backward passes are separated in time, and they use the same wiring in opposite directions.</p>
+<p>The brain does not appear to have discrete forward and backward phases. It is always running inference — always processing sensory input, always generating predictions, always updating its model of the world. Learning happens continuously, not in discrete training epochs. The brain does not stop perceiving to update its synapses.</p>
+<p>These three sins — weight symmetry, global error, dual-phase — form the core of the neuroscientific critique of backprop. They have been known for decades. And for decades, the AI community has responded with a simple shrug: backprop works, so the brain must be doing something similar, even if we don't understand how.</p>
+<p>But a growing number of researchers have taken the opposite approach. Instead of trying to make backprop fit the brain, they have asked a different question: what learning algorithms <em>could</em> the brain be running?</p>
+<p>The search for those algorithms is the story of the next chapters.</p>
+<hr>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/against-backprop/chapters/chapter-2.html">&larr; Previous</a>
+    <a href="/ai/against-backprop/chapters/chapter-4.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

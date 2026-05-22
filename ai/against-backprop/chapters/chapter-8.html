@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>6. The Hardware That&#x27;s Waiting — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/against-backprop/">&larr; Back to Against Backprop</a>
+  </div>
+  <div class="post-body">
+<h2>6. The Hardware That's Waiting</h2>
+<p>While the algorithm researchers have been searching for a biologically plausible learning rule, the hardware engineers have been building something that is waiting for one.</p>
+<p>Neuromorphic computing is the attempt to build computer chips that work like brains. Instead of the classical von Neumann architecture — where memory and computation are separate, and data must be shuffled back and forth between them — neuromorphic chips integrate memory and computation in the same physical location. They are event-driven: they consume power only when they are computing, not when they are idle. They are asynchronous: different parts of the chip can operate at different speeds.</p>
+<p>The most advanced neuromorphic chip is Intel's Loihi 2. It can simulate about a million neurons per chip, and it consumes roughly 100 to 1,000 times less energy per inference than a conventional GPU. Loihi 2 supports on-chip learning via spike-timing-dependent plasticity — STDP — the brain's standard learning rule. But STDP is a simple, local rule that is good for some tasks and poor for others. What Loihi 2 lacks is a good learning algorithm for the kinds of tasks that modern AI excels at — complex pattern recognition, language understanding, reasoning.</p>
+<p>Other neuromorphic approaches have emerged alongside digital chips like Loihi. Memristors — devices that can store and compute simultaneously by changing their electrical resistance — promise even greater efficiency. Spintronic devices operate at gigahertz speeds and are naturally stochastic, which is ideal for probabilistic computation. Photonic chips use light instead of electricity, achieving sub-nanosecond latencies.</p>
+<p>The broad consensus in the neuromorphic community is that the hardware is ready — or at least ready enough. The gap is not in the physical devices. The gap is in the algorithms. We have hardware that can simulate a million neurons at a fraction of the power of a GPU, but we do not know what algorithm to run on it.</p>
+<p>This is where the search for biologically plausible learning meets the hardware that is waiting for it. Equilibrium propagation, predictive coding, and forward-forward learning all share a critical property: they are local, asynchronous, and event-driven. They are designed for a world without global error signals and synchronized passes. And that is exactly the kind of world that neuromorphic hardware provides.</p>
+<p>The convergence is tantalizing. The algorithms are getting better. The hardware is getting better. And the gap between them — the gap between the biological plausibility of the learning rule and the capabilities of the hardware — is closing.</p>
+<p>Zyphra's ZAYA architecture, with its focus on diffusion inference and context-compressed attention, is another piece of this puzzle. The idea is to design the model architecture and the learning algorithm together, not separately. If the model is designed to run on a diffusion engine — a parallel decoder — then the learning algorithm can be designed to take advantage of that parallelism. The result is a system that is both more efficient and more plausible from a biological perspective.</p>
+<p>The neuromorphic hardware community has been waiting for a learning algorithm that can realize the promise of their chips. The algorithm community has been waiting for hardware that can run their biologically plausible learning rules at scale. These two waiting games are about to converge.</p>
+<hr>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/against-backprop/chapters/chapter-7.html">&larr; Previous</a>
+    <a href="/ai/against-backprop/chapters/chapter-9.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

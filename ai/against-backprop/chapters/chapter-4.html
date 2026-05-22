@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2. The Nudge — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/against-backprop/">&larr; Back to Against Backprop</a>
+  </div>
+  <div class="post-body">
+<h2>2. The Nudge</h2>
+<p>In 2016, a researcher named Benjamin Scellier, working with Yoshua Bengio at the University of Montreal, published a paper with a deceptively simple title: "Equilibrium Propagation: Bridging the Gap Between Energy-Based Models and Backpropagation."</p>
+<p>The paper proposed a radical idea. What if learning and inference were the same process? What if the same neural dynamics that allow a network to produce an output could also allow it to learn — no backward pass needed?</p>
+<p>The mechanism is beautiful in its simplicity. Imagine a network that has settled into a stable state — a pattern of neural activity that represents its best guess about the world. This is the inference phase: the network has received input and produced an output. Now, here is the trick: instead of computing an error signal and propagating it backward, you <em>nudge</em> the output units slightly toward the correct answer. This perturbation propagates backward through the network naturally, not through a separate backward pass, but through the same dynamics that produced the inference in the first place. The network settles into a new stable state — slightly different from the first — and the difference between the two states tells each synapse how it should change.</p>
+<p>No backward pass. No separate error propagation circuit. No global error signal. Just two stable states of the same physical system, and a local comparison between them.</p>
+<p>Scellier and Bengio called this equilibrium propagation — EqProp for short. It uses the same neural computation for both inference and learning. The weight updates are local: each synapse only needs to know its own activity in the first phase and its activity in the second phase. It is, in every meaningful sense, biologically plausible.</p>
+<p>The mathematical foundation of EqProp is energy-based models — networks that define an energy function over their states and evolve toward lower-energy configurations. The nudge perturbs the system away from its equilibrium, and the relaxation back toward equilibrium encodes the gradient information that backprop would compute explicitly. The physics does the work of the algorithm.</p>
+<p>For a decade, EqProp was a theoretical curiosity. It worked in simulations, but it was limited to a narrow class of models called self-adjoint systems — systems that could be described by symmetric energy functions. This restriction meant that EqProp could not be applied to real biological neurons, which are governed by more complex dynamics.</p>
+<p>Then, in 2026, Zyphra — the same company building ZAYA — published a paper that changed the game. They showed that EqProp extends naturally to skew-gradient systems, a much broader class that includes the FitzHugh-Nagumo model — a mathematical description of a real biological neuron. The paper, "Equilibrium Propagation and Hamiltonian Inference in the Diffusive FitzHugh-Nagumo Model," demonstrated that real neurons can be trained with local physical dynamics.</p>
+<p>The key insight is that the FitzHugh-Nagumo model, despite being a skew-gradient system, is "essentially self-adjoint" — it is built from self-adjoint pieces arranged in a way that preserves the EqProp property. The result is a learning rule that works in a biologically realistic neuron model and requires only local information.</p>
+<p>Zyphra trained a deep network of FitzHugh-Nagumo neurons on MNIST — the standard benchmark for handwritten digit recognition. It performed comparably to standard EqProp. Not state-of-the-art by AI standards — MNIST is a solved problem. But the point was not performance. The point was that a network of biologically realistic neurons, trained with purely local learning rules, could learn at all.</p>
+<p>The EqProp lineage tells us something important. The gradient information that backprop computes explicitly is not an artificial construct. It is a fundamental property of dynamical systems that are pushed away from equilibrium. The brain, by this account, is not running a special-purpose learning algorithm. It is a physical system that learns because that is what physical systems do when they are nudged.</p>
+<hr>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/against-backprop/chapters/chapter-3.html">&larr; Previous</a>
+    <a href="/ai/against-backprop/chapters/chapter-5.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>

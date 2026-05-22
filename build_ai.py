@@ -65,6 +65,14 @@ BOOKS = [
             '08-takeaways-and-road-ahead.md',
         ],
     },
+    {
+        'slug': 'against-backprop',
+        'title': 'Against Backprop',
+        'subtitle': 'Why the Brain Can\'t Use AI\'s Best Algorithm, and the Search for What Comes Next',
+        'description': 'A narrative exploration of biologically plausible alternatives to backpropagation — from equilibrium propagation to predictive coding — and why closing the gap between AI and the brain unlocks fundamentally more efficient hardware.',
+        'source_dir': '/Users/siddev/Desktop/against-backprop',
+        'chapters': None,  # single manuscript split on ## headings
+    },
 ]
 
 # ============================================================

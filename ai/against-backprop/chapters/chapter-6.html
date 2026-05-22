@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4. Prediction — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/against-backprop/">&larr; Back to Against Backprop</a>
+  </div>
+  <div class="post-body">
+<h2>4. Prediction</h2>
+<p>There is another approach to biologically plausible learning, and it is perhaps the strongest contender. It is called predictive coding, and it is unusual because it was derived not from AI but from neuroscience — from theories of how the visual cortex actually works.</p>
+<p>The story begins in 1999, when Rajesh Rao and Dana Ballard published a paper in Nature Neuroscience called "Predictive Coding in the Visual Cortex." They proposed that the brain does not passively receive visual information. Instead, it constantly generates predictions about what it expects to see, and then compares those predictions to actual sensory input. When the predictions are wrong — when there is a prediction error — that error signal propagates upward through the cortical hierarchy, updating the brain's model.</p>
+<p>This is, in outline, very similar to backprop. There is a forward pass (predictions flow down the hierarchy) and a backward pass (errors flow up). But the implementation is radically different. In predictive coding, every connection is local. Each cortical area learns to predict the activity of the area below it, and each area learns from its own prediction errors. There is no need to propagate a global error signal through the entire network because error is computed locally at every level.</p>
+<p>The mathematical foundation of predictive coding is the free energy principle, developed by Karl Friston. The idea is that the brain minimizes a quantity called free energy — which is essentially a measure of surprise. By minimizing free energy, the brain builds an internal model of the world that is as accurate as possible given the sensory data it receives. Learning, in this framework, is just the process of reducing surprise.</p>
+<p>In 2017, James Whittington and Rafal Bogacz showed that predictive coding networks approximate backprop with purely local Hebbian plasticity — the brain's standard learning rule. This was a landmark result. It demonstrated that a biologically plausible mechanism could approximate the gradient computations that backprop performs explicitly.</p>
+<p>Since then, predictive coding has been extended to a wide range of tasks: supervised learning, unsupervised learning, control, robotics. A 2023 survey by Salvatori, Friston, and colleagues — a who's-who of the field — concluded that predictive coding is the most promising candidate for a biologically plausible learning algorithm. It is grounded in variational inference, it maps directly to cortical architecture, and it operates asynchronously — a property that is crucial for energy-efficient hardware.</p>
+<p>The predictive coding family is not without its challenges. It is computationally more expensive than backprop in practice — each layer must compute its own error signal, which adds overhead. But that overhead may be irrelevant in hardware designed for asynchronous, event-driven computation.</p>
+<p>Predictive coding and equilibrium propagation are not competitors. They are two sides of the same coin. Both solve the three sins: local learning, no global error, no dual-phase requirement. They just arrive at the solution from different starting points — EqProp from physics, predictive coding from neuroscience.</p>
+<hr>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/against-backprop/chapters/chapter-5.html">&larr; Previous</a>
+    <a href="/ai/against-backprop/chapters/chapter-7.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>
