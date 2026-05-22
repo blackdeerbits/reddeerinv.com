@@ -4,6 +4,23 @@
 
 ## Available Books
 
+### From the Gate Up
+- Description: How chips actually work, from logic gates to AI silicon. A journey through multiply-accumulate units, muxes, systolic arrays, pipeline registers, FPGAs, cache vs scratchpad, CPU architecture, and the GPU-TPU convergence. Based on the Dwarkesh Podcast conversation with Reiner Pope.
+- Landing page: https://reddeerinv.com/ai/from-the-gate-up/
+- Chapters:
+  - [Introduction: The Chip in Your Hands](https://reddeerinv.com/ai/from-the-gate-up/chapters/00_introduction.html)
+  - [Chapter 1: The Multiply-Accumulate Machine](https://reddeerinv.com/ai/from-the-gate-up/chapters/01_multiply_accumulate.html)
+  - [Chapter 2: The Hidden City of Data Movement](https://reddeerinv.com/ai/from-the-gate-up/chapters/02_data_movement.html)
+  - [Chapter 3: The Amortization Trick](https://reddeerinv.com/ai/from-the-gate-up/chapters/03_systolic_arrays.html)
+  - [Chapter 4: The Great Synchronization](https://reddeerinv.com/ai/from-the-gate-up/chapters/04_clock_cycles.html)
+  - [Chapter 5: The Flexible Frankenstein](https://reddeerinv.com/ai/from-the-gate-up/chapters/05_fpgas.html)
+  - [Chapter 6: The Two Kinds of Memory](https://reddeerinv.com/ai/from-the-gate-up/chapters/06_cache_scratchpad.html)
+  - [Chapter 7: The Bloat of Brains](https://reddeerinv.com/ai/from-the-gate-up/chapters/07_cpu_cores.html)
+  - [Chapter 8: The Wet Chip](https://reddeerinv.com/ai/from-the-gate-up/chapters/08_brains_chips.html)
+  - [Chapter 9: A Bunch of Tiny Everything](https://reddeerinv.com/ai/from-the-gate-up/chapters/09_gpu_tpus.html)
+  - [Afterword: What "From the Gate Up" Teaches Us](https://reddeerinv.com/ai/from-the-gate-up/chapters/10_afterword.html)
+  - [Sources](https://reddeerinv.com/ai/from-the-gate-up/chapters/11_sources.html)
+
 ### ZAYA1-8B: What a 42-Prompt Evaluation Actually Reveals
 - Description: A 42-prompt evaluation of ZAYA1-8B against Nemotron 30B-A3B and Gemma 4 26B-A4B — revealing a model that is not production-ready today but whose architecture tells a more interesting story about where inference is heading.
 - Landing page: https://reddeerinv.com/ai/zaya-evaluation/
