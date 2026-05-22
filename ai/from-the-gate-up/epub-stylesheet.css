@@ -1,0 +1,31 @@
+body {
+  font-family: serif;
+  font-size: 1em;
+  line-height: 1.5;
+  margin: 1em 0.5em;
+}
+h1 {
+  font-size: 1.6em;
+  page-break-before: always;
+  text-align: center;
+  font-weight: bold;
+}
+h1:first-of-type {
+  page-break-before: avoid;
+}
+h2 {
+  font-size: 1.3em;
+  text-align: left;
+  font-weight: bold;
+  margin-top: 1.5em;
+}
+p {
+  text-indent: 0;
+  margin-bottom: 0.8em;
+}
+blockquote {
+  margin: 1em 1.5em;
+  font-style: italic;
+  border-left: 3px solid #ccc;
+  padding-left: 1em;
+}

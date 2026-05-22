@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 5: The Flexible Frankenstein — AI Library — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BookChapter", "name": "Chapter 5: The Flexible Frankenstein", "book": {"@type": "Book", "name": "From the Gate Up"}}</script>
+</head>
+<body class="ai-section">
+<div class="ai-header-bar">
+  <a href="/">&larr; Back to Red Deer Investments</a> &nbsp;·&nbsp; 
+  <a href="/ai/">AI Library Home</a>
+</div>
+<div class="container">
+<article>
+  <div class="post-meta" style="margin-bottom:1rem;">
+    <a href="/ai/from-the-gate-up/">&larr; Back to From the Gate Up</a>
+  </div>
+  <div class="post-body">
+    <h1>Chapter 5: The Flexible Frankenstein</h1>
+<h2>What an FPGA Actually Is</h2>
+<p>An ASIC (Application-Specific Integrated Circuit) is a chip designed for one purpose. A GPU is an ASIC for graphics. A TPU is an ASIC for matrix multiplication. Every gate, every wire, every transistor is laid out permanently. You cannot change it after manufacturing.</p>
+<p>An FPGA (Field-Programmable Gate Array) is the opposite: a chip whose logic can be rewired after it leaves the factory. You buy one chip and configure it to be an Ethernet switch, a signal processor, a financial trading engine, or anything else — changing the configuration takes milliseconds.</p>
+<p>This programmability comes at a massive cost. An FPGA is roughly <strong>10× less area-efficient and 10× more power-hungry</strong> than an equivalent ASIC. Every design decision in an FPGA is a compromise between flexibility and efficiency.</p>
+<h2>How an FPGA Works</h2>
+<p>An FPGA contains three basic building blocks:</p>
+<p><strong>Lookup tables (LUTs).</strong> A LUT is a small programmable truth table. A typical LUT has four inputs and one output. The 16 possible input combinations map to 16 stored bits, which the designer sets to implement any four-input logic function — AND, OR, XOR, NAND, anything. The LUT is essentially a big mux: given four address bits, it selects one of 16 stored values.</p>
+<p><strong>Registers.</strong> Small storage elements that hold one bit each, providing the memory elements for stateful logic.</p>
+<p><strong>Routing muxes.</strong> These are the key to programmability. Every LUT input is preceded by a mux that selects which nearby signal to use. Every LUT output feeds into a mux that connects it to the rest of the chip. Programming an FPGA means configuring every single one of these muxes — telling each one which signal to pass through.</p>
+<h2>Muxes All the Way Down</h2>
+<p>Here is where the cost becomes clear.</p>
+<p>A four-input LUT is a mux with 16 inputs. As we established in Chapter 2, an n-input mux costs n AND gates plus n-1 OR gates. A 16-input mux costs 16 ANDs plus 16 ORs — 32 gates. This single LUT, which implements one gate's worth of logic, costs 32 gate-equivalents in overhead.</p>
+<p>The routing muxes in front of every LUT add even more. To select from eight nearby signals, each input mux costs 8 ANDs plus 7 ORs per bit. Multiply by four inputs per LUT, and the routing overhead dwarfs the logic.</p>
+<p>Compare this to an ASIC, where implementing a 4-input AND gate costs exactly three AND gates — no muxes, no lookup table, no programmability overhead. The FPGA pays a 10× tax for the privilege of being reconfigurable.</p>
+<h2>The Business Case</h2>
+<p>This tax determines where FPGAs make sense versus ASICs.</p>
+<p>The first ASIC costs $30 million to manufacture. The mask set, the wafer runs, the packaging, the testing — all upfront. If you plan to sell a million units, the per-chip cost is $30 plus the silicon. If you plan to sell ten units, the per-chip cost is $3 million each.</p>
+<p>The first FPGA costs $10,000. You buy it off the shelf. The per-chip cost is nearly the same whether you buy one or a million.</p>
+<p>So FPGAs win when:</p>
+<ul>
+<li><strong>Volume is low</strong> (defense, aerospace, research)</li>
+<li><strong>The workload changes</strong> (financial trading models updated weekly)</li>
+<li><strong>Latency is critical</strong> (high-frequency trading — FPGAs provide deterministic, sub-microsecond processing)</li>
+<p>ASICs win when:</p>
+<li><strong>Volume is high</strong> (data center GPUs sell hundreds of thousands)</li>
+<li><strong>The workload is stable</strong> (matrix multiplication isn't changing)</li>
+<li><strong>Efficiency matters</strong> (every watt in a data center costs real money)</li>
+<h2>The Architecture Is Not the Point</h2>
+<p>The deeper lesson of the FPGA is that chip design is always about the same trade-off. Every decision — whether to use an FPGA or an ASIC, a big systolic array or a small one, FP4 or FP8 — boils down to the same question: are you optimizing for the general case or the specific one?</p>
+<p>The FPGA chooses maximum generality. It pays the full flexibility tax. The ASIC chooses maximum specialization. It gets maximum efficiency but can only do one thing.</p>
+<p>Everything else is somewhere on that spectrum.</p>
+</ul>
+  </div>
+  <div class="post-nav">
+    <a href="/ai/from-the-gate-up/chapters/04_clock_cycles.html">&larr; Previous</a>
+    <a href="/ai/from-the-gate-up/chapters/06_cache_scratchpad.html">Next &rarr;</a>
+  </div>
+</article>
+</div>
+</body>
+</html>
