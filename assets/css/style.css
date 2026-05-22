@@ -449,7 +449,7 @@ body {
 .ai-hero-art {
   flex: 0 0 300px;
   align-self: stretch;
-  background: url('/assets/img/chapter9-v2.jpg') no-repeat right center / cover;
+  background: url('/assets/img/chapter9-v2.jpg') no-repeat center center / cover;
   min-height: 260px;
   position: relative;
 }
