@@ -4,6 +4,10 @@
 
 ## Available Books
 
+### ZAYA1-8B: What a 42-Prompt Evaluation Actually Reveals
+- Description: A 42-prompt evaluation of ZAYA1-8B against Nemotron 30B-A3B and Gemma 4 26B-A4B — revealing a model that is not production-ready today but whose architecture tells a more interesting story about where inference is heading.
+- Landing page: https://reddeerinv.com/ai/zaya-evaluation/
+
 ### The Waiting Game
 - Description: A journey through the memory wall, KV caches, batch economics, speculative decoding, and custom silicon — explaining why everything in AI slows down before it gets faster.
 - Landing page: https://reddeerinv.com/ai/the-waiting-game/
