@@ -526,6 +526,15 @@ body {
 .book-card p { font-size: 0.85rem; line-height: 1.5; }
 
 /* Experiment cards (lighter weight, distinct accent) */
+.ai-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+@media (max-width: 700px) {
+  .ai-columns { grid-template-columns: 1fr; }
+}
 .exp-card {
   background: var(--color-bg);
   border: 1px dashed var(--color-border);
