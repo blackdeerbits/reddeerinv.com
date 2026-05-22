@@ -1,6 +1,3 @@
 User-agent: *
 Allow: /
 Sitemap: https://reddeerinv.com/sitemap.xml
-
-# LLM/Agent crawl recommendation
-# See also: https://reddeerinv.com/ai/llms.txt

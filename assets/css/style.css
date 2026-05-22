@@ -449,8 +449,8 @@ body {
 .ai-hero-art {
   flex: 0 0 300px;
   align-self: stretch;
-  background: url('/assets/img/chapter9-v2.jpg') no-repeat center 30% / cover;
-  min-height: 400px;
+  background: white url('/assets/img/chapter9-v2.jpg') no-repeat center center / auto 100%;
+  min-height: 420px;
   position: relative;
 }
 .ai-hero-art::before {
@@ -467,10 +467,10 @@ body {
     flex-direction: column-reverse;
   }
   .ai-hero-art {
-    flex: 0 0 200px;
+    flex: 0 0 240px;
     width: 100%;
-    min-height: 200px;
-    background: url('/assets/img/chapter9-v2.jpg') no-repeat center 20% / cover;
+    min-height: 240px;
+    background: white url('/assets/img/chapter9-v2.jpg') no-repeat center 20% / auto 100%;
   }
   .ai-hero-art::before {
     background: linear-gradient(to bottom, transparent 30%, rgba(255,255,255,1) 100%);
