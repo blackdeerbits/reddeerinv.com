@@ -59,7 +59,6 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   flex: 1;
-  min-height: 70vh;
 }
 .path-card {
   display: flex;
@@ -78,18 +77,38 @@ body {
   z-index: 2;
 }
 .path-card-red-deer {
-  background: #f7f5f0;
+  position: relative;
+  overflow: hidden;
+  background: url('/assets/img/chapter10-v2.jpg') no-repeat center center / cover;
   border-right: 1px solid var(--color-border);
 }
+.path-card-red-deer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    ellipse 60% 70% at 50% 50%,
+    rgba(247,245,240,0.92) 0%,
+    rgba(247,245,240,0.85) 30%,
+    rgba(247,245,240,0.5) 55%,
+    transparent 80%
+  );
+  pointer-events: none;
+}
 .path-card-red-deer:hover {
-  background: #efece4;
   box-shadow: 4px 0 20px rgba(0,0,0,0.08);
+}
+.path-card-red-deer > * {
+  position: relative;
+  z-index: 1;
 }
 .path-card-ai {
   background: #f0f2f5;
 }
 .path-card-ai:hover {
-  background: #e8ebf0;
   box-shadow: -4px 0 20px rgba(0,0,0,0.08);
 }
 .path-card-label {
@@ -353,53 +372,46 @@ body {
 .path-card-ai {
   position: relative;
   overflow: hidden;
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  padding: 0;
+  background: url('/assets/img/chapter9-v2.jpg') no-repeat center center / cover;
 }
-.path-card-ai .path-card-content {
-  flex: 1;
-  padding: 3rem 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  position: relative;
-  z-index: 2;
-}
-.path-card-ai .path-card-art {
-  flex: 0 0 45%;
-  align-self: stretch;
-  background: url('/assets/img/chapter9-v2.jpg') no-repeat right center / cover;
-  min-height: 340px;
-  position: relative;
-}
-.path-card-ai .path-card-art::before {
+.path-card-ai::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(to left, transparent 50%, rgba(240,242,245,0.85) 100%);
+  background: radial-gradient(
+    ellipse 60% 70% at 50% 50%,
+    rgba(240,242,245,0.92) 0%,
+    rgba(240,242,245,0.85) 30%,
+    rgba(240,242,245,0.5) 55%,
+    transparent 80%
+  );
+  pointer-events: none;
+}
+.path-card-ai > * {
+  position: relative;
+  z-index: 1;
 }
 @media (max-width: 700px) {
-  .path-card-ai {
-    flex-direction: column-reverse;
+  .path-card-red-deer::before {
+    background: radial-gradient(
+      ellipse 80% 60% at 50% 40%,
+      rgba(247,245,240,0.92) 0%,
+      rgba(247,245,240,0.85) 25%,
+      rgba(247,245,240,0.4) 60%,
+      transparent 100%
+    );
   }
-  .path-card-ai .path-card-art {
-    flex: 0 0 220px;
-    width: 100%;
-    min-height: 220px;
-    background: url('/assets/img/chapter9-v2.jpg') no-repeat center 20% / cover;
-  }
-  .path-card-ai .path-card-art::before {
-    background: linear-gradient(to bottom, transparent 40%, rgba(240,242,245,1) 100%);
-  }
-  .path-card-ai .path-card-content {
-    padding: 2rem 1.5rem;
+  .path-card-ai::before {
+    background: radial-gradient(
+      ellipse 80% 60% at 50% 40%,
+      rgba(240,242,245,0.92) 0%,
+      rgba(240,242,245,0.85) 25%,
+      rgba(240,242,245,0.4) 60%,
+      transparent 100%
+    );
   }
 }
 
