@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Running Local Models at Home — Red Deer Investments</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+<div class="site-header">
+  <div class="site-header-inner">
+    <div style="display:flex;align-items:center;gap:0.5rem;">
+      <img src="/wp-content/uploads/2021/10/cropped-red_deer_logo-removebg-preview.png" alt="" class="site-logo" loading="lazy">
+      <div>
+        <div class="site-title">Red Deer Investments</div>
+        <div class="site-subtitle">Public and Private Yield Oriented Investments</div>
+      </div>
+    </div>
+    <nav class="site-nav">
+      <a href="/posts/">Posts</a>
+      <a href="/archive/">Archive</a>
+      <a href="/about/">About</a>
+      <a href="/resources/">Resources</a>
+      <a href="/ai/" class="nav-ai">AI Library</a>
+    </nav>
+  </div>
+</div>
+<div class="container">
+<article>
+  <header class="post-header">
+    <h1>Running Local Models at Home</h1>
+    <div class="post-meta">June 01, 2026</div>
+    <div class="post-tags"><a href="/archive/tags/investing.html">INVESTING</a> <a href="/archive/tags/technology.html">TECHNOLOGY</a></div>
+  </header>
+  <div class="post-body">
+
+<p>This is a note to myself as much as anything else. I’m running language models locally on a Mac Mini with 8GB of RAM. Not because it’s the best hardware, and not because it’s the cheapest option once my time is priced in. I’m doing it because I want to understand the actual capability surface of these small open models, without a vendor’s marketing layer between me and what they produce.</p>
+
+<p>The setup is minimal. LM Studio sits on a Mac Mini and serves an OpenAI-compatible API at 127.0.0.1:1234. No data leaves the machine. I swap models in and out like lenses.</p>
+
+<h2>What I Tested</h2>
+
+<p>I benchmarked five 8-billion-parameter models locally under the same conditions, plus one cloud-only addition. 30 prompts across seven categories, three temperatures (0.3, 0.7, 1.0), three repeats per setting, with rubrics that weight hallucination and broken tool calls higher than formatting mistakes.</p>
+
+<p>The exact models were:</p>
+
+<ul>
+  <li>Gemma 4 E2B (Google)</li>
+  <li>LFM 2.5-8B-A1B (Liquid AI)</li>
+  <li>Ternary-Bonsai-8B (2-bit MLX)</li>
+  <li>Qwen 3.5 4B (Alibaba)</li>
+  <li>Qwopus 3.5 9B</li>
+  <li>ZAYA1-8B (Zyphra), via cloud API</li>
+</ul>
+
+<p>One caveat: ZAYA1-8B was run through the Zyphra cloud playground, and the daily quota expired before the full 90-run suite could finish. Its Zaya numbers are incomplete and should not be compared directly against the local models.</p>
+
+<h2>The Honest Summary</h2>
+
+<p>No single model won every category. That became the most useful finding.</p>
+
+<p><strong>Gemma 4 E2B</strong> was the strongest all-rounder at temperature 0.7. It completed all 90 runs without error. Its outputs were the most concise and the most accurate on code, factual writing, and summarization tasks. When it disclaimed knowledge, it did so cleanly.</p>
+
+<p><strong>LFM 2.5</strong> was the only model that reliably built multi-step tool chains — three sequential calls in the right order. This mattered specifically on agentic prompts. The cost was token volume: LFM emitted large chains of internal reasoning before answering, which inflated both latency and token cost without obviously improving correctness.</p>
+
+<p><strong>Bonsai 8B</strong> and <strong>Qwen 4B</strong> completed most runs but were inconsistent on edge cases. Bonsai’s two-bit quantization made it fast, but occasionally imprecise on instructions. Qwen was balanced but leaned toward brevity at the expense of coverage on longer prompts.</p>
+
+<p><strong>Qwopus 9B</strong> did not finish reliably. Roughly half the runs crashed with server-side errors. On the runs that did complete, quality was middle of the pack. Instability is disqualifying for daily use.</p>
+
+<h2>What Stands Out</h2>
+
+<p>Two patterns emerged that I did not expect.</p>
+
+<p><strong>Format sensitivity.</strong> Early runs used simplified tool definitions. Both LFM and Gemma reverted to their native tool-calling syntax instead of valid JSON, and both scored near zero on tool prompts. After I changed the prompt format to OpenAI JSON schema, scores jumped materially. The model behavior here looks shaped by what the authors used during post-training, not by raw capability.</p>
+
+<p><strong>Reasoning overhead.</strong> LFM exposes its reasoning chain explicitly in the API response. Gemma does not appear to, or does so inside weights rather than visible text. LFM’s visible reasoning was frequently 50–70% of total output tokens. That is expensive, and whether it paid off was uneven: sometimes the thinking improved the answer, sometimes it was noise. Gemma’s leaner outputs were often better on the same dimensions.</p>
+
+<h2>What I Changed My Mind About</h2>
+
+<p>I started this experiment expecting one model to dominate. Instead I ended up with a split toolkit. Gemma for writing and code drafts. LFM when I need a reliable tool-calling sequence. Neither one is close to closed-source cloud models on reasoning or factual recall, but both are genuinely useful on their respective strengths.</p>
+
+<p>The practical consequence is that I keep two models loaded and rotate them depending on the task. That is messy compared to a single default, but the outputs are meaningfully better than forcing one model to do everything.</p>
+
+<h2>Last Thought</h2>
+
+<p>This is not a recommendation. It is a record of what I observed on one Mac Mini over a few days in late May. The models will change; the hardware will change; my prompts probably need better calibration. The honest takeaway is that local inference is now good enough to be annoying in useful ways: you get real capability, but you also get real friction, and deciding how to spend that friction is the actual question.</p>
+
+  </div>
+</article>
+</div>
+</body>
+</html>
